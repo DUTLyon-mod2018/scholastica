@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<?PowerDesigner AppLocale="UTF16" ID="{E061B7AA-0DD6-4F36-8BF1-658FE8BC8F2A}" Label="" LastModificationDate="1520969204" Name="scholastica" Objects="295" Symbols="12" Target="Analyse" TargetLink="Reference" Type="{18112060-1A4B-11D1-83D9-444553540000}" signature="CLD_OBJECT_MODEL" version="15.3.0.3248"?>
+<?PowerDesigner AppLocale="UTF16" ID="{E061B7AA-0DD6-4F36-8BF1-658FE8BC8F2A}" Label="" LastModificationDate="1521486788" Name="scholastica" Objects="295" Symbols="12" Target="Analyse" TargetLink="Reference" Type="{18112060-1A4B-11D1-83D9-444553540000}" signature="CLD_OBJECT_MODEL" version="15.3.0.3248"?>
 <!-- Veuillez ne pas modifier ce fichier -->
 
 <Model xmlns:a="attribute" xmlns:c="collection" xmlns:o="object">
@@ -1531,9 +1531,9 @@ Shadow=0</a:DisplayPreferences>
 </o:GeneralizationSymbol>
 <o:AssociationSymbol Id="o18">
 <a:CreationDate>1520536711</a:CreationDate>
-<a:ModificationDate>1520968822</a:ModificationDate>
-<a:Rect>((-20186,-26497), (-5175,-10723))</a:Rect>
-<a:ListOfPoints>((-18162,-26497),(-18162,-17140),(-7049,-17140),(-7049,-10723))</a:ListOfPoints>
+<a:ModificationDate>1521486788</a:ModificationDate>
+<a:Rect>((-20488,-27811), (-5175,-10723))</a:Rect>
+<a:ListOfPoints>((-18464,-27811),(-18464,-14779),(-7049,-14779),(-7049,-10723))</a:ListOfPoints>
 <a:CornerStyle>2</a:CornerStyle>
 <a:ArrowStyle>3336</a:ArrowStyle>
 <a:LineColor>4194432</a:LineColor>
@@ -1552,9 +1552,9 @@ SOURCE 0 Arial,8,N</a:FontList>
 </o:AssociationSymbol>
 <o:AssociationSymbol Id="o21">
 <a:CreationDate>1520536712</a:CreationDate>
-<a:ModificationDate>1520969204</a:ModificationDate>
-<a:Rect>((-5203,-38857), (12767,-23078))</a:Rect>
-<a:ListOfPoints>((-5203,-23078),(-5203,-37683),(12767,-37683))</a:ListOfPoints>
+<a:ModificationDate>1521486788</a:ModificationDate>
+<a:Rect>((-5203,-38857), (12767,-21844))</a:Rect>
+<a:ListOfPoints>((-5203,-23018),(1630,-23018),(1630,-37683),(12767,-37683))</a:ListOfPoints>
 <a:CornerStyle>2</a:CornerStyle>
 <a:ArrowStyle>3336</a:ArrowStyle>
 <a:LineColor>4194432</a:LineColor>
@@ -1688,9 +1688,9 @@ LABL 0 Arial,8,N</a:FontList>
 </o:ClassSymbol>
 <o:ClassSymbol Id="o19">
 <a:CreationDate>1520535739</a:CreationDate>
-<a:ModificationDate>1520968822</a:ModificationDate>
+<a:ModificationDate>1521486788</a:ModificationDate>
 <a:IconMode>-1</a:IconMode>
-<a:Rect>((-28109,-33481), (-1589,-18946))</a:Rect>
+<a:Rect>((-28643,-37603), (-1505,-17224))</a:Rect>
 <a:LineColor>128</a:LineColor>
 <a:FillColor>8637161</a:FillColor>
 <a:ShadowColor>12632256</a:ShadowColor>
@@ -3797,7 +3797,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:Code>Classe</a:Code>
 <a:CreationDate>1520535739</a:CreationDate>
 <a:Creator>x7000328</a:Creator>
-<a:ModificationDate>1520968671</a:ModificationDate>
+<a:ModificationDate>1521486726</a:ModificationDate>
 <a:Modifier>x7000328</a:Modifier>
 <a:UseParentNamespace>0</a:UseParentNamespace>
 <c:Attributes>
@@ -3845,9 +3845,31 @@ LABL 0 Arial,8,N</a:FontList>
 <a:DataType>String</a:DataType>
 <a:Attribute.Visibility>-</a:Attribute.Visibility>
 </o:Attribute>
+<o:Attribute Id="o210">
+<a:ObjectID>54C6B4D4-285D-4520-9C39-068F7A283AF5</a:ObjectID>
+<a:Name>eqEnseignante</a:Name>
+<a:Code>eqEnseignante</a:Code>
+<a:CreationDate>1521485520</a:CreationDate>
+<a:Creator>x7000328</a:Creator>
+<a:ModificationDate>1521485535</a:ModificationDate>
+<a:Modifier>x7000328</a:Modifier>
+<a:DataType>Vector</a:DataType>
+<a:Attribute.Visibility>-</a:Attribute.Visibility>
+</o:Attribute>
+<o:Attribute Id="o211">
+<a:ObjectID>DC521B08-7667-498A-A87E-A1B62D943489</a:ObjectID>
+<a:Name>listeEleve</a:Name>
+<a:Code>listeEleve</a:Code>
+<a:CreationDate>1521485535</a:CreationDate>
+<a:Creator>x7000328</a:Creator>
+<a:ModificationDate>1521486036</a:ModificationDate>
+<a:Modifier>x7000328</a:Modifier>
+<a:DataType>Vector</a:DataType>
+<a:Attribute.Visibility>-</a:Attribute.Visibility>
+</o:Attribute>
 </c:Attributes>
 <c:Operations>
-<o:Operation Id="o210">
+<o:Operation Id="o212">
 <a:ObjectID>A372304A-6E5B-4A23-9221-48B79EEA6ECB</a:ObjectID>
 <a:Name>Classe</a:Name>
 <a:Code>Classe</a:Code>
@@ -3862,7 +3884,7 @@ LABL 0 Arial,8,N</a:FontList>
 <o:Class Ref="o28"/>
 </c:InfluentObject>
 </o:Operation>
-<o:Operation Id="o211">
+<o:Operation Id="o213">
 <a:ObjectID>890A414B-D8F4-4597-94B9-51476DEFC88F</a:ObjectID>
 <a:Name>getNom</a:Name>
 <a:Code>getNom</a:Code>
@@ -3873,7 +3895,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:ReturnType>String</a:ReturnType>
 <a:TemplateBody>%DefaultBody%</a:TemplateBody>
 </o:Operation>
-<o:Operation Id="o212">
+<o:Operation Id="o214">
 <a:ObjectID>0D7B844F-E964-4BEA-B11D-541CBADBC06C</a:ObjectID>
 <a:Name>getSalle</a:Name>
 <a:Code>getSalle</a:Code>
@@ -3884,7 +3906,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:ReturnType>String</a:ReturnType>
 <a:TemplateBody>%DefaultBody%</a:TemplateBody>
 </o:Operation>
-<o:Operation Id="o213">
+<o:Operation Id="o215">
 <a:ObjectID>0C22C4C8-D2D4-491A-A2AA-956CDE57E869</a:ObjectID>
 <a:Name>getNiveau</a:Name>
 <a:Code>getNiveau</a:Code>
@@ -3895,7 +3917,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:ReturnType>String</a:ReturnType>
 <a:TemplateBody>%DefaultBody%</a:TemplateBody>
 </o:Operation>
-<o:Operation Id="o214">
+<o:Operation Id="o216">
 <a:ObjectID>8365EEEB-A211-45EF-819B-859A3214EB3A</a:ObjectID>
 <a:Name>getAnneeScolaire</a:Name>
 <a:Code>getAnneeScolaire</a:Code>
@@ -3906,7 +3928,29 @@ LABL 0 Arial,8,N</a:FontList>
 <a:ReturnType>String</a:ReturnType>
 <a:TemplateBody>%DefaultBody%</a:TemplateBody>
 </o:Operation>
-<o:Operation Id="o215">
+<o:Operation Id="o217">
+<a:ObjectID>5ED44B73-ECBC-42D7-A8B1-7972D2B06DE9</a:ObjectID>
+<a:Name>getEqEnseignante</a:Name>
+<a:Code>getEqEnseignante</a:Code>
+<a:CreationDate>1521486056</a:CreationDate>
+<a:Creator>x7000328</a:Creator>
+<a:ModificationDate>1521486726</a:ModificationDate>
+<a:Modifier>x7000328</a:Modifier>
+<a:ReturnType>Vector</a:ReturnType>
+<a:TemplateBody>%DefaultBody%</a:TemplateBody>
+</o:Operation>
+<o:Operation Id="o218">
+<a:ObjectID>AE6FB964-6404-4CE6-A948-1758EC2A6BFB</a:ObjectID>
+<a:Name>getListeEleve</a:Name>
+<a:Code>getListeEleve</a:Code>
+<a:CreationDate>1521486056</a:CreationDate>
+<a:Creator>x7000328</a:Creator>
+<a:ModificationDate>1521486726</a:ModificationDate>
+<a:Modifier>x7000328</a:Modifier>
+<a:ReturnType>Vector</a:ReturnType>
+<a:TemplateBody>%DefaultBody%</a:TemplateBody>
+</o:Operation>
+<o:Operation Id="o219">
 <a:ObjectID>EE6A1EBC-EC76-4E05-99D8-106FDA07DB30</a:ObjectID>
 <a:Name>setNom</a:Name>
 <a:Code>setNom</a:Code>
@@ -3917,7 +3961,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:ReturnType>void</a:ReturnType>
 <a:TemplateBody>%DefaultBody%</a:TemplateBody>
 <c:Parameters>
-<o:Parameter Id="o216">
+<o:Parameter Id="o220">
 <a:ObjectID>7F05429A-4F32-4D0F-A920-343A08CF624F</a:ObjectID>
 <a:Name>_nom</a:Name>
 <a:Code>_nom</a:Code>
@@ -3929,7 +3973,7 @@ LABL 0 Arial,8,N</a:FontList>
 </o:Parameter>
 </c:Parameters>
 </o:Operation>
-<o:Operation Id="o217">
+<o:Operation Id="o221">
 <a:ObjectID>EF239712-59D1-4184-9CC9-F0B2D436B205</a:ObjectID>
 <a:Name>setSalle</a:Name>
 <a:Code>setSalle</a:Code>
@@ -3940,7 +3984,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:ReturnType>void</a:ReturnType>
 <a:TemplateBody>%DefaultBody%</a:TemplateBody>
 <c:Parameters>
-<o:Parameter Id="o218">
+<o:Parameter Id="o222">
 <a:ObjectID>26692EF5-2D69-45F5-87C1-E9D9028A2FB5</a:ObjectID>
 <a:Name>_salle</a:Name>
 <a:Code>_salle</a:Code>
@@ -3952,7 +3996,7 @@ LABL 0 Arial,8,N</a:FontList>
 </o:Parameter>
 </c:Parameters>
 </o:Operation>
-<o:Operation Id="o219">
+<o:Operation Id="o223">
 <a:ObjectID>C757A413-18BA-443F-9932-0678E65F62C3</a:ObjectID>
 <a:Name>setNiveau</a:Name>
 <a:Code>setNiveau</a:Code>
@@ -3963,7 +4007,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:ReturnType>void</a:ReturnType>
 <a:TemplateBody>%DefaultBody%</a:TemplateBody>
 <c:Parameters>
-<o:Parameter Id="o220">
+<o:Parameter Id="o224">
 <a:ObjectID>3B2E23E7-D63F-48B8-B494-F9E196953E69</a:ObjectID>
 <a:Name>_niveau</a:Name>
 <a:Code>_niveau</a:Code>
@@ -3975,7 +4019,7 @@ LABL 0 Arial,8,N</a:FontList>
 </o:Parameter>
 </c:Parameters>
 </o:Operation>
-<o:Operation Id="o221">
+<o:Operation Id="o225">
 <a:ObjectID>3BC5B1B6-316F-4C7D-B5D0-F9D3F2F55B1C</a:ObjectID>
 <a:Name>setAnneeScolaire</a:Name>
 <a:Code>setAnneeScolaire</a:Code>
@@ -3986,7 +4030,7 @@ LABL 0 Arial,8,N</a:FontList>
 <a:ReturnType>void</a:ReturnType>
 <a:TemplateBody>%DefaultBody%</a:TemplateBody>
 <c:Parameters>
-<o:Parameter Id="o222">
+<o:Parameter Id="o226">
 <a:ObjectID>E9F1E2FD-ACBB-4F70-AA6A-AB760EEC4483</a:ObjectID>
 <a:Name>_anneeScolaire</a:Name>
 <a:Code>_anneeScolaire</a:Code>
@@ -3995,6 +4039,52 @@ LABL 0 Arial,8,N</a:FontList>
 <a:ModificationDate>1520968812</a:ModificationDate>
 <a:Modifier>x7000328</a:Modifier>
 <a:Parameter.DataType>String</a:Parameter.DataType>
+</o:Parameter>
+</c:Parameters>
+</o:Operation>
+<o:Operation Id="o227">
+<a:ObjectID>4335ADAD-1FAF-4EE8-8566-04C2868B372E</a:ObjectID>
+<a:Name>setEqEnseignante</a:Name>
+<a:Code>setEqEnseignante</a:Code>
+<a:CreationDate>1521486056</a:CreationDate>
+<a:Creator>x7000328</a:Creator>
+<a:ModificationDate>1521486742</a:ModificationDate>
+<a:Modifier>x7000328</a:Modifier>
+<a:ReturnType>void</a:ReturnType>
+<a:TemplateBody>%DefaultBody%</a:TemplateBody>
+<c:Parameters>
+<o:Parameter Id="o228">
+<a:ObjectID>F1D988B0-B3D4-4345-AD3E-67B4C9BDFD5F</a:ObjectID>
+<a:Name>_eqEnseignante</a:Name>
+<a:Code>_eqEnseignante</a:Code>
+<a:CreationDate>1521486728</a:CreationDate>
+<a:Creator>x7000328</a:Creator>
+<a:ModificationDate>1521486742</a:ModificationDate>
+<a:Modifier>x7000328</a:Modifier>
+<a:Parameter.DataType>Vector</a:Parameter.DataType>
+</o:Parameter>
+</c:Parameters>
+</o:Operation>
+<o:Operation Id="o229">
+<a:ObjectID>4A200D7F-8845-4618-BF14-C676187FC491</a:ObjectID>
+<a:Name>setListeEleve</a:Name>
+<a:Code>setListeEleve</a:Code>
+<a:CreationDate>1521486056</a:CreationDate>
+<a:Creator>x7000328</a:Creator>
+<a:ModificationDate>1521486757</a:ModificationDate>
+<a:Modifier>x7000328</a:Modifier>
+<a:ReturnType>void</a:ReturnType>
+<a:TemplateBody>%DefaultBody%</a:TemplateBody>
+<c:Parameters>
+<o:Parameter Id="o230">
+<a:ObjectID>FDE47CFF-FE64-4C99-AB5D-3C89F61604D6</a:ObjectID>
+<a:Name>_listeEleve</a:Name>
+<a:Code>_listeEleve</a:Code>
+<a:CreationDate>1521486746</a:CreationDate>
+<a:Creator>x7000328</a:Creator>
+<a:ModificationDate>1521486757</a:ModificationDate>
+<a:Modifier>x7000328</a:Modifier>
+<a:Parameter.DataType>Vector</a:Parameter.DataType>
 </o:Parameter>
 </c:Parameters>
 </o:Operation>
@@ -4102,7 +4192,7 @@ LABL 0 Arial,8,N</a:FontList>
 </o:Generalization>
 </c:Generalizations>
 <c:TargetModels>
-<o:TargetModel Id="o223">
+<o:TargetModel Id="o231">
 <a:ObjectID>E284B463-9AC9-490D-9F7F-BC7056C93905</a:ObjectID>
 <a:Name>Analyse</a:Name>
 <a:Code>Analysis</a:Code>
