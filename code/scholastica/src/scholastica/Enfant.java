@@ -6,43 +6,35 @@
 
 import java.util.*;
 
-/** @pdOid 99d9afb9-9f60-4267-8ef3-b764ab68ef19 */
 public class Enfant extends Personne {
-   /** @pdOid 78f381f9-c69e-45ee-a3b8-ed3bb4f650b3 */
    protected int idEnfant;
-   /** @pdOid b82f70f2-71af-4e32-b046-01c310bd7849 */
    protected java.util.Date dtNaissance;
    
-   /** @param Nom 
-    * @param Prenom 
-    * @param DtNaissance
-    * @pdOid e9aec911-efdd-447c-94d8-8c20e958d5ae */
-   public void enfant(String Nom, String Prenom, java.util.Date DtNaissance) {
-      // TODO: implement
+   /** @param _nom 
+    * @param _prenom 
+    * @param _dtNaissance */
+   public void enfant(String _nom, String _prenom, java.util.Date _dtNaissance) {
+      super(_nom, _prenom);
+      dtNaissance = _dtNaissance;
    }
    
-   /** @pdOid 21b30763-3c40-4e4b-829b-f398494ff79f */
    public int getIdEnfant() {
-      // TODO: implement
-      return 0;
+      return idEnfant;
    }
    
    /** @pdOid bad8c36f-e446-4fcc-b04d-d73e20812cdd */
    public java.util.Date getDtNaissance() {
-      // TODO: implement
-      return null;
+      return dtNaissance;
    }
    
-   /** @param IdEnfant
-    * @pdOid a989f06a-fae6-48fd-9cc1-55698c8fb3ec */
-   public void setIdEnfant(int IdEnfant) {
-      // TODO: implement
+   /** @param _idEnfant */
+   public void setIdEnfant(int _idEnfant) {
+      idEnfant = _idEnfant;
    }
    
-   /** @param DtNaissance
-    * @pdOid f469ff04-0519-41cc-bf39-b70a06e1175a */
-   public void setDtNaissance(java.util.Date DtNaissance) {
-      // TODO: implement
+   /** @param _dtNaissance */
+   public void setDtNaissance(java.util.Date _dtNaissance) {
+      dtNaissance = _dtNaissance;
    }
 
 }
