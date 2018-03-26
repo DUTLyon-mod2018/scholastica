@@ -4,6 +4,8 @@
  * Purpose: Defines the Class Eleve
  ***********************************************************************/
 
+package scholastica;
+
 import java.util.*;
 
 public class Eleve extends Enfant {
@@ -37,7 +39,7 @@ public class Eleve extends Enfant {
    /** @param _nom 
     * @param _prenom 
     * @param _dtNaissance */
-   public void eleve(String _nom, String _prenom, java.util.Date _dtNaissance) {
+   public Eleve(String _nom, String _prenom, java.util.Date _dtNaissance) {
       super(_nom, _prenom, _dtNaissance);
    }
    

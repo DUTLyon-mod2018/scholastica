@@ -1,4 +1,9 @@
-
+/***********************************************************************
+ * Module:  Adulte.java
+ * Author:  x7000328
+ * Purpose: Defines the Class Enseignant
+ ***********************************************************************/
+package scholastica;
 
 import java.util.*;
 
@@ -10,7 +15,7 @@ public class Enseignant extends Adulte {
    private Date dateFin;
    
 
-   public void enseignant(String _nom, String _prenom) {
+   public Enseignant(String _nom, String _prenom) {
        super( _nom, _prenom);
        
 

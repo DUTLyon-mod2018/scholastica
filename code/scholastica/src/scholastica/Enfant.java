@@ -4,6 +4,8 @@
  * Purpose: Defines the Class Enfant
  ***********************************************************************/
 
+package scholastica;
+
 import java.util.*;
 
 public class Enfant extends Personne {
@@ -13,8 +15,8 @@ public class Enfant extends Personne {
    /** @param _nom 
     * @param _prenom 
     * @param _dtNaissance */
-   public void enfant(String _nom, String _prenom, java.util.Date _dtNaissance) {
-      super(_nom, _prenom);
+   public Enfant (String _nom, String _prenom, Date _dtNaissance) {
+      super (_nom, _prenom);
       dtNaissance = _dtNaissance;
    }
    
