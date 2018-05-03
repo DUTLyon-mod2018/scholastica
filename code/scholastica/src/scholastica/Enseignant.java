@@ -31,7 +31,6 @@ public class Enseignant extends Adulte {
    }
    public void setDateFin(Date _dateFin) {
        dateFin=_dateFin;
-       
    }
 
 }

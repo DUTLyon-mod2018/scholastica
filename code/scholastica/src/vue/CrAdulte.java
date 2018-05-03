@@ -7,7 +7,7 @@ package vue;
 
 import java.util.Date;
 import javax.swing.JOptionPane;
-import scholastica.Adulte;
+import scholastica.*;
 
 /**
  *
@@ -22,7 +22,7 @@ public class CrAdulte extends javax.swing.JFrame {
         initComponents();
         // ne pas afficher les infos de mise en poste si l'adulte ne fait pas
         // partie de l'équipe enseignante
-        Boolean eqEns = jCheckBox1.isSelected();
+        Boolean eqEns = cbEqEns.isSelected();
         if (eqEns) {
             jPanel2.setVisible(true);
         } else {
@@ -48,97 +48,93 @@ public class CrAdulte extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea4 = new javax.swing.JTextArea();
-        javax.swing.JTextField jTextField5 = new javax.swing.JTextField();
-        jTextField6 = new javax.swing.JTextField();
-        jTextField7 = new javax.swing.JTextField();
-        jTextField8 = new javax.swing.JTextField();
-        jLabel9 = new javax.swing.JLabel();
-        jTextField9 = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
-        jCheckBox10 = new javax.swing.JCheckBox();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jCheckBox1 = new javax.swing.JCheckBox();
+        labNom = new javax.swing.JLabel();
+        labPrenom = new javax.swing.JLabel();
+        labProfession = new javax.swing.JLabel();
+        labAdresse = new javax.swing.JLabel();
+        labTelephone = new javax.swing.JLabel();
+        labEmail = new javax.swing.JLabel();
+        labLieuTr = new javax.swing.JLabel();
+        labTelephoneTr = new javax.swing.JLabel();
+        tfNom = new javax.swing.JTextField();
+        tfPrenom = new javax.swing.JTextField();
+        tfProfession = new javax.swing.JTextField();
+        tfEmail = new javax.swing.JTextField();
+        tfLieuTr = new javax.swing.JTextField();
+        tfTelephoneTr = new javax.swing.JTextField();
+        labHoraires = new javax.swing.JLabel();
+        tfHoraires = new javax.swing.JTextField();
+        labDecede = new javax.swing.JLabel();
+        cbDecede = new javax.swing.JCheckBox();
+        butValider = new javax.swing.JButton();
+        butAnnuler = new javax.swing.JButton();
+        cbEqEns = new javax.swing.JCheckBox();
         jPanel2 = new javax.swing.JPanel();
-        jLabel11 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jFormattedTextField11 = new javax.swing.JFormattedTextField();
-        jFormattedTextField12 = new javax.swing.JFormattedTextField();
+        labDtDebut = new javax.swing.JLabel();
+        labDtFin = new javax.swing.JLabel();
+        ftfDtDebut = new javax.swing.JFormattedTextField();
+        ftfDtFin = new javax.swing.JFormattedTextField();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taAdresse = new javax.swing.JTextArea();
+        tfTelephone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("* Nom");
+        labNom.setText("* Nom");
 
-        jLabel2.setText("* Prénom");
+        labPrenom.setText("* Prénom");
 
-        jLabel3.setText("Profession");
+        labProfession.setText("Profession");
 
-        jLabel4.setText("Adresse");
+        labAdresse.setText("Adresse");
 
-        jLabel5.setText("Téléphone");
+        labTelephone.setText("Téléphone");
 
-        jLabel6.setText("Email");
+        labEmail.setText("Email");
 
-        jLabel7.setText("Lieu de travail");
+        labLieuTr.setText("Lieu de travail");
 
-        jLabel8.setText("Téléphone travail");
+        labTelephoneTr.setText("Téléphone travail");
 
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        tfNom.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                tfNomActionPerformed(evt);
             }
         });
 
-        jTextArea4.setColumns(20);
-        jTextArea4.setRows(5);
-        jScrollPane1.setViewportView(jTextArea4);
+        labHoraires.setText("Horaires");
 
-        jLabel9.setText("Horaires");
+        labDecede.setText("Décédé(e)");
 
-        jLabel10.setText("Décédé(e)");
-
-        jButton1.setText("Valider");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        butValider.setText("Valider");
+        butValider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                butValiderActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Annuler");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        butAnnuler.setText("Annuler");
+        butAnnuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                butAnnulerActionPerformed(evt);
             }
         });
 
-        jCheckBox1.setText("Équipe enseignante");
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
+        cbEqEns.setText("Équipe enseignante");
+        cbEqEns.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
+                cbEqEnsActionPerformed(evt);
             }
         });
 
-        jLabel11.setText("Date de mise en poste");
+        labDtDebut.setText("Date de mise en poste");
 
-        jLabel12.setText("Date de fin de poste");
+        labDtFin.setText("Date de fin de poste");
 
-        jFormattedTextField11.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        jFormattedTextField11.setToolTipText("");
+        ftfDtDebut.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        ftfDtDebut.setToolTipText("");
 
-        jFormattedTextField12.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        ftfDtFin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -148,14 +144,14 @@ public class CrAdulte extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel11)
+                        .addComponent(labDtDebut)
                         .addGap(38, 38, 38))
                     .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel12)
+                        .addComponent(labDtFin)
                         .addGap(48, 48, 48)))
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jFormattedTextField12)
-                    .addComponent(jFormattedTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ftfDtFin)
+                    .addComponent(ftfDtDebut, javax.swing.GroupLayout.PREFERRED_SIZE, 166, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
@@ -163,14 +159,18 @@ public class CrAdulte extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel11)
-                    .addComponent(jFormattedTextField11, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labDtDebut)
+                    .addComponent(ftfDtDebut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel12)
-                    .addComponent(jFormattedTextField12, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(labDtFin)
+                    .addComponent(ftfDtFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
+
+        taAdresse.setColumns(20);
+        taAdresse.setRows(5);
+        jScrollPane1.setViewportView(taAdresse);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -180,38 +180,38 @@ public class CrAdulte extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(butValider)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jButton2))
+                        .addComponent(butAnnuler))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel6)
-                            .addComponent(jLabel7)
-                            .addComponent(jLabel8)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel10))
+                            .addComponent(labNom)
+                            .addComponent(labPrenom)
+                            .addComponent(labProfession)
+                            .addComponent(labAdresse)
+                            .addComponent(labTelephone)
+                            .addComponent(labEmail)
+                            .addComponent(labLieuTr)
+                            .addComponent(labTelephoneTr)
+                            .addComponent(labHoraires)
+                            .addComponent(labDecede))
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jCheckBox10)
+                            .addComponent(cbDecede)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(jTextField9, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField8, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField3, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                                    .addComponent(jTextField1)
-                                    .addComponent(jTextField5)
-                                    .addComponent(jTextField6)
-                                    .addComponent(jTextField7, javax.swing.GroupLayout.Alignment.LEADING))
+                                    .addComponent(tfTelephone, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfHoraires, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                                    .addComponent(tfTelephoneTr, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfPrenom, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfProfession, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(tfNom)
+                                    .addComponent(tfEmail)
+                                    .addComponent(tfLieuTr, javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jScrollPane1))
                                 .addGap(35, 35, 35)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jCheckBox1)
+                                    .addComponent(cbEqEns)
                                     .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
@@ -221,9 +221,9 @@ public class CrAdulte extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1))
-                    .addComponent(jCheckBox1))
+                        .addComponent(tfNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labNom))
+                    .addComponent(cbEqEns))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
@@ -231,45 +231,45 @@ public class CrAdulte extends javax.swing.JFrame {
                         .addGap(25, 25, 25))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2))
+                            .addComponent(tfPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labPrenom))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel3))
+                            .addComponent(tfProfession, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labProfession))
                         .addGap(8, 8, 8)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel5))
+                                    .addComponent(labTelephone)
+                                    .addComponent(tfTelephone, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                    .addComponent(jTextField6, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jLabel6)))
-                            .addComponent(jLabel4))
+                                    .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(labEmail)))
+                            .addComponent(labAdresse))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel7))
+                            .addComponent(tfLieuTr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labLieuTr))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jTextField8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel8))
+                            .addComponent(tfTelephoneTr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(labTelephoneTr))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel9))
+                    .addComponent(tfHoraires, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labHoraires))
                 .addGap(31, 31, 31)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel10)
-                    .addComponent(jCheckBox10))
+                    .addComponent(labDecede)
+                    .addComponent(cbDecede))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(butValider)
+                    .addComponent(butAnnuler))
                 .addContainerGap())
         );
 
@@ -287,41 +287,62 @@ public class CrAdulte extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void tfNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_tfNomActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void cbEqEnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEqEnsActionPerformed
         // TODO add your handling code here:
         // si coché, apparition des deux dates
         // si date de mise en  poste est renseigné, alors impossible de décocher
-        Boolean eqEns = jCheckBox1.isSelected();
+        Boolean eqEns = cbEqEns.isSelected();
         if (eqEns) {
             jPanel2.setVisible(true);
         } else {
             jPanel2.setVisible(false);
         }
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+    }//GEN-LAST:event_cbEqEnsActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        String nom = jTextField1.getText();
-        String prenom = jTextField2.getText();
+    private void butValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butValiderActionPerformed
+        String nom = tfNom.getText();
+        String prenom = tfPrenom.getText();
+        String profession = tfProfession.getText();
+        String adresse = taAdresse.getText();
+        String telephone = tfTelephone.getText();
+        String email = tfEmail.getText();
+        String lieuTr = tfLieuTr.getText();
+        String telephoneTr = tfTelephoneTr.getText();
+        String horaires = tfHoraires.getText();
+        Boolean decede = cbDecede.isSelected();
+        Boolean eqEns = cbEqEns.isSelected();
+        Date dateDebut = (Date)ftfDtDebut.getValue();
+        Date dateFin = (Date)ftfDtFin.getValue();
+        
         if (nom.equals("") || prenom.equals("")) {
             JOptionPane jop = new JOptionPane();
             JOptionPane.showMessageDialog(null, "Il faut remplir au moins les champs Nom et Prénom.", "Erreur !", JOptionPane.ERROR_MESSAGE);
         } else {
-            Adulte a = new Adulte(nom, prenom);
-            
-            
-            
-            
+            if (eqEns) {
+                Enseignant a = new Enseignant(nom, prenom);
+                if (!dateDebut.equals("")) {a.setDateDebut(dateDebut);}
+                if (!dateFin.equals("")) {a.setDateFin(dateFin);}
+            } else {
+                Adulte a = new Adulte(nom, prenom);
+            }
+            if (!profession.equals("")) {a.setProfession(profession);}
+            if (!adresse.equals("")) {a.setAdresse(adresse);}
+            if (!telephone.equals("")) {a.setTelephone(telephone);}
+            if (!email.equals("")) {a.setEmail(email);}
+            if (!lieuTr.equals("")) {a.setLieuTr(lieuTr);}
+            if (!telephoneTr.equals("")) {a.setTelephoneTr(telephoneTr);}
+            if (decede) {a.setDecede(true);}
         }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_butValiderActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_butAnnulerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -359,34 +380,35 @@ public class CrAdulte extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JCheckBox jCheckBox1;
-    private javax.swing.JCheckBox jCheckBox10;
-    private javax.swing.JFormattedTextField jFormattedTextField11;
-    private javax.swing.JFormattedTextField jFormattedTextField12;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
+    private javax.swing.JButton butAnnuler;
+    private javax.swing.JButton butValider;
+    private javax.swing.JCheckBox cbDecede;
+    private javax.swing.JCheckBox cbEqEns;
+    private javax.swing.JFormattedTextField ftfDtDebut;
+    private javax.swing.JFormattedTextField ftfDtFin;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField6;
-    private javax.swing.JTextField jTextField7;
-    private javax.swing.JTextField jTextField8;
-    private javax.swing.JTextField jTextField9;
+    private javax.swing.JLabel labAdresse;
+    private javax.swing.JLabel labDecede;
+    private javax.swing.JLabel labDtDebut;
+    private javax.swing.JLabel labDtFin;
+    private javax.swing.JLabel labEmail;
+    private javax.swing.JLabel labHoraires;
+    private javax.swing.JLabel labLieuTr;
+    private javax.swing.JLabel labNom;
+    private javax.swing.JLabel labPrenom;
+    private javax.swing.JLabel labProfession;
+    private javax.swing.JLabel labTelephone;
+    private javax.swing.JLabel labTelephoneTr;
+    private javax.swing.JTextArea taAdresse;
+    private javax.swing.JTextField tfEmail;
+    private javax.swing.JTextField tfHoraires;
+    private javax.swing.JTextField tfLieuTr;
+    private javax.swing.JTextField tfNom;
+    private javax.swing.JTextField tfPrenom;
+    private javax.swing.JTextField tfProfession;
+    private javax.swing.JTextField tfTelephone;
+    private javax.swing.JTextField tfTelephoneTr;
     // End of variables declaration//GEN-END:variables
 }
