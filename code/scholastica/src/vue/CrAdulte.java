@@ -6,6 +6,8 @@
 package vue;
 
 import java.util.Date;
+import javax.swing.JOptionPane;
+import scholastica.Adulte;
 
 /**
  *
@@ -302,7 +304,19 @@ public class CrAdulte extends javax.swing.JFrame {
     }//GEN-LAST:event_jCheckBox1ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
+        String nom = jTextField1.getText();
+        String prenom = jTextField2.getText();
+        if (nom.equals("") || prenom.equals("")) {
+            JOptionPane jop = new JOptionPane();
+            JOptionPane.showMessageDialog(null, "Il faut remplir au moins les champs Nom et Prénom.", "Erreur !", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Adulte a = new Adulte(nom, prenom);
+            
+            
+            
+            
+        }
+        
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
