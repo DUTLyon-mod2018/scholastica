@@ -32,43 +32,43 @@ public class CrEnfantSimp extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
+        lNom = new javax.swing.JLabel();
+        lPrenom = new javax.swing.JLabel();
+        lDtNaissance = new javax.swing.JLabel();
+        tfNom = new javax.swing.JTextField();
+        tfPrenom = new javax.swing.JTextField();
+        bValider = new javax.swing.JButton();
+        bAnnuler = new javax.swing.JButton();
+        ftfDtNaissance = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setText("* Nom");
+        lNom.setText("* Nom");
 
-        jLabel2.setText("* Prénom");
+        lPrenom.setText("* Prénom");
 
-        jLabel3.setText("* Date de naissance");
+        lDtNaissance.setText("* Date de naissance");
 
-        jTextField1.setToolTipText("");
+        tfNom.setToolTipText("");
 
-        jButton1.setText("Valider");
-        jButton1.setActionCommand("");
-        jButton1.setAutoscrolls(true);
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        bValider.setText("Valider");
+        bValider.setActionCommand("");
+        bValider.setAutoscrolls(true);
+        bValider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                bValiderActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Annuler");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        bAnnuler.setText("Annuler");
+        bAnnuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                bAnnulerActionPerformed(evt);
             }
         });
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
-        jFormattedTextField1.setToolTipText("");
+        ftfDtNaissance.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        ftfDtNaissance.setToolTipText("");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,23 +78,23 @@ public class CrEnfantSimp extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(tfPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(jLabel3)
-                                .addComponent(jLabel2)
-                                .addComponent(jLabel1))
+                                .addComponent(lDtNaissance)
+                                .addComponent(lPrenom)
+                                .addComponent(lNom))
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addGroup(layout.createSequentialGroup()
                                     .addGap(41, 41, 41)
-                                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                    .addComponent(tfNom, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                    .addComponent(ftfDtNaissance, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)))))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jButton1)
+                        .addComponent(bValider)
                         .addGap(18, 18, 18)
-                        .addComponent(jButton2)))
+                        .addComponent(bAnnuler)))
                 .addContainerGap(250, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -102,34 +102,34 @@ public class CrEnfantSimp extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lNom)
+                    .addComponent(tfNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lPrenom)
+                    .addComponent(tfPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lDtNaissance)
+                    .addComponent(ftfDtNaissance, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 204, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(bValider)
+                    .addComponent(bAnnuler))
                 .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void bValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bValiderActionPerformed
         // récupérer les infos des champs
         // si 1 champ = null, fenêtre d'erreur
         // sinon création de l'objet Enfant
         // puis enregistrement dans la base
-        String nom = jTextField1.getText();
-        String prenom = jTextField2.getText();
-        Date dtNaissance = (Date)jFormattedTextField1.getValue();
+        String nom = tfNom.getText();
+        String prenom = tfPrenom.getText();
+        Date dtNaissance = (Date)ftfDtNaissance.getValue();
         if (nom.equals("") || prenom.equals("") || dtNaissance.equals("")) {
             JOptionPane jop = new JOptionPane();
             JOptionPane.showMessageDialog(null, "Il faut remplir tous les champs.", "Erreur !", JOptionPane.ERROR_MESSAGE);
@@ -137,12 +137,12 @@ public class CrEnfantSimp extends javax.swing.JFrame {
             Enfant e = new Enfant(nom, prenom, dtNaissance);
         }
         
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_bValiderActionPerformed
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+    private void bAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAnnulerActionPerformed
         // TODO add your handling code here:
         // retour à la page précédente
-    }//GEN-LAST:event_jButton2ActionPerformed
+    }//GEN-LAST:event_bAnnulerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -180,13 +180,13 @@ public class CrEnfantSimp extends javax.swing.JFrame {
 //    }*/
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JButton bAnnuler;
+    private javax.swing.JButton bValider;
+    private javax.swing.JFormattedTextField ftfDtNaissance;
+    private javax.swing.JLabel lDtNaissance;
+    private javax.swing.JLabel lNom;
+    private javax.swing.JLabel lPrenom;
+    private javax.swing.JTextField tfNom;
+    private javax.swing.JTextField tfPrenom;
     // End of variables declaration//GEN-END:variables
 }
