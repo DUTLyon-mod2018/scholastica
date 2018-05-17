@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vue;
+package scholastica;
 
 import java.util.*;
 import java.text.*;
@@ -14,12 +14,12 @@ import scholastica.*;
  *
  * @author x7000328
  */
-public class CrEnfantSimp extends javax.swing.JFrame {
+public class Creation_EnfantSimp extends javax.swing.JFrame {
 
     /**
      * Creates new form CrEnfantSimp
      */
-    public CrEnfantSimp() {
+    public Creation_EnfantSimp() {
         initComponents();
     }
 
