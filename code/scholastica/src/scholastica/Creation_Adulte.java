@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package vue;
+package scholastica;
 
 import java.util.Date;
 import javax.swing.JOptionPane;
@@ -13,12 +13,12 @@ import scholastica.*;
  *
  * @author x7000328
  */
-public class CrAdulte extends javax.swing.JFrame {
+public class Creation_Adulte extends javax.swing.JFrame {
 
     /**
      * Creates new form CrAdulte
      */
-    public CrAdulte() {
+    public Creation_Adulte() {
         initComponents();
         // ne pas afficher les infos de mise en poste si l'adulte ne fait pas
         // partie de l'équipe enseignante
