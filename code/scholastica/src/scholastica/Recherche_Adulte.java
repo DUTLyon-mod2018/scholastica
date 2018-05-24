@@ -5,11 +5,15 @@
  */
 package scholastica;
 
+import java.awt.*;
+import java.sql.*;
+import javax.swing.*;
+
 /**
  *
  * @author x7000328
  */
-public class Recherche_Adulte extends javax.swing.JPanel {
+public class Recherche_Adulte extends javax.swing.JFrame {
 
     /**
      * Creates new form Recherche_Adulte
@@ -17,7 +21,7 @@ public class Recherche_Adulte extends javax.swing.JPanel {
     public Recherche_Adulte() {
         initComponents();
     }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -34,23 +38,16 @@ public class Recherche_Adulte extends javax.swing.JPanel {
         butRechercher = new javax.swing.JButton();
         butReinitialiser = new javax.swing.JButton();
         butOuvrir = new javax.swing.JButton();
-        butQuitter = new javax.swing.JButton();
+        butAccueil = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+        panResultat = new javax.swing.JPanel();
+
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         labNom.setText("Nom");
 
-        tfNom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfNomActionPerformed(evt);
-            }
-        });
-
         labPrenom.setText("Prénom");
-
-        tfPrenom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfPrenomActionPerformed(evt);
-            }
-        });
+        labPrenom.setToolTipText("");
 
         butRechercher.setText("Rechercher");
         butRechercher.addActionListener(new java.awt.event.ActionListener() {
@@ -73,96 +70,234 @@ public class Recherche_Adulte extends javax.swing.JPanel {
             }
         });
 
-        butQuitter.setText("Quitter");
-        butQuitter.addActionListener(new java.awt.event.ActionListener() {
+        butAccueil.setText("Accueil");
+        butAccueil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                butQuitterActionPerformed(evt);
+                butAccueilActionPerformed(evt);
             }
         });
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        jLabel1.setText("Résultats");
+
+        javax.swing.GroupLayout panResultatLayout = new javax.swing.GroupLayout(panResultat);
+        panResultat.setLayout(panResultatLayout);
+        panResultatLayout.setHorizontalGroup(
+            panResultatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 638, Short.MAX_VALUE)
+        );
+        panResultatLayout.setVerticalGroup(
+            panResultatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 172, Short.MAX_VALUE)
+        );
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
+        getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(labPrenom)
-                                    .addComponent(labNom))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(tfNom, javax.swing.GroupLayout.DEFAULT_SIZE, 183, Short.MAX_VALUE)
-                                    .addComponent(tfPrenom)))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(butRechercher)
-                                .addGap(18, 18, 18)
-                                .addComponent(butReinitialiser)))
-                        .addGap(0, 355, Short.MAX_VALUE))
+                        .addComponent(butRechercher)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(butReinitialiser))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(butOuvrir)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(butQuitter)
-                        .addGap(19, 19, 19))))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labPrenom)
+                            .addComponent(labNom))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tfNom)
+                            .addComponent(tfPrenom, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))
+                    .addComponent(jLabel1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(butOuvrir)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(butAccueil))
+                        .addComponent(panResultat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labNom)
                     .addComponent(tfNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(labPrenom)
                     .addComponent(tfPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butRechercher)
                     .addComponent(butReinitialiser))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 274, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(panResultat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(12, 12, 12)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(butOuvrir)
-                    .addComponent(butQuitter))
+                    .addComponent(butAccueil)
+                    .addComponent(butOuvrir))
                 .addContainerGap())
         );
+
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tfPrenomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfPrenomActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfPrenomActionPerformed
+    private void butRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRechercherActionPerformed
+        String nom = tfNom.getText();
+        String prenom = tfPrenom.getText();
+        
+        if (nom.equals("") && prenom.equals("")) {
+            JOptionPane jop = new JOptionPane();
+            JOptionPane.showMessageDialog(null, "Il faut remplir au moins un champ.", "Erreur !", JOptionPane.ERROR_MESSAGE);
+        }
+        
+        String sql = "select id_adulte, nom_adulte, prenom_adulte, profession from p1514568.Adulte where ";
+        if (!nom.equals("")) { sql += "nom_adulte like '%" + nom + "%'"; }
+        if ((!nom.equals("")) && (!prenom.equals(""))) { sql += " and "; }
+        if (!prenom.equals("")) { sql += "prenom_adulte like '%" + prenom + "%'"; }
+        
+        System.out.println(sql);
+        
+        Base b = new Base();
+        Connection conn = null;
+        ResultSet res;
+        Statement statement;
+        b.connexionBD();
+        conn = b.getConnect();
+
+        try {
+            statement = conn.createStatement();
+            res = statement.executeQuery(sql);
+            System.out.println(res);
+            
+            // on crée les en-têtes du tableau
+            Object[] colonne = new Object[4];
+            colonne[0] = "ID";
+            colonne[1] = "Nom";
+            colonne[2] = "Prénom";
+            colonne[3] = "Profession";
+            
+            // on récupère le nombre de résultats pour créer l'objet + l'afficher
+            res.last();
+            int rowCount = res.getRow();
+            Object[][] data = new Object[rowCount][4];
+            
+            // on revient au départ
+            res.beforeFirst();
+            int r = 0;
+
+            // on remplit le tableau d'Object[][]
+            while(res.next()){
+                for(int c = 1 ; c <= 4; c++) {
+                    data[r][c-1] = res.getObject(c);
+                }
+                r++;
+            }
+            
+            res.close();
+            statement.close();
+            
+            if (rowCount > 0) {
+                // si on a des résultats on enlève le contenu du conteneur
+                panResultat.removeAll();
+           
+                // on y ajoute un JTable
+                panResultat.add(new JScrollPane(new JTable(data, colonne)), GroupLayout.Alignment.CENTER);
+//                panResultat.setVisible(true);
+
+    
+                // on force la mise à jour de l'affichage
+                panResultat.revalidate();
+            
+            } else if (rowCount == 0) {
+                // si on n'a pas de résultats on affiche un message
+                panResultat.removeAll();
+ //               panResultat.add(new JLabel("La recherche n'a pas retourné de résultats."), GroupLayout.Alignment.LEADING);
+ JLabel noResult = new JLabel("La recherche n'a pas retourné de résultats.");
+        javax.swing.GroupLayout panResultatLayoutNew = new javax.swing.GroupLayout(panResultat);
+        panResultat.setLayout(panResultatLayoutNew);
+        panResultatLayoutNew.setHorizontalGroup(
+            panResultatLayoutNew.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(noResult)
+        ); 
+                panResultatLayoutNew.setVerticalGroup(
+            panResultatLayoutNew.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(noResult)
+            .addGap(0, 172, Short.MAX_VALUE)
+        );
+                panResultat.revalidate();
+//                panResultat.setVisible(true);
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }//GEN-LAST:event_butRechercherActionPerformed
 
     private void butReinitialiserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butReinitialiserActionPerformed
-        // TODO add your handling code here:
+        tfNom.setText(null);
+        tfPrenom.setText(null);
     }//GEN-LAST:event_butReinitialiserActionPerformed
-
-    private void tfNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfNomActionPerformed
-
-    private void butRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRechercherActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_butRechercherActionPerformed
 
     private void butOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butOuvrirActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_butOuvrirActionPerformed
 
-    private void butQuitterActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butQuitterActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_butQuitterActionPerformed
+    private void butAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAccueilActionPerformed
+        Accueil f = new Accueil();
+        f.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_butAccueilActionPerformed
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Recherche_Adulte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Recherche_Adulte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Recherche_Adulte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Recherche_Adulte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Recherche_Adulte().setVisible(true);
+            }
+        });
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton butAccueil;
     private javax.swing.JButton butOuvrir;
-    private javax.swing.JButton butQuitter;
     private javax.swing.JButton butRechercher;
     private javax.swing.JButton butReinitialiser;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel labNom;
     private javax.swing.JLabel labPrenom;
+    private javax.swing.JPanel panResultat;
     private javax.swing.JTextField tfNom;
     private javax.swing.JTextField tfPrenom;
     // End of variables declaration//GEN-END:variables
