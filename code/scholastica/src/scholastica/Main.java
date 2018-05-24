@@ -7,7 +7,7 @@ package scholastica;
 
 /**
  *
- * @author x7000328
+ * @author Bilou
  */
 public class Main {
 
@@ -16,6 +16,9 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
+//        Authentification auth = new Authentification();
+        Creation_eleve auth = new Creation_eleve();
+        auth.setVisible(true);
     }
     
 }
