@@ -40,7 +40,9 @@ public class Recherche_Adulte extends javax.swing.JFrame {
         butOuvrir = new javax.swing.JButton();
         butAccueil = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        panResultat = new javax.swing.JPanel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tabResultat = new javax.swing.JTable();
+        jLabel2 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,16 +81,17 @@ public class Recherche_Adulte extends javax.swing.JFrame {
 
         jLabel1.setText("Résultats");
 
-        javax.swing.GroupLayout panResultatLayout = new javax.swing.GroupLayout(panResultat);
-        panResultat.setLayout(panResultatLayout);
-        panResultatLayout.setHorizontalGroup(
-            panResultatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 638, Short.MAX_VALUE)
-        );
-        panResultatLayout.setVerticalGroup(
-            panResultatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 172, Short.MAX_VALUE)
-        );
+        tabResultat.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+
+            },
+            new String [] {
+                "Id", "Nom", "Prénom", "Profession"
+            }
+        ));
+        jScrollPane1.setViewportView(tabResultat);
+
+        jLabel2.setText("jLabel2");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -97,26 +100,31 @@ public class Recherche_Adulte extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(butRechercher)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(butReinitialiser))
+                    .addComponent(jScrollPane1)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labPrenom)
-                            .addComponent(labNom))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(tfNom)
-                            .addComponent(tfPrenom, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))
-                    .addComponent(jLabel1)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(butOuvrir)
-                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(butAccueil))
-                        .addComponent(panResultat, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(butRechercher)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(butReinitialiser))
+                            .addGroup(layout.createSequentialGroup()
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(labPrenom)
+                                    .addComponent(labNom))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(tfNom)
+                                    .addComponent(tfPrenom, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jLabel2))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(butOuvrir)
+                                .addGap(510, 510, 510)
+                                .addComponent(butAccueil)))
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,10 +142,12 @@ public class Recherche_Adulte extends javax.swing.JFrame {
                     .addComponent(butRechercher)
                     .addComponent(butReinitialiser))
                 .addGap(18, 18, 18)
-                .addComponent(jLabel1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(panResultat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(12, 12, 12)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butAccueil)
                     .addComponent(butOuvrir))
@@ -204,33 +214,24 @@ public class Recherche_Adulte extends javax.swing.JFrame {
             
             if (rowCount > 0) {
                 // si on a des résultats on enlève le contenu du conteneur
-                panResultat.removeAll();
+//                tabResultat.setModel(data, colonne);
+                tabResultat.setModel(new javax.swing.table.DefaultTableModel(data, colonne));
            
                 // on y ajoute un JTable
-                panResultat.add(new JScrollPane(new JTable(data, colonne)), GroupLayout.Alignment.CENTER);
+//                panResultat.add(new JScrollPane(new JTable(data, colonne)));
 //                panResultat.setVisible(true);
 
     
                 // on force la mise à jour de l'affichage
-                panResultat.revalidate();
+//                panResultat.revalidate();
             
             } else if (rowCount == 0) {
+                tabResultat.setModel(new javax.swing.table.DefaultTableModel(new Object[][] { {null, null, null, null} }, colonne));
                 // si on n'a pas de résultats on affiche un message
-                panResultat.removeAll();
+//                panResultat.removeAll();
  //               panResultat.add(new JLabel("La recherche n'a pas retourné de résultats."), GroupLayout.Alignment.LEADING);
- JLabel noResult = new JLabel("La recherche n'a pas retourné de résultats.");
-        javax.swing.GroupLayout panResultatLayoutNew = new javax.swing.GroupLayout(panResultat);
-        panResultat.setLayout(panResultatLayoutNew);
-        panResultatLayoutNew.setHorizontalGroup(
-            panResultatLayoutNew.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(noResult)
-        ); 
-                panResultatLayoutNew.setVerticalGroup(
-            panResultatLayoutNew.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(noResult)
-            .addGap(0, 172, Short.MAX_VALUE)
-        );
-                panResultat.revalidate();
+
+//                panResultat.revalidate();
 //                panResultat.setVisible(true);
 
             }
@@ -295,9 +296,11 @@ public class Recherche_Adulte extends javax.swing.JFrame {
     private javax.swing.JButton butRechercher;
     private javax.swing.JButton butReinitialiser;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labNom;
     private javax.swing.JLabel labPrenom;
-    private javax.swing.JPanel panResultat;
+    private javax.swing.JTable tabResultat;
     private javax.swing.JTextField tfNom;
     private javax.swing.JTextField tfPrenom;
     // End of variables declaration//GEN-END:variables
