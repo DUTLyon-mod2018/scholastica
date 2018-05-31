@@ -39,10 +39,9 @@ public class Recherche_Adulte extends javax.swing.JFrame {
         butReinitialiser = new javax.swing.JButton();
         butOuvrir = new javax.swing.JButton();
         butAccueil = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabResultat = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
+        labMesResultat = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -79,8 +78,6 @@ public class Recherche_Adulte extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Résultats");
-
         tabResultat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
 
@@ -91,7 +88,7 @@ public class Recherche_Adulte extends javax.swing.JFrame {
         ));
         jScrollPane1.setViewportView(tabResultat);
 
-        jLabel2.setText("jLabel2");
+        labMesResultat.setForeground(new java.awt.Color(204, 0, 0));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -116,13 +113,10 @@ public class Recherche_Adulte extends javax.swing.JFrame {
                                     .addComponent(tfNom)
                                     .addComponent(tfPrenom, javax.swing.GroupLayout.DEFAULT_SIZE, 250, Short.MAX_VALUE)))
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jLabel2))
-                            .addGroup(layout.createSequentialGroup()
                                 .addComponent(butOuvrir)
                                 .addGap(510, 510, 510)
-                                .addComponent(butAccueil)))
+                                .addComponent(butAccueil))
+                            .addComponent(labMesResultat))
                         .addGap(0, 0, Short.MAX_VALUE)))
                 .addContainerGap())
         );
@@ -142,11 +136,9 @@ public class Recherche_Adulte extends javax.swing.JFrame {
                     .addComponent(butRechercher)
                     .addComponent(butReinitialiser))
                 .addGap(18, 18, 18)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                .addComponent(labMesResultat)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 192, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butAccueil)
@@ -183,7 +175,6 @@ public class Recherche_Adulte extends javax.swing.JFrame {
         try {
             statement = conn.createStatement();
             res = statement.executeQuery(sql);
-            System.out.println(res);
             
             // on crée les en-têtes du tableau
             Object[] colonne = new Object[4];
@@ -213,27 +204,11 @@ public class Recherche_Adulte extends javax.swing.JFrame {
             statement.close();
             
             if (rowCount > 0) {
-                // si on a des résultats on enlève le contenu du conteneur
-//                tabResultat.setModel(data, colonne);
                 tabResultat.setModel(new javax.swing.table.DefaultTableModel(data, colonne));
-           
-                // on y ajoute un JTable
-//                panResultat.add(new JScrollPane(new JTable(data, colonne)));
-//                panResultat.setVisible(true);
-
-    
-                // on force la mise à jour de l'affichage
-//                panResultat.revalidate();
-            
+                labMesResultat.setText("La recherche a retourné "+rowCount+" résultat(s).");
             } else if (rowCount == 0) {
                 tabResultat.setModel(new javax.swing.table.DefaultTableModel(new Object[][] { {null, null, null, null} }, colonne));
-                // si on n'a pas de résultats on affiche un message
-//                panResultat.removeAll();
- //               panResultat.add(new JLabel("La recherche n'a pas retourné de résultats."), GroupLayout.Alignment.LEADING);
-
-//                panResultat.revalidate();
-//                panResultat.setVisible(true);
-
+                labMesResultat.setText("La recherche n'a retourné aucun résultat.");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -246,7 +221,20 @@ public class Recherche_Adulte extends javax.swing.JFrame {
     }//GEN-LAST:event_butReinitialiserActionPerformed
 
     private void butOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butOuvrirActionPerformed
-        // TODO add your handling code here:
+        // si 0 lignes sélectionnées erreur
+        //si 2+ lignes sélectionnées erreur
+        // si 1 ligne sélectionnée, ouvrir l'écran Adulte avec les infos ramenées
+        
+        if (tabResultat.getSelectedRow() == -1) {
+            JOptionPane jop = new JOptionPane();
+            JOptionPane.showMessageDialog(null, "Il faut choisir un résultat de recherche.", "Erreur !", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int row = tabResultat.getSelectedRow();
+            int id_adulte = (int)tabResultat.getValueAt(row,0);
+            Creation_Adulte creationAdulte = new Creation_Adulte(id_adulte);
+            creationAdulte.setVisible(true); 
+            dispose();
+        }
     }//GEN-LAST:event_butOuvrirActionPerformed
 
     private void butAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAccueilActionPerformed
@@ -295,9 +283,8 @@ public class Recherche_Adulte extends javax.swing.JFrame {
     private javax.swing.JButton butOuvrir;
     private javax.swing.JButton butRechercher;
     private javax.swing.JButton butReinitialiser;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel labMesResultat;
     private javax.swing.JLabel labNom;
     private javax.swing.JLabel labPrenom;
     private javax.swing.JTable tabResultat;

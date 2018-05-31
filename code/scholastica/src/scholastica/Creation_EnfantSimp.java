@@ -6,9 +6,8 @@
 package scholastica;
 
 import java.util.*;
-import java.text.*;
 import javax.swing.*;
-import scholastica.*;
+
 
 /**
  *
