@@ -6,9 +6,10 @@
 package scholastica;
 
 import java.sql.*;
+import java.text.*;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import scholastica.*;
+
 
 /**
  *
@@ -33,7 +34,10 @@ public class Creation_Adulte extends javax.swing.JFrame {
     
     public Creation_Adulte(int _id_adulte) {
         initComponents();
-
+        this.populate(_id_adulte);
+    }
+    
+    public void populate(int _id_adulte) {
         Base b = new Base();
         Connection conn = null;
         ResultSet res;
@@ -45,40 +49,48 @@ public class Creation_Adulte extends javax.swing.JFrame {
             statement = conn.prepareStatement("select * from p1514568.Adulte where id_adulte = ?");
             statement.setInt(1, _id_adulte);
             res = statement.executeQuery();
-            System.out.println(res);
-            res.isFirst();
-                    
-            String nom = res.getString("nom_adulte");
-            String prenom = res.getString("prenom_adulte");
-            String profession = res.getString("profession");
-            String adresse = res.getString("adresse_adulte");
-            String telephone = res.getString("telephone");
-            String email = res.getString("email");
-            String lieuTr = res.getString("adresse_travail");
-            String telephoneTr = res.getString("telephone_travail");   
-            String horaires = res.getString("horaires");
-            Boolean decede = res.getBoolean("decede");
-            Boolean enseignant = res.getBoolean("enseignant");
-            String dateDebut = res.getString("date_debut");
-            String dateFin = res.getString("date_fin");
             
-            res.close();
-            statement.close();
-            
-            tfNom.setText(nom);
-            tfPrenom.setText(prenom);
-            tfProfession.setText(profession);
-            taAdresse.setText(adresse);
-            tfTelephone.setText(telephone);
-            tfEmail.setText(email);
-            tfLieuTr.setText(lieuTr);
-            tfTelephoneTr.setText(telephoneTr);
-            tfHoraires.setText(horaires);
-            cbDecede.setSelected(decede);
-            cbEqEns.setSelected(enseignant);
-            ftfDtDebut.setText(dateDebut);
-            ftfDtFin.setText(dateFin);
+            while (res.next()){     
+                String nom = res.getString("nom_adulte");
+                String prenom = res.getString("prenom_adulte");
+                String profession = res.getString("profession");
+                String adresse = res.getString("adresse_adulte");
+                String telephone = res.getString("telephone");
+                String email = res.getString("email");
+                String lieuTr = res.getString("adresse_travail");
+                String telephoneTr = res.getString("telephone_travail");   
+                String horaires = res.getString("horaires");
+                Boolean decede = res.getBoolean("decede");
+                Boolean enseignant = res.getBoolean("enseignant");
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                String sDateDebut = null;
+                String sDateFin = null;
+                Date dateDebut = res.getDate("date_debut");
+                if (null != dateDebut) {
+                    sDateDebut = formatter.format(dateDebut);
+                }
+                Date dateFin = res.getDate("date_fin");
+                if (null != dateFin) {
+                    sDateFin = formatter.format(dateFin);
+                }
 
+                res.close();
+                statement.close();
+
+                tfNom.setText(nom);
+                tfPrenom.setText(prenom);
+                tfProfession.setText(profession);
+                taAdresse.setText(adresse);
+                tfTelephone.setText(telephone);
+                tfEmail.setText(email);
+                tfLieuTr.setText(lieuTr);
+                tfTelephoneTr.setText(telephoneTr);
+                tfHoraires.setText(horaires);
+                cbDecede.setSelected(decede);
+                cbEqEns.setSelected(enseignant);
+                ftfDtDebut.setText(sDateDebut);
+                ftfDtFin.setText(sDateFin);
+            }
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -376,13 +388,13 @@ public class Creation_Adulte extends javax.swing.JFrame {
             } else {
                 Adulte a = new Adulte(nom, prenom);
             }
-            if (!profession.equals("")) {a.setProfession(profession);}
+ /*           if (!profession.equals("")) {a.setProfession(profession);}
             if (!adresse.equals("")) {a.setAdresse(adresse);}
             if (!telephone.equals("")) {a.setTelephone(telephone);}
             if (!email.equals("")) {a.setEmail(email);}
             if (!lieuTr.equals("")) {a.setLieuTr(lieuTr);}
             if (!telephoneTr.equals("")) {a.setTelephoneTr(telephoneTr);}
-            if (decede) {a.setDecede(true);}
+            if (decede) {a.setDecede(true);}*/
         }
         
     }//GEN-LAST:event_butValiderActionPerformed
