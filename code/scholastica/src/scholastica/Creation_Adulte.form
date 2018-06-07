@@ -179,17 +179,17 @@
         </Component>
         <Component class="javax.swing.JLabel" name="labProfession">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Profession"/>
+            <Property name="text" type="java.lang.String" value="* Profession"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labAdresse">
           <Properties>
-            <Property name="text" type="java.lang.String" value="Adresse"/>
+            <Property name="text" type="java.lang.String" value="* Adresse"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labTelephone">
           <Properties>
-            <Property name="text" type="java.lang.String" value="T&#xe9;l&#xe9;phone"/>
+            <Property name="text" type="java.lang.String" value="* T&#xe9;l&#xe9;phone"/>
           </Properties>
         </Component>
         <Component class="javax.swing.JLabel" name="labEmail">

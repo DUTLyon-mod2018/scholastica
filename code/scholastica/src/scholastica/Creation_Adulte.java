@@ -16,6 +16,9 @@ import javax.swing.JOptionPane;
  * @author x7000328
  */
 public class Creation_Adulte extends javax.swing.JFrame {
+    
+    int idAdulte;
+    String idFenetre = "creationAdulte";
 
     /**
      * Creates new form CrAdulte
@@ -24,6 +27,7 @@ public class Creation_Adulte extends javax.swing.JFrame {
         initComponents();
         // ne pas afficher les infos de mise en poste si l'adulte ne fait pas
         // partie de l'équipe enseignante
+        idAdulte = -1;
         Boolean eqEns = cbEqEns.isSelected();
         if (eqEns) {
             jPanel2.setVisible(true);
@@ -32,12 +36,13 @@ public class Creation_Adulte extends javax.swing.JFrame {
         }
     }
     
-    public Creation_Adulte(int _id_adulte) {
+    public Creation_Adulte(int _idAdulte) {
         initComponents();
-        this.populate(_id_adulte);
+        idAdulte = _idAdulte;
+        this.populate(idAdulte);
     }
     
-    public void populate(int _id_adulte) {
+    public void populate(int idAdulte) {
         Base b = new Base();
         Connection conn = null;
         ResultSet res;
@@ -47,7 +52,7 @@ public class Creation_Adulte extends javax.swing.JFrame {
 
         try {
             statement = conn.prepareStatement("select * from p1514568.Adulte where id_adulte = ?");
-            statement.setInt(1, _id_adulte);
+            statement.setInt(1, idAdulte);
             res = statement.executeQuery();
             
             while (res.next()){     
@@ -91,7 +96,6 @@ public class Creation_Adulte extends javax.swing.JFrame {
                 ftfDtDebut.setText(sDateDebut);
                 ftfDtFin.setText(sDateFin);
             }
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -143,11 +147,11 @@ public class Creation_Adulte extends javax.swing.JFrame {
 
         labPrenom.setText("* Prénom");
 
-        labProfession.setText("Profession");
+        labProfession.setText("* Profession");
 
-        labAdresse.setText("Adresse");
+        labAdresse.setText("* Adresse");
 
-        labTelephone.setText("Téléphone");
+        labTelephone.setText("* Téléphone");
 
         labEmail.setText("Email");
 
@@ -374,33 +378,72 @@ public class Creation_Adulte extends javax.swing.JFrame {
         String horaires = tfHoraires.getText();
         Boolean decede = cbDecede.isSelected();
         Boolean eqEns = cbEqEns.isSelected();
-        Date dateDebut = (Date)ftfDtDebut.getValue();
-        Date dateFin = (Date)ftfDtFin.getValue();
+//        String stDateDebut = ftfDtDebut.getText();
+//        String stDateFin = ftfDtFin.getText();
+
+
+        
+        String sql = "";
         
         if (nom.equals("") || prenom.equals("")) {
-            JOptionPane jop = new JOptionPane();
             JOptionPane.showMessageDialog(null, "Il faut remplir au moins les champs Nom et Prénom.", "Erreur !", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (eqEns) {
-                Enseignant a = new Enseignant(nom, prenom);
-                if (!dateDebut.equals("")) {a.setDateDebut(dateDebut);}
-                if (!dateFin.equals("")) {a.setDateFin(dateFin);}
+            if (idAdulte < 0) {
+                sql = "insert into p1514568.Adulte "
+                        + "(nom_adulte, prenom_adulte, profession, adresse_adulte, telephone, decede, enseignant";
+                if (!email.equals("")) { sql = sql + ", email"; }
+                if (!lieuTr.equals("")) { sql = sql + ", adresse_travail"; }
+                if (!telephoneTr.equals("")) { sql = sql + ", telephone_travail"; }
+                if (!horaires.equals("")) { sql = sql + ", horaires"; }
+//                if (!dateDebut.equals("")) { res = res + ", date_debut"; }
+//                if (!dateFin.equals("")) { res = res + ", date_fin"; }
+                sql = sql + ") values ('"+nom+"', '"+prenom+"', '"+profession+"', '"+adresse+"', '"+telephone+"', "+decede+", "+eqEns;
+                if (!email.equals("")) { sql = sql + ", '"+email+"'"; }
+                if (!lieuTr.equals("")) { sql = sql + ", '"+lieuTr+"'"; }
+                if (!telephoneTr.equals("")) { sql = sql + ", '"+telephoneTr+"'"; }
+                if (!horaires.equals("")) { sql = sql + ", '"+horaires+"'"; }
+//                if (!dateDebut.equals("")) { res = res + ", '"+dateDebut+"'"; }
+//                if (!dateFin.equals("")) { res = res + ", '"+dateFin+"'"; }
+                sql = sql + ");";
             } else {
-                Adulte a = new Adulte(nom, prenom);
+                sql = "update p1514568.Adulte "
+                        + "set nom_adulte = '"+nom+"'"
+                        + ", set prenom_adulte = '"+prenom+"'"
+                        + ", set profession = '"+profession+"'";
+                if (!email.equals("")) { sql = sql + ", set email = '"+email+"'"; }
+                sql = sql + ", set adresse_adulte = '"+adresse+"'"
+                        + ", set telephone = '"+telephone+"'";
+                if (!lieuTr.equals("")) { sql = sql + ", set adresse_travail = '"+lieuTr+"'"; }
+                if (!telephoneTr.equals("")) { sql = sql + ", set telephone_travail = '"+telephoneTr+"'"; }
+                if (!horaires.equals("")) { sql = sql + ", set horaires = '"+horaires+"'"; }
+                sql = sql + ", set decede = "+decede
+                        + ", set enseignant = "+eqEns+" ";
+//                if (!dateDebut.equals("")) { res = res + ", set date_debut = '"+dateDebut+"' "; }
+//                if (!dateFin.equals("")) { res = res + ", set date_fin = '"+dateFin+"' "; }
+                sql = sql + "where id_adulte = "+idAdulte;
             }
- /*           if (!profession.equals("")) {a.setProfession(profession);}
-            if (!adresse.equals("")) {a.setAdresse(adresse);}
-            if (!telephone.equals("")) {a.setTelephone(telephone);}
-            if (!email.equals("")) {a.setEmail(email);}
-            if (!lieuTr.equals("")) {a.setLieuTr(lieuTr);}
-            if (!telephoneTr.equals("")) {a.setTelephoneTr(telephoneTr);}
-            if (decede) {a.setDecede(true);}*/
+            System.out.println(sql);
+            
+            Base b = new Base();
+            Connection conn = null;
+            Statement statement;
+            b.connexionBD();
+            conn = b.getConnect();
+
+            try {
+                statement = conn.createStatement();
+                statement.executeUpdate(sql);
+                statement.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        
     }//GEN-LAST:event_butValiderActionPerformed
 
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
-        // TODO add your handling code here:
+        Recherche_Adulte w = new Recherche_Adulte();
+        w.setVisible(true); 
+        dispose();
     }//GEN-LAST:event_butAnnulerActionPerformed
 
     /**
