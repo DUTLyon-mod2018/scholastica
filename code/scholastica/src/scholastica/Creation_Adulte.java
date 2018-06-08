@@ -5,15 +5,20 @@
  */
 package scholastica;
 
+import java.sql.*;
+import java.text.*;
 import java.util.Date;
 import javax.swing.JOptionPane;
-import scholastica.*;
+
 
 /**
  *
  * @author x7000328
  */
 public class Creation_Adulte extends javax.swing.JFrame {
+    
+    int idAdulte;
+    String idFenetre = "creationAdulte";
 
     /**
      * Creates new form CrAdulte
@@ -22,20 +27,78 @@ public class Creation_Adulte extends javax.swing.JFrame {
         initComponents();
         // ne pas afficher les infos de mise en poste si l'adulte ne fait pas
         // partie de l'équipe enseignante
+        idAdulte = -1;
         Boolean eqEns = cbEqEns.isSelected();
         if (eqEns) {
             jPanel2.setVisible(true);
         } else {
             jPanel2.setVisible(false);
         }
-        // désactiver la case à cocher Équipe enseignante si la date de début
-        // est renseignée
-//        String dtDebut = (String)jFormattedTextField11.getValue();
-//        if (dtDebut.equals("")) {
-//            jCheckBox1.setEnabled(true);
-//        } else {
-//            jCheckBox1.setEnabled(false);
-//        }
+    }
+    
+    public Creation_Adulte(int _idAdulte) {
+        initComponents();
+        idAdulte = _idAdulte;
+        this.populate(idAdulte);
+    }
+    
+    public void populate(int idAdulte) {
+        Base b = new Base();
+        Connection conn = null;
+        ResultSet res;
+        PreparedStatement statement;
+        b.connexionBD();
+        conn = b.getConnect();
+
+        try {
+            statement = conn.prepareStatement("select * from p1514568.Adulte where id_adulte = ?");
+            statement.setInt(1, idAdulte);
+            res = statement.executeQuery();
+            
+            while (res.next()){     
+                String nom = res.getString("nom_adulte");
+                String prenom = res.getString("prenom_adulte");
+                String profession = res.getString("profession");
+                String adresse = res.getString("adresse_adulte");
+                String telephone = res.getString("telephone");
+                String email = res.getString("email");
+                String lieuTr = res.getString("adresse_travail");
+                String telephoneTr = res.getString("telephone_travail");   
+                String horaires = res.getString("horaires");
+                Boolean decede = res.getBoolean("decede");
+                Boolean enseignant = res.getBoolean("enseignant");
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                String sDateDebut = null;
+                String sDateFin = null;
+                Date dateDebut = res.getDate("date_debut");
+                if (null != dateDebut) {
+                    sDateDebut = formatter.format(dateDebut);
+                }
+                Date dateFin = res.getDate("date_fin");
+                if (null != dateFin) {
+                    sDateFin = formatter.format(dateFin);
+                }
+
+                res.close();
+                statement.close();
+
+                tfNom.setText(nom);
+                tfPrenom.setText(prenom);
+                tfProfession.setText(profession);
+                taAdresse.setText(adresse);
+                tfTelephone.setText(telephone);
+                tfEmail.setText(email);
+                tfLieuTr.setText(lieuTr);
+                tfTelephoneTr.setText(telephoneTr);
+                tfHoraires.setText(horaires);
+                cbDecede.setSelected(decede);
+                cbEqEns.setSelected(enseignant);
+                ftfDtDebut.setText(sDateDebut);
+                ftfDtFin.setText(sDateFin);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
@@ -84,11 +147,11 @@ public class Creation_Adulte extends javax.swing.JFrame {
 
         labPrenom.setText("* Prénom");
 
-        labProfession.setText("Profession");
+        labProfession.setText("* Profession");
 
-        labAdresse.setText("Adresse");
+        labAdresse.setText("* Adresse");
 
-        labTelephone.setText("Téléphone");
+        labTelephone.setText("* Téléphone");
 
         labEmail.setText("Email");
 
@@ -306,42 +369,78 @@ public class Creation_Adulte extends javax.swing.JFrame {
     private void butValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butValiderActionPerformed
         String nom = tfNom.getText();
         String prenom = tfPrenom.getText();
-        String profession = tfProfession.getText();
-        String adresse = taAdresse.getText();
-        String telephone = tfTelephone.getText();
-        String email = tfEmail.getText();
-        String lieuTr = tfLieuTr.getText();
-        String telephoneTr = tfTelephoneTr.getText();
-        String horaires = tfHoraires.getText();
-        Boolean decede = cbDecede.isSelected();
-        Boolean eqEns = cbEqEns.isSelected();
-        Date dateDebut = (Date)ftfDtDebut.getValue();
-        Date dateFin = (Date)ftfDtFin.getValue();
-        
+        java.util.Date DateDebut = (Date)ftfDtDebut.getValue();
+        java.sql.Date sqlDateDebut = null;
+        if (null != DateDebut) { sqlDateDebut = new java.sql.Date(DateDebut.getTime()); }
+        java.util.Date DateFin = (Date)ftfDtFin.getValue();
+        java.sql.Date sqlDateFin = null;
+        if (null != DateFin) { sqlDateFin = new java.sql.Date(DateFin.getTime()); }
+
         if (nom.equals("") || prenom.equals("")) {
-            JOptionPane jop = new JOptionPane();
             JOptionPane.showMessageDialog(null, "Il faut remplir au moins les champs Nom et Prénom.", "Erreur !", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (eqEns) {
-                Enseignant a = new Enseignant(nom, prenom);
-                if (!dateDebut.equals("")) {a.setDateDebut(dateDebut);}
-                if (!dateFin.equals("")) {a.setDateFin(dateFin);}
+            Base b = new Base();
+            Connection conn = null;
+            PreparedStatement statement;
+            b.connexionBD();
+            conn = b.getConnect();
+            String sql = "";
+            
+            if (idAdulte < 0) {
+                sql = "insert into p1514568.Adulte "
+                        + "(nom_adulte, prenom_adulte, profession, email, adresse_adulte, telephone, adresse_travail, telephone_travail, horaires, decede, enseignant, date_debut, date_fin)"
+                        + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
             } else {
-                Adulte a = new Adulte(nom, prenom);
+                sql = "update p1514568.Adulte "
+                        + "set nom_adulte = ?"
+                        + ", prenom_adulte = ?"
+                        + ", profession = ?"
+                        + ", email = ?"
+                        + ", adresse_adulte = ?"
+                        + ", telephone = ?"
+                        + ", adresse_travail = ?"
+                        + ", telephone_travail = ?"
+                        + ", horaires = ?"
+                        + ", decede = ?"
+                        + ", enseignant = ?"
+                        + ", date_debut = ?"
+                        + ", date_fin = ?"
+                        + " where id_adulte = "+idAdulte;
             }
-            if (!profession.equals("")) {a.setProfession(profession);}
-            if (!adresse.equals("")) {a.setAdresse(adresse);}
-            if (!telephone.equals("")) {a.setTelephone(telephone);}
-            if (!email.equals("")) {a.setEmail(email);}
-            if (!lieuTr.equals("")) {a.setLieuTr(lieuTr);}
-            if (!telephoneTr.equals("")) {a.setTelephoneTr(telephoneTr);}
-            if (decede) {a.setDecede(true);}
+            System.out.println(sql);
+            try {
+                statement = conn.prepareStatement(sql);
+                statement.setString(1, nom);
+                statement.setString(2, prenom);
+                statement.setString(3, tfProfession.getText());
+                statement.setString(4, tfEmail.getText());
+                statement.setString(5, taAdresse.getText());
+                statement.setString(6, tfTelephone.getText());
+                statement.setString(7, tfLieuTr.getText());
+                statement.setString(8, tfTelephoneTr.getText());
+                statement.setString(9, tfHoraires.getText());
+                statement.setBoolean(10, cbDecede.isSelected());
+                statement.setBoolean(11, cbEqEns.isSelected());
+                statement.setDate(12, sqlDateDebut);
+                statement.setDate(13, sqlDateFin);
+                
+                statement.executeUpdate();
+                statement.close();
+                
+                Recherche_Adulte w = new Recherche_Adulte();
+                w.setVisible(true); 
+                dispose();
+
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
         }
-        
     }//GEN-LAST:event_butValiderActionPerformed
 
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
-        // TODO add your handling code here:
+        Recherche_Adulte w = new Recherche_Adulte();
+        w.setVisible(true); 
+        dispose();
     }//GEN-LAST:event_butAnnulerActionPerformed
 
     /**

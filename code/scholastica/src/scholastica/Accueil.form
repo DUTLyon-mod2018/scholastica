@@ -52,7 +52,7 @@
                   <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
                       <Component id="jButton5" min="-2" max="-2" attributes="0"/>
-                      <Component id="jButton8" max="32767" attributes="0"/>
+                      <Component id="butRechercheAdulte" max="32767" attributes="0"/>
                       <Component id="jButton9" alignment="0" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace min="80" pref="48" max="32767" attributes="0"/>
@@ -86,7 +86,7 @@
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
                   <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                      <Component id="jButton8" pref="58" max="32767" attributes="0"/>
+                      <Component id="butRechercheAdulte" pref="58" max="32767" attributes="0"/>
                       <Component id="crea_adulte" max="32767" attributes="0"/>
                   </Group>
                   <EmptySpace type="separate" max="-2" attributes="0"/>
@@ -119,10 +119,13 @@
             <Property name="text" type="java.lang.String" value="Cr&#xe9;ation adulte"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="jButton8">
+        <Component class="javax.swing.JButton" name="butRechercheAdulte">
           <Properties>
             <Property name="text" type="java.lang.String" value="Recherche adulte"/>
           </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butRechercheAdulteActionPerformed"/>
+          </Events>
         </Component>
         <Component class="javax.swing.JButton" name="jButton9">
           <Properties>

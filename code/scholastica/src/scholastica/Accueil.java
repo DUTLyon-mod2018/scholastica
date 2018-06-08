@@ -32,7 +32,7 @@ public class Accueil extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         crea_eleve = new javax.swing.JButton();
         crea_adulte = new javax.swing.JButton();
-        jButton8 = new javax.swing.JButton();
+        butRechercheAdulte = new javax.swing.JButton();
         jButton9 = new javax.swing.JButton();
         jButton10 = new javax.swing.JButton();
         quit = new javax.swing.JButton();
@@ -51,7 +51,12 @@ public class Accueil extends javax.swing.JFrame {
 
         crea_adulte.setText("Création adulte");
 
-        jButton8.setText("Recherche adulte");
+        butRechercheAdulte.setText("Recherche adulte");
+        butRechercheAdulte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butRechercheAdulteActionPerformed(evt);
+            }
+        });
 
         jButton9.setText("Classes");
 
@@ -74,7 +79,7 @@ public class Accueil extends javax.swing.JFrame {
                 .addGap(61, 61, 61)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jButton5)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(butRechercheAdulte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(48, 48, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -101,7 +106,7 @@ public class Accueil extends javax.swing.JFrame {
                     .addComponent(crea_eleve, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton8, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
+                    .addComponent(butRechercheAdulte, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
                     .addComponent(crea_adulte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -143,6 +148,12 @@ public class Accueil extends javax.swing.JFrame {
         dispose();
     }//GEN-LAST:event_crea_eleveActionPerformed
 
+    private void butRechercheAdulteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRechercheAdulteActionPerformed
+        Recherche_Adulte rechAd=new Recherche_Adulte();
+        rechAd.setVisible(true); 
+        dispose();
+    }//GEN-LAST:event_butRechercheAdulteActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -179,11 +190,11 @@ public class Accueil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton butRechercheAdulte;
     private javax.swing.JButton crea_adulte;
     private javax.swing.JButton crea_eleve;
     private javax.swing.JButton jButton10;
     private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton8;
     private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
