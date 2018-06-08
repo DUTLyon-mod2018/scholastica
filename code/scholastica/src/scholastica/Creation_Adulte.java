@@ -379,33 +379,37 @@ public class Creation_Adulte extends javax.swing.JFrame {
         if (nom.equals("") || prenom.equals("")) {
             JOptionPane.showMessageDialog(null, "Il faut remplir au moins les champs Nom et Prénom.", "Erreur !", JOptionPane.ERROR_MESSAGE);
         } else {
+            Base b = new Base();
+            Connection conn = null;
+            PreparedStatement statement;
+            b.connexionBD();
+            conn = b.getConnect();
+            String sql = "";
+            
+            if (idAdulte < 0) {
+                sql = "insert into p1514568.Adulte "
+                        + "(nom_adulte, prenom_adulte, profession, email, adresse_adulte, telephone, adresse_travail, telephone_travail, horaires, decede, enseignant, date_debut, date_fin)"
+                        + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+            } else {
+                sql = "update p1514568.Adulte "
+                        + "set nom_adulte = ?"
+                        + ", prenom_adulte = ?"
+                        + ", profession = ?"
+                        + ", email = ?"
+                        + ", adresse_adulte = ?"
+                        + ", telephone = ?"
+                        + ", adresse_travail = ?"
+                        + ", telephone_travail = ?"
+                        + ", horaires = ?"
+                        + ", decede = ?"
+                        + ", enseignant = ?"
+                        + ", date_debut = ?"
+                        + ", date_fin = ?"
+                        + " where id_adulte = "+idAdulte;
+            }
+            System.out.println(sql);
             try {
-                Base b = new Base();
-                Connection conn = null;
-                String sql = "";
-                if (idAdulte < 0) {
-                    sql = "insert into p1514568.Adulte "
-                            + "(nom_adulte, prenom_adulte, profession, email, adresse_adulte, telephone, adresse_travail, telephone_travail, horaires, decede, enseignant, date_debut, date_fin)"
-                            + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
-                } else {
-                    sql = "update p1514568.Adulte "
-                            + "set nom_adulte = ?"
-                            + ", set prenom_adulte = ?"
-                            + ", set profession = ?"
-                            + ", set email = ?"
-                            + ", set adresse_adulte = ?"
-                            + ", set telephone = ?"
-                            + ", set adresse_travail = ?"
-                            + ", set telephone_travail = ?"
-                            + ", set horaires = ?"
-                            + ", set decede = ?"
-                            + ", set enseignant = ?"
-                            + ", set date_debut = ?"
-                            + ", set date_fin = ?"
-                            + " where id_adulte = "+idAdulte;
-                }
-                System.out.println(sql);
-                PreparedStatement statement = conn.prepareStatement(sql);
+                statement = conn.prepareStatement(sql);
                 statement.setString(1, nom);
                 statement.setString(2, prenom);
                 statement.setString(3, tfProfession.getText());
@@ -422,6 +426,11 @@ public class Creation_Adulte extends javax.swing.JFrame {
                 
                 statement.executeUpdate();
                 statement.close();
+                
+                Recherche_Adulte w = new Recherche_Adulte();
+                w.setVisible(true); 
+                dispose();
+
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
