@@ -369,70 +369,58 @@ public class Creation_Adulte extends javax.swing.JFrame {
     private void butValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butValiderActionPerformed
         String nom = tfNom.getText();
         String prenom = tfPrenom.getText();
-        String profession = tfProfession.getText();
-        String adresse = taAdresse.getText();
-        String telephone = tfTelephone.getText();
-        String email = tfEmail.getText();
-        String lieuTr = tfLieuTr.getText();
-        String telephoneTr = tfTelephoneTr.getText();
-        String horaires = tfHoraires.getText();
-        Boolean decede = cbDecede.isSelected();
-        Boolean eqEns = cbEqEns.isSelected();
-//        String stDateDebut = ftfDtDebut.getText();
-//        String stDateFin = ftfDtFin.getText();
+        java.util.Date DateDebut = (Date)ftfDtDebut.getValue();
+        java.sql.Date sqlDateDebut = null;
+        if (null != DateDebut) { sqlDateDebut = new java.sql.Date(DateDebut.getTime()); }
+        java.util.Date DateFin = (Date)ftfDtFin.getValue();
+        java.sql.Date sqlDateFin = null;
+        if (null != DateFin) { sqlDateFin = new java.sql.Date(DateFin.getTime()); }
 
-
-        
-        String sql = "";
-        
         if (nom.equals("") || prenom.equals("")) {
             JOptionPane.showMessageDialog(null, "Il faut remplir au moins les champs Nom et Prénom.", "Erreur !", JOptionPane.ERROR_MESSAGE);
         } else {
-            if (idAdulte < 0) {
-                sql = "insert into p1514568.Adulte "
-                        + "(nom_adulte, prenom_adulte, profession, adresse_adulte, telephone, decede, enseignant";
-                if (!email.equals("")) { sql = sql + ", email"; }
-                if (!lieuTr.equals("")) { sql = sql + ", adresse_travail"; }
-                if (!telephoneTr.equals("")) { sql = sql + ", telephone_travail"; }
-                if (!horaires.equals("")) { sql = sql + ", horaires"; }
-//                if (!dateDebut.equals("")) { res = res + ", date_debut"; }
-//                if (!dateFin.equals("")) { res = res + ", date_fin"; }
-                sql = sql + ") values ('"+nom+"', '"+prenom+"', '"+profession+"', '"+adresse+"', '"+telephone+"', "+decede+", "+eqEns;
-                if (!email.equals("")) { sql = sql + ", '"+email+"'"; }
-                if (!lieuTr.equals("")) { sql = sql + ", '"+lieuTr+"'"; }
-                if (!telephoneTr.equals("")) { sql = sql + ", '"+telephoneTr+"'"; }
-                if (!horaires.equals("")) { sql = sql + ", '"+horaires+"'"; }
-//                if (!dateDebut.equals("")) { res = res + ", '"+dateDebut+"'"; }
-//                if (!dateFin.equals("")) { res = res + ", '"+dateFin+"'"; }
-                sql = sql + ");";
-            } else {
-                sql = "update p1514568.Adulte "
-                        + "set nom_adulte = '"+nom+"'"
-                        + ", set prenom_adulte = '"+prenom+"'"
-                        + ", set profession = '"+profession+"'";
-                if (!email.equals("")) { sql = sql + ", set email = '"+email+"'"; }
-                sql = sql + ", set adresse_adulte = '"+adresse+"'"
-                        + ", set telephone = '"+telephone+"'";
-                if (!lieuTr.equals("")) { sql = sql + ", set adresse_travail = '"+lieuTr+"'"; }
-                if (!telephoneTr.equals("")) { sql = sql + ", set telephone_travail = '"+telephoneTr+"'"; }
-                if (!horaires.equals("")) { sql = sql + ", set horaires = '"+horaires+"'"; }
-                sql = sql + ", set decede = "+decede
-                        + ", set enseignant = "+eqEns+" ";
-//                if (!dateDebut.equals("")) { res = res + ", set date_debut = '"+dateDebut+"' "; }
-//                if (!dateFin.equals("")) { res = res + ", set date_fin = '"+dateFin+"' "; }
-                sql = sql + "where id_adulte = "+idAdulte;
-            }
-            System.out.println(sql);
-            
-            Base b = new Base();
-            Connection conn = null;
-            Statement statement;
-            b.connexionBD();
-            conn = b.getConnect();
-
             try {
-                statement = conn.createStatement();
-                statement.executeUpdate(sql);
+                Base b = new Base();
+                Connection conn = null;
+                String sql = "";
+                if (idAdulte < 0) {
+                    sql = "insert into p1514568.Adulte "
+                            + "(nom_adulte, prenom_adulte, profession, email, adresse_adulte, telephone, adresse_travail, telephone_travail, horaires, decede, enseignant, date_debut, date_fin)"
+                            + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                } else {
+                    sql = "update p1514568.Adulte "
+                            + "set nom_adulte = ?"
+                            + ", set prenom_adulte = ?"
+                            + ", set profession = ?"
+                            + ", set email = ?"
+                            + ", set adresse_adulte = ?"
+                            + ", set telephone = ?"
+                            + ", set adresse_travail = ?"
+                            + ", set telephone_travail = ?"
+                            + ", set horaires = ?"
+                            + ", set decede = ?"
+                            + ", set enseignant = ?"
+                            + ", set date_debut = ?"
+                            + ", set date_fin = ?"
+                            + " where id_adulte = "+idAdulte;
+                }
+                System.out.println(sql);
+                PreparedStatement statement = conn.prepareStatement(sql);
+                statement.setString(1, nom);
+                statement.setString(2, prenom);
+                statement.setString(3, tfProfession.getText());
+                statement.setString(4, tfEmail.getText());
+                statement.setString(5, taAdresse.getText());
+                statement.setString(6, tfTelephone.getText());
+                statement.setString(7, tfLieuTr.getText());
+                statement.setString(8, tfTelephoneTr.getText());
+                statement.setString(9, tfHoraires.getText());
+                statement.setBoolean(10, cbDecede.isSelected());
+                statement.setBoolean(11, cbEqEns.isSelected());
+                statement.setDate(12, sqlDateDebut);
+                statement.setDate(13, sqlDateFin);
+                
+                statement.executeUpdate();
                 statement.close();
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
