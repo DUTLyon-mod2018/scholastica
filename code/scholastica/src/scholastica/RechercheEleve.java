@@ -6,6 +6,7 @@
 package scholastica;
 
 import java.sql.*;
+import java.util.*;
 import javax.swing.*;
 
 /**
@@ -37,11 +38,14 @@ public class RechercheEleve extends javax.swing.JFrame {
         labNeEntre = new javax.swing.JLabel();
         ftfDateDebut = new javax.swing.JFormattedTextField();
         jLabel1 = new javax.swing.JLabel();
-        ftfDateDebut1 = new javax.swing.JFormattedTextField();
+        ftfDateFin = new javax.swing.JFormattedTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tabResultat = new javax.swing.JTable();
         labMesResultat = new javax.swing.JLabel();
         butRechercher = new javax.swing.JButton();
+        butReinit = new javax.swing.JButton();
+        butOuvrir = new javax.swing.JButton();
+        butAccueil = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,23 +53,19 @@ public class RechercheEleve extends javax.swing.JFrame {
 
         labPrenom.setText("Prénom");
 
-        labNeEntre.setText("Né après ");
+        labNeEntre.setText("Né avant ");
 
+        ftfDateDebut.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
         ftfDateDebut.setToolTipText("");
 
-        jLabel1.setText("et avant");
+        jLabel1.setText("et après");
 
-        ftfDateDebut1.setToolTipText("");
+        ftfDateFin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+        ftfDateFin.setToolTipText("");
 
         tabResultat.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
                 "ID", "Nom", "Prénom", "Date de naissance"
@@ -80,6 +80,28 @@ public class RechercheEleve extends javax.swing.JFrame {
             }
         });
 
+        butReinit.setText("Réinitialiser");
+        butReinit.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butReinitActionPerformed(evt);
+            }
+        });
+
+        butOuvrir.setText("Ouvrir");
+        butOuvrir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butOuvrirActionPerformed(evt);
+            }
+        });
+
+        butAccueil.setText("Accueil");
+        butAccueil.setToolTipText("");
+        butAccueil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butAccueilActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -87,28 +109,34 @@ public class RechercheEleve extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(labNom)
                             .addComponent(labPrenom)
-                            .addComponent(labNom))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tfNom)
-                            .addComponent(tfPrenom)))
+                            .addComponent(labNeEntre))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(ftfDateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(11, 11, 11)
+                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(ftfDateFin, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
+                            .addComponent(tfPrenom, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(tfNom, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labMesResultat)
-                            .addComponent(butRechercher))
+                            .addComponent(labMesResultat, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(butRechercher)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(butReinit)))
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labNeEntre)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(ftfDateDebut, javax.swing.GroupLayout.DEFAULT_SIZE, 143, Short.MAX_VALUE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel1)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(ftfDateDebut1, javax.swing.GroupLayout.PREFERRED_SIZE, 132, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(butOuvrir)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(butAccueil)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -119,93 +147,134 @@ public class RechercheEleve extends javax.swing.JFrame {
                     .addComponent(labNom)
                     .addComponent(tfNom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(labPrenom)
-                    .addComponent(tfPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(tfPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(labPrenom))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ftfDateDebut1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ftfDateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1))
+                    .addComponent(ftfDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(ftfDateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel1)
                         .addComponent(labNeEntre)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(labMesResultat)
                 .addGap(18, 18, 18)
-                .addComponent(butRechercher)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(butRechercher)
+                    .addComponent(butReinit))
+                .addGap(18, 18, 18)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 143, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(labMesResultat, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(butOuvrir)
+                    .addComponent(butAccueil))
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void butRechercherActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRechercherActionPerformed
-        String nom = tfNom.getText();
-        String prenom = tfPrenom.getText();
-        
-        if (nom.isEmpty() && prenom.isEmpty()) {
+        java.util.Date DateDebut = (java.util.Date) ftfDateDebut.getValue();
+        java.sql.Date sqlDateDebut = new java.sql.Date(0);
+        if (null != DateDebut) {
+            sqlDateDebut.setTime(DateDebut.getTime());
+        }
+        java.util.Date DateFin = (java.util.Date) ftfDateFin.getValue();
+        java.sql.Date sqlDateFin = new java.sql.Date(2000000000000L);
+        if (null != DateFin) {
+            sqlDateFin.setTime(DateFin.getTime());
+        }
+
+        if (tfNom.getText().isEmpty() && tfPrenom.getText().isEmpty() && null == DateDebut && null == DateFin) {
             JOptionPane.showMessageDialog(null, "Il faut remplir au moins un champ.", "Erreur !", JOptionPane.ERROR_MESSAGE);
         }
-        
-        String sql = "select id_enfant, nom_enfant, prenom_enfant, date_naissance from p1514568.Enfant where ";
-        if (!nom.isEmpty()) { sql += "nom_enfant like '%" + nom + "%'"; }
-        if ((!nom.isEmpty()) && (!prenom.isEmpty())) { sql += " and "; }
-        if (!prenom.isEmpty()) { sql += "prenom_enfant like '%" + prenom + "%'"; }
-        
-        System.out.println(sql);
-        
+
         Base b = new Base();
         Connection conn = null;
         ResultSet res;
-        Statement statement;
+        PreparedStatement statement;
         b.connexionBD();
         conn = b.getConnect();
+        String sql = "select id_enfant, nom_enfant, prenom_enfant, date_naissance from p1514568.Enfant"
+                + " where nom_enfant like ? and prenom_enfant like ? and date_naissance between ? and ?";
 
         try {
-            statement = conn.createStatement();
-            res = statement.executeQuery(sql);
-            
+            statement = conn.prepareStatement(sql);
+            statement.setString(1, "%" + tfNom.getText() + "%");
+            statement.setString(2, "%" + tfPrenom.getText() + "%");
+            statement.setDate(3, sqlDateDebut);
+            statement.setDate(4, sqlDateFin);
+
+            System.out.println(statement);
+
+            res = statement.executeQuery();
+
             // on crée les en-têtes du tableau
             Object[] colonne = new Object[4];
             colonne[0] = "ID";
             colonne[1] = "Nom";
             colonne[2] = "Prénom";
             colonne[3] = "Date de naissance";
-            
+
             // on récupère le nombre de résultats pour créer l'objet + l'afficher
             res.last();
             int rowCount = res.getRow();
             Object[][] data = new Object[rowCount][4];
-            
+
             // on revient au départ
             res.beforeFirst();
             int r = 0;
 
             // on remplit le tableau d'Object[][]
-            while(res.next()){
-                for(int c = 1 ; c <= 4; c++) {
-                    data[r][c-1] = res.getObject(c);
+            while (res.next()) {
+                for (int c = 1; c <= 4; c++) {
+                    data[r][c - 1] = res.getObject(c);
                 }
                 r++;
             }
-            
+
             res.close();
             statement.close();
-            
+
             if (rowCount > 0) {
                 tabResultat.setModel(new javax.swing.table.DefaultTableModel(data, colonne));
-                labMesResultat.setText("La recherche a retourné "+rowCount+" résultat(s).");
+                labMesResultat.setText("La recherche a retourné " + rowCount + " résultat(s).");
             } else if (rowCount == 0) {
-                tabResultat.setModel(new javax.swing.table.DefaultTableModel(new Object[][] { {null, null, null, null} }, colonne));
+                tabResultat.setModel(new javax.swing.table.DefaultTableModel(new Object[][]{{null, null, null, null}}, colonne));
                 labMesResultat.setText("La recherche n'a retourné aucun résultat.");
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-}
+        }
     }//GEN-LAST:event_butRechercherActionPerformed
+
+    private void butOuvrirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butOuvrirActionPerformed
+        if (tabResultat.getSelectedRow() == -1) {
+            JOptionPane jop = new JOptionPane();
+            JOptionPane.showMessageDialog(null, "Il faut choisir un résultat de recherche.", "Erreur !", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int row = tabResultat.getSelectedRow();
+            int id_enfant = (int) tabResultat.getValueAt(row, 0);
+            Creation_Enfant f = new Creation_Enfant(id_enfant);
+            f.setVisible(true);
+            dispose();
+        }
+    }//GEN-LAST:event_butOuvrirActionPerformed
+
+    private void butReinitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butReinitActionPerformed
+        tfNom.setText(null);
+        tfPrenom.setText(null);
+        ftfDateDebut.setText(null);
+        ftfDateFin.setText(null);
+    }//GEN-LAST:event_butReinitActionPerformed
+
+    private void butAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAccueilActionPerformed
+        Accueil f = new Accueil();
+        f.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_butAccueilActionPerformed
 
     /**
      * @param args the command line arguments
@@ -243,9 +312,12 @@ public class RechercheEleve extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton butAccueil;
+    private javax.swing.JButton butOuvrir;
     private javax.swing.JButton butRechercher;
+    private javax.swing.JButton butReinit;
     private javax.swing.JFormattedTextField ftfDateDebut;
-    private javax.swing.JFormattedTextField ftfDateDebut1;
+    private javax.swing.JFormattedTextField ftfDateFin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labMesResultat;

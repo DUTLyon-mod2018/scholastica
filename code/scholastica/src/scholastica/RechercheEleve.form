@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 
-<Form version="1.3" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
+<Form version="1.5" maxVersion="1.9" type="org.netbeans.modules.form.forminfo.JFrameFormInfo">
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
   </Properties>
@@ -26,33 +26,41 @@
           <Group type="102" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="jScrollPane1" pref="0" max="32767" attributes="0"/>
-                  <Group type="102" alignment="0" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labPrenom" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="labNom" alignment="0" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="tfNom" max="32767" attributes="0"/>
-                          <Component id="tfPrenom" max="32767" attributes="0"/>
-                      </Group>
-                  </Group>
                   <Group type="102" attributes="0">
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="labMesResultat" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="butRechercher" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labNom" min="-2" max="-2" attributes="0"/>
+                          <Component id="labPrenom" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="labNeEntre" alignment="0" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                          <Group type="102" attributes="0">
+                              <Component id="ftfDateDebut" min="-2" pref="174" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="11" max="-2" attributes="0"/>
+                              <Component id="jLabel1" min="-2" pref="47" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="ftfDateFin" pref="175" max="32767" attributes="0"/>
+                          </Group>
+                          <Component id="tfPrenom" alignment="1" max="32767" attributes="0"/>
+                          <Component id="tfNom" alignment="1" max="32767" attributes="0"/>
+                      </Group>
+                  </Group>
+                  <Component id="jScrollPane1" alignment="0" pref="484" max="32767" attributes="0"/>
+                  <Group type="102" attributes="0">
+                      <Group type="103" groupAlignment="0" attributes="0">
+                          <Component id="labMesResultat" min="-2" pref="69" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="butRechercher" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="unrelated" max="-2" attributes="0"/>
+                              <Component id="butReinit" min="-2" max="-2" attributes="0"/>
+                          </Group>
                       </Group>
                       <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="0" attributes="0">
-                      <Component id="labNeEntre" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="ftfDateDebut" pref="143" max="32767" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace type="unrelated" max="-2" attributes="0"/>
-                      <Component id="ftfDateDebut1" min="-2" pref="132" max="-2" attributes="0"/>
+                      <Component id="butOuvrir" min="-2" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="butAccueil" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
@@ -68,28 +76,34 @@
                   <Component id="tfNom" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace max="-2" attributes="0"/>
-              <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="labPrenom" min="-2" max="-2" attributes="0"/>
-                  <Component id="tfPrenom" min="-2" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="tfPrenom" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="labPrenom" alignment="3" min="-2" max="-2" attributes="0"/>
               </Group>
               <EmptySpace type="unrelated" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Component id="ftfDateDebut1" min="-2" max="-2" attributes="0"/>
-                  <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="ftfDateDebut" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <Component id="labNeEntre" min="-2" max="-2" attributes="0"/>
+                  <Component id="ftfDateFin" min="-2" max="-2" attributes="0"/>
+                  <Group type="103" alignment="0" groupAlignment="3" attributes="0">
+                      <Component id="ftfDateDebut" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
+                      <Component id="labNeEntre" alignment="3" min="-2" max="-2" attributes="0"/>
                   </Group>
               </Group>
-              <EmptySpace max="-2" attributes="0"/>
-              <Component id="jScrollPane1" min="-2" pref="143" max="-2" attributes="0"/>
-              <EmptySpace type="unrelated" max="-2" attributes="0"/>
-              <Component id="labMesResultat" min="-2" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="18" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="butRechercher" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="butReinit" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
               <EmptySpace type="separate" max="-2" attributes="0"/>
-              <Component id="butRechercher" min="-2" max="-2" attributes="0"/>
+              <Component id="jScrollPane1" min="-2" pref="143" max="-2" attributes="0"/>
               <EmptySpace max="32767" attributes="0"/>
+              <Component id="labMesResultat" min="-2" pref="22" max="-2" attributes="0"/>
+              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+              <Group type="103" groupAlignment="3" attributes="0">
+                  <Component id="butOuvrir" alignment="3" min="-2" max="-2" attributes="0"/>
+                  <Component id="butAccueil" alignment="3" min="-2" max="-2" attributes="0"/>
+              </Group>
+              <EmptySpace max="-2" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -111,21 +125,27 @@
     </Component>
     <Component class="javax.swing.JLabel" name="labNeEntre">
       <Properties>
-        <Property name="text" type="java.lang.String" value="N&#xe9; apr&#xe8;s "/>
+        <Property name="text" type="java.lang.String" value="N&#xe9; avant "/>
       </Properties>
     </Component>
     <Component class="javax.swing.JFormattedTextField" name="ftfDateDebut">
       <Properties>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+          <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
+        </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel1">
       <Properties>
-        <Property name="text" type="java.lang.String" value="et avant"/>
+        <Property name="text" type="java.lang.String" value="et apr&#xe8;s"/>
       </Properties>
     </Component>
-    <Component class="javax.swing.JFormattedTextField" name="ftfDateDebut1">
+    <Component class="javax.swing.JFormattedTextField" name="ftfDateFin">
       <Properties>
+        <Property name="formatterFactory" type="javax.swing.JFormattedTextField$AbstractFormatterFactory" editor="org.netbeans.modules.form.editors.AbstractFormatterFactoryEditor">
+          <Format format="dd/MM/yyyy" subtype="-1" type="1"/>
+        </Property>
         <Property name="toolTipText" type="java.lang.String" value=""/>
       </Properties>
     </Component>
@@ -136,7 +156,7 @@
         <Component class="javax.swing.JTable" name="tabResultat">
           <Properties>
             <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
-              <Table columnCount="4" rowCount="7">
+              <Table columnCount="4" rowCount="0">
                 <Column editable="true" title="ID" type="java.lang.Object"/>
                 <Column editable="true" title="Nom" type="java.lang.Object"/>
                 <Column editable="true" title="Pr&#xe9;nom" type="java.lang.Object"/>
@@ -182,6 +202,31 @@
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butRechercherActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="butReinit">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="R&#xe9;initialiser"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butReinitActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="butOuvrir">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Ouvrir"/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butOuvrirActionPerformed"/>
+      </Events>
+    </Component>
+    <Component class="javax.swing.JButton" name="butAccueil">
+      <Properties>
+        <Property name="text" type="java.lang.String" value="Accueil"/>
+        <Property name="toolTipText" type="java.lang.String" value=""/>
+      </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butAccueilActionPerformed"/>
       </Events>
     </Component>
   </SubComponents>
