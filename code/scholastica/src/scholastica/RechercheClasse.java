@@ -16,6 +16,8 @@ import javax.swing.JOptionPane;
  */
 public class RechercheClasse extends javax.swing.JFrame {
 
+        String idFenetre = "RechercheClasse";
+
     /**
      * Creates new form RechercheClasse
      */
@@ -262,7 +264,7 @@ public class RechercheClasse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void butCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCreerActionPerformed
-            CreationClasse w = new CreationClasse();
+            CreationClasse w = new CreationClasse(idFenetre);
             w.setVisible(true); 
             dispose();
     }//GEN-LAST:event_butCreerActionPerformed
@@ -346,7 +348,7 @@ public class RechercheClasse extends javax.swing.JFrame {
         } else {
             int row = tabResultat.getSelectedRow();
             int id_classe = (int)tabResultat.getValueAt(row,0);
-            CreationClasse w = new CreationClasse(id_classe);
+            CreationClasse w = new CreationClasse(idFenetre, id_classe);
             w.setVisible(true); 
             dispose();
         }
