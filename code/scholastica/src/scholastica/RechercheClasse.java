@@ -5,7 +5,10 @@
  */
 package scholastica;
 
+import java.io.*;
 import java.sql.*;
+import java.util.*;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -18,7 +21,10 @@ public class RechercheClasse extends javax.swing.JFrame {
      */
     public RechercheClasse() {
         initComponents();
+        this.populate();
+    }
         
+    public void populate() {
         Base b = new Base();
         Connection conn = null;
         ResultSet res;
@@ -70,6 +76,53 @@ public class RechercheClasse extends javax.swing.JFrame {
             System.out.println(e.getMessage());
         }
     }
+    
+    public static void writeToCSV(List<Map> objectList) {
+        String CSV_SEPARATOR = ",";
+        try {
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("results.csv"), "UTF-8"));
+            for (Map objectDetails : objectList) {
+                StringBuilder oneLine = new StringBuilder();
+                Iterator it = objectDetails.values().iterator();
+
+                while (it.hasNext()) {
+                    Object value = it.next();
+
+                    if(value !=null){
+                        oneLine.append(value.toString());
+                        }
+
+                    if (it.hasNext()) {
+                        oneLine.append(CSV_SEPARATOR);
+                    }
+                }
+                bw.write(oneLine.toString());
+                bw.newLine();
+            }
+            bw.flush();
+            bw.close();
+            Runtime.getRuntime().exec("notepad.exe results.csv");
+        } catch (UnsupportedEncodingException e) {
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        }
+    }
+    
+    public List<HashMap<String,Object>> convertResultSetToList(ResultSet rs) throws SQLException {
+        ResultSetMetaData md = rs.getMetaData();
+        int columns = md.getColumnCount();
+        List<HashMap<String,Object>> list = new ArrayList<>();
+
+        while (rs.next()) {
+            HashMap<String,Object> row = new HashMap<>(columns);
+            for(int i=1; i<=columns; ++i) {
+                row.put(md.getColumnName(i),rs.getObject(i));
+            }
+            list.add(row);
+        }
+        return list;
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -87,6 +140,9 @@ public class RechercheClasse extends javax.swing.JFrame {
         butModifier = new javax.swing.JButton();
         butClore = new javax.swing.JButton();
         labMesResultat = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        butEleveClasse = new javax.swing.JButton();
+        butAineFamille = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -110,9 +166,56 @@ public class RechercheClasse extends javax.swing.JFrame {
         });
 
         butModifier.setText("Modifier");
+        butModifier.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butModifierActionPerformed(evt);
+            }
+        });
 
         butClore.setText("Clôre l'année en cours");
         butClore.setToolTipText("");
+        butClore.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butCloreActionPerformed(evt);
+            }
+        });
+
+        jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Exports en CSV"));
+
+        butEleveClasse.setText("Liste des élèves par classe");
+        butEleveClasse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butEleveClasseActionPerformed(evt);
+            }
+        });
+
+        butAineFamille.setText("Liste des aînés de famille");
+        butAineFamille.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butAineFamilleActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(butEleveClasse)
+                    .addComponent(butAineFamille))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(butEleveClasse)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addComponent(butAineFamille)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,6 +224,7 @@ public class RechercheClasse extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 841, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(butCreer)
@@ -149,15 +253,104 @@ public class RechercheClasse extends javax.swing.JFrame {
                     .addComponent(butCreer)
                     .addComponent(butModifier)
                     .addComponent(butClore))
-                .addContainerGap(126, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void butCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCreerActionPerformed
-        // TODO add your handling code here:
+            CreationClasse w = new CreationClasse();
+            w.setVisible(true); 
+            dispose();
     }//GEN-LAST:event_butCreerActionPerformed
+
+    private void butEleveClasseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butEleveClasseActionPerformed
+        Base b = new Base();
+        Connection conn = null;
+        ResultSet res;
+        PreparedStatement ps;
+        b.connexionBD();
+        conn = b.getConnect();
+        String sql = "SELECT c.nom_classe, e.nom_enfant, e.prenom_enfant, e.date_naissance, ec.niveau_eleve " +
+            "FROM p1514568.Enfant e " +
+            "JOIN p1514568.Enfant_classe ec " +
+            "ON ec.id_enfant = e.id_enfant " +
+            "JOIN p1514568.Classe c " +
+            "ON ec.id_classe = c.id_classe " +
+            "AND IFNULL(c.cloture,0) = 0 " +
+            "ORDER BY c.nom_classe, e.nom_enfant, e.prenom_enfant;";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            res = ps.executeQuery();
+            List listeres = convertResultSetToList(res);
+            RechercheClasse.writeToCSV(listeres);
+
+            res.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }  
+    }//GEN-LAST:event_butEleveClasseActionPerformed
+
+    private void butAineFamilleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAineFamilleActionPerformed
+        Base b = new Base();
+        Connection conn = null;
+        ResultSet res;
+        CallableStatement cs;
+        PreparedStatement ps;
+        b.connexionBD();
+        conn = b.getConnect();
+        
+        try {
+            cs = conn.prepareCall("{call p1514568.liste_aine_famille()}");
+            cs.executeQuery();
+            ps = conn.prepareStatement("select nom_classe, nom_enfant, prenom_enfant from p1514568.Aine_famille order by nom_classe, nom_enfant, prenom_enfant");
+            
+            res = ps.executeQuery();
+            List listeres = convertResultSetToList(res);
+            RechercheClasse.writeToCSV(listeres);
+
+            res.close();
+            cs.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }        
+    }//GEN-LAST:event_butAineFamilleActionPerformed
+
+    private void butCloreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCloreActionPerformed
+        Base b = new Base();
+        Connection conn = null;
+        PreparedStatement ps;
+        b.connexionBD();
+        conn = b.getConnect();
+        String sql = "update p1514568.Classe set cloture = 1 where ifnull(cloture,0) = 0;";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.executeUpdate();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }  
+        this.populate();
+    }//GEN-LAST:event_butCloreActionPerformed
+
+    private void butModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butModifierActionPerformed
+        if (tabResultat.getSelectedRow() == -1) {
+            JOptionPane.showMessageDialog(null, "Il faut choisir un résultat de recherche.", "Erreur !", JOptionPane.ERROR_MESSAGE);
+        } else {
+            int row = tabResultat.getSelectedRow();
+            int id_classe = (int)tabResultat.getValueAt(row,0);
+            CreationClasse w = new CreationClasse(id_classe);
+            w.setVisible(true); 
+            dispose();
+        }
+    }//GEN-LAST:event_butModifierActionPerformed
 
     /**
      * @param args the command line arguments
@@ -195,10 +388,13 @@ public class RechercheClasse extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton butAineFamille;
     private javax.swing.JButton butClore;
     private javax.swing.JButton butCreer;
+    private javax.swing.JButton butEleveClasse;
     private javax.swing.JButton butModifier;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel labMesResultat;
     private javax.swing.JTable tabResultat;
