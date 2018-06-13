@@ -15,10 +15,20 @@ import javax.swing.*;
  */
 public class RechercheEleve extends javax.swing.JFrame {
 
+    String idFenetre = "RechercheEleve";
+    String idFenetrePrec;
+    int idPrec;
+    
     /**
      * Creates new form RechercheEleve
      */
     public RechercheEleve() {
+        initComponents();
+    }
+
+    public RechercheEleve(String _idFenetrePrec, int _idPrec) {
+        idFenetrePrec = _idFenetrePrec;
+        idPrec = _idPrec;
         initComponents();
     }
 
@@ -257,9 +267,9 @@ public class RechercheEleve extends javax.swing.JFrame {
         } else {
             int row = tabResultat.getSelectedRow();
             int id_enfant = (int) tabResultat.getValueAt(row, 0);
-            Creation_Enfant f = new Creation_Enfant(id_enfant);
+/*            Creation_Enfant f = new Creation_Enfant(id_enfant);
             f.setVisible(true);
-            dispose();
+            dispose();*/
         }
     }//GEN-LAST:event_butOuvrirActionPerformed
 

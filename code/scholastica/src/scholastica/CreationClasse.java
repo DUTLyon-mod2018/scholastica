@@ -5,12 +5,11 @@
  */
 package scholastica;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.io.*;
+import java.sql.*;
+import java.text.*;
+import java.util.*;
+import javax.swing.*;
 
 /**
  *
@@ -19,6 +18,7 @@ import java.util.Date;
 public class CreationClasse extends javax.swing.JFrame {
     
     String idFenetre = "CreationClasse";
+    String idFenetrePrec;
     int idClasse;
     
     /**
@@ -54,18 +54,9 @@ public class CreationClasse extends javax.swing.JFrame {
 
     public CreationClasse(String _idFenetrePrec, int _id_classe) {
         idClasse = _id_classe;
-        String idFenetrePrec = _idFenetrePrec;
+        idFenetrePrec = _idFenetrePrec;
         initComponents();
         this.populate(idClasse);
-    }
-
-    public CreationClasse(String _idFenetrePrec, int _id_classe, int _id_personne) {
-        idClasse = _id_classe;
-        int idPersonne = _id_personne;
-        String idFenetrePrec = _idFenetrePrec;
-        initComponents();
-        this.populate(idClasse);
-        // suivant l'id de la fenêtre précédente, il va falloir créer des liens dans la base
     }
 
     public void populate(int idClasse) {
@@ -179,6 +170,53 @@ public class CreationClasse extends javax.swing.JFrame {
         }
     }
 
+    public static void writeToCSV(List<Map> objectList) {
+        String CSV_SEPARATOR = ",";
+        try {
+            BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(
+                    new FileOutputStream("results.csv"), "UTF-8"));
+            for (Map objectDetails : objectList) {
+                StringBuilder oneLine = new StringBuilder();
+                Iterator it = objectDetails.values().iterator();
+
+                while (it.hasNext()) {
+                    Object value = it.next();
+
+                    if(value !=null){
+                        oneLine.append(value.toString());
+                        }
+
+                    if (it.hasNext()) {
+                        oneLine.append(CSV_SEPARATOR);
+                    }
+                }
+                bw.write(oneLine.toString());
+                bw.newLine();
+            }
+            bw.flush();
+            bw.close();
+            Runtime.getRuntime().exec("notepad.exe results.csv");
+        } catch (UnsupportedEncodingException e) {
+        } catch (FileNotFoundException e) {
+        } catch (IOException e) {
+        }
+    }
+    
+    public List<HashMap<String,Object>> convertResultSetToList(ResultSet rs) throws SQLException {
+        ResultSetMetaData md = rs.getMetaData();
+        int columns = md.getColumnCount();
+        List<HashMap<String,Object>> list = new ArrayList<>();
+
+        while (rs.next()) {
+            HashMap<String,Object> row = new HashMap<>(columns);
+            for(int i=1; i<=columns; ++i) {
+                row.put(md.getColumnName(i),rs.getObject(i));
+            }
+            list.add(row);
+        }
+        return list;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -240,6 +278,11 @@ public class CreationClasse extends javax.swing.JFrame {
         });
 
         butSuppEnseignant.setText("Supprimer enseignant");
+        butSuppEnseignant.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butSuppEnseignantActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panEnseignantLayout = new javax.swing.GroupLayout(panEnseignant);
         panEnseignant.setLayout(panEnseignantLayout);
@@ -288,6 +331,11 @@ public class CreationClasse extends javax.swing.JFrame {
         });
 
         butSuppEleve.setText("Supprimer élève");
+        butSuppEleve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butSuppEleveActionPerformed(evt);
+            }
+        });
 
         butExportListe.setText("Exporter en CSV");
         butExportListe.addActionListener(new java.awt.event.ActionListener() {
@@ -326,8 +374,18 @@ public class CreationClasse extends javax.swing.JFrame {
         );
 
         butValider.setText("Valider");
+        butValider.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butValiderActionPerformed(evt);
+            }
+        });
 
         butAnnuler.setText("Annuler");
+        butAnnuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butAnnulerActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -398,16 +456,105 @@ public class CreationClasse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void butAjoutEnseignantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAjoutEnseignantActionPerformed
-        // TODO add your handling code here:
+        Recherche_Adulte f = new Recherche_Adulte(idFenetre, idClasse);
+        f.setVisible(true);
+        dispose();
     }//GEN-LAST:event_butAjoutEnseignantActionPerformed
 
     private void butAjoutEleveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAjoutEleveActionPerformed
-        // TODO add your handling code here:
+        RechercheEleve f = new RechercheEleve(idFenetre, idClasse);
+        f.setVisible(true);
+        dispose();
+
     }//GEN-LAST:event_butAjoutEleveActionPerformed
 
     private void butExportListeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butExportListeActionPerformed
-        // TODO add your handling code here:
+        Base b = new Base();
+        Connection conn = null;
+        ResultSet res;
+        PreparedStatement ps;
+        b.connexionBD();
+        conn = b.getConnect();
+        String sql = "SELECT e.nom_enfant, e.prenom_enfant, e.date_naissance, ec.niveau_eleve " +
+            "FROM p1514568.Enfant e " +
+            "JOIN p1514568.Enfant_classe ec " +
+            "ON ec.id_enfant = e.id_enfant " +
+            "AND ec.id_classe = ? " +
+            "ORDER BY e.nom_enfant, e.prenom_enfant;";
+        
+        try {
+            ps = conn.prepareStatement(sql);
+            ps.setInt(1, idClasse);
+            System.out.println(ps);
+            res = ps.executeQuery();
+            List listeres = convertResultSetToList(res);
+            RechercheClasse.writeToCSV(listeres);
+
+            res.close();
+            ps.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_butExportListeActionPerformed
+
+    private void butSuppEnseignantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSuppEnseignantActionPerformed
+        int row = tabEnseignant.getSelectedRow();
+        
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Il faut choisir un enseignant.", "Erreur !", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Base b = new Base();
+            Connection conn;
+            PreparedStatement stmt;
+            b.connexionBD();
+            conn = b.getConnect();        
+
+            try {
+                stmt = conn.prepareStatement("delete from p1514568.Affectation where id_adulte = ? and id_classe = ?");
+                stmt.setInt(1, (int)tabEnseignant.getValueAt(row,0));
+                stmt.setInt(2, idClasse);
+                System.out.println(stmt);
+                stmt.executeUpdate();
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        this.populate(idClasse);
+    }//GEN-LAST:event_butSuppEnseignantActionPerformed
+
+    private void butSuppEleveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSuppEleveActionPerformed
+        int row = tabEleve.getSelectedRow();
+        
+        if (row == -1) {
+            JOptionPane.showMessageDialog(null, "Il faut choisir un élève.", "Erreur !", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Base b = new Base();
+            Connection conn;
+            PreparedStatement stmt;
+            b.connexionBD();
+            conn = b.getConnect();
+
+            try {
+                stmt = conn.prepareStatement("delete from p1514568.Enfant_classe where id_enfant = ? and id_classe = ?");
+                stmt.setInt(1, (int)tabEleve.getValueAt(row,0));
+                stmt.setInt(2, idClasse);
+                stmt.executeUpdate();
+                stmt.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        this.populate(idClasse);
+    }//GEN-LAST:event_butSuppEleveActionPerformed
+
+    private void butValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butValiderActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_butValiderActionPerformed
+
+    private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_butAnnulerActionPerformed
 
     /**
      * @param args the command line arguments

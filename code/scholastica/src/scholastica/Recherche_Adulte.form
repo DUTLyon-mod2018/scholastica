@@ -125,7 +125,7 @@
     </Component>
     <Component class="javax.swing.JButton" name="butOuvrir">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Ouvrir"/>
+        <Property name="text" type="java.lang.String" value="S&#xe9;lectionner"/>
       </Properties>
       <Events>
         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butOuvrirActionPerformed"/>

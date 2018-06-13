@@ -15,10 +15,20 @@ import javax.swing.*;
  */
 public class Recherche_Adulte extends javax.swing.JFrame {
 
+    String idFenetre = "RechercheAdulte";
+    String idFenetrePrec;
+    int idPrec;
+    
     /**
      * Creates new form Recherche_Adulte
      */
     public Recherche_Adulte() {
+        initComponents();
+    }
+
+    public Recherche_Adulte(String _idFenetrePrec, int _idPrec) {
+        idFenetrePrec = _idFenetrePrec;
+        idPrec = _idPrec;
         initComponents();
     }
     
@@ -64,7 +74,7 @@ public class Recherche_Adulte extends javax.swing.JFrame {
             }
         });
 
-        butOuvrir.setText("Ouvrir");
+        butOuvrir.setText("Sélectionner");
         butOuvrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butOuvrirActionPerformed(evt);
@@ -224,15 +234,19 @@ public class Recherche_Adulte extends javax.swing.JFrame {
         // si 0 lignes sélectionnées erreur
         //si 2+ lignes sélectionnées erreur
         // si 1 ligne sélectionnée, ouvrir l'écran Adulte avec les infos ramenées
+        int row = tabResultat.getSelectedRow();
         
-        if (tabResultat.getSelectedRow() == -1) {
-            JOptionPane jop = new JOptionPane();
+        if (row == -1) {
             JOptionPane.showMessageDialog(null, "Il faut choisir un résultat de recherche.", "Erreur !", JOptionPane.ERROR_MESSAGE);
-        } else {
-            int row = tabResultat.getSelectedRow();
+        } else if (idFenetrePrec.equals("CreationClasse")) {
             int id_adulte = (int)tabResultat.getValueAt(row,0);
-            Creation_Adulte creationAdulte = new Creation_Adulte(id_adulte);
-            creationAdulte.setVisible(true); 
+            CreationAffectation f = new CreationAffectation(idFenetre, idPrec, id_adulte);
+            f.setVisible(true); 
+            dispose();        
+        } else {
+            int id_adulte = (int)tabResultat.getValueAt(row,0);
+            Creation_Adulte f = new Creation_Adulte(id_adulte);
+            f.setVisible(true); 
             dispose();
         }
     }//GEN-LAST:event_butOuvrirActionPerformed
