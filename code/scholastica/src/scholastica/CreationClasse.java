@@ -20,6 +20,7 @@ public class CreationClasse extends javax.swing.JFrame {
     String idFenetre = "CreationClasse";
     String idFenetrePrec;
     int idClasse;
+    Boolean enCours = false;
     
     /**
      * Creates new form CreationClasse
@@ -44,6 +45,7 @@ public class CreationClasse extends javax.swing.JFrame {
             
             while (res.next()){     
                 idClasse = res.getInt("idclasse");
+                enCours = true;
             }
             res.close();
             stmt2.close();
@@ -549,11 +551,60 @@ public class CreationClasse extends javax.swing.JFrame {
     }//GEN-LAST:event_butSuppEleveActionPerformed
 
     private void butValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butValiderActionPerformed
-        // TODO add your handling code here:
+        String nomClasse = tfNomClasse.getText();
+        if (nomClasse.equals("")) {
+            JOptionPane.showMessageDialog(null, "Il faut donner un nom à la classe.", "Erreur !", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Base b = new Base();
+            Connection conn = null;
+            PreparedStatement statement;
+            b.connexionBD();
+            conn = b.getConnect();
+            String sql = "update p1514568.Classe "
+                        + "set nom_classe = ?"
+                        + ", salle = ?"
+                        + ", niveau = ?"
+                        + ", annee = ?"
+                        + " where id_classe = "+idClasse;
+            System.out.println(sql);
+            try {
+                statement = conn.prepareStatement(sql);
+                statement.setString(1, nomClasse);
+                statement.setString(2, tfSalle.getText());
+                statement.setString(3, tfNiveau.getText());
+                statement.setString(4, tfAnnee.getText());
+                
+                statement.executeUpdate();
+                statement.close();
+
+                RechercheClasse f = new RechercheClasse();
+                f.setVisible(true); 
+                dispose();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
     }//GEN-LAST:event_butValiderActionPerformed
 
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
-        // TODO add your handling code here:
+        try {
+            if (enCours == true) {
+                Base b = new Base();
+                Connection conn = null;
+                PreparedStatement statement;
+                b.connexionBD();
+                conn = b.getConnect();
+                String sql = "delete from p1514568.Classe where id_classe = "+idClasse;
+                statement = conn.prepareStatement(sql);
+                statement.executeUpdate();
+                statement.close();                
+            }
+            RechercheClasse f = new RechercheClasse();
+            f.setVisible(true); 
+            dispose();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }//GEN-LAST:event_butAnnulerActionPerformed
 
     /**
