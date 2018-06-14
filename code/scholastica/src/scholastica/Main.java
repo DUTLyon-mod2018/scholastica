@@ -17,7 +17,7 @@ public class Main {
     public static void main(String[] args) {
         // TODO code application logic here
 //        Authentification auth = new Authentification();
-        Creation_eleve auth = new Creation_eleve();
+        Creation_eleve auth = new Creation_eleve(6);
         auth.setVisible(true);
     }
     
