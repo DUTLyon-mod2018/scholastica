@@ -25,6 +25,12 @@ public class CreationClasse extends javax.swing.JFrame {
     /**
      * Creates new form CreationClasse
      */
+    public CreationClasse() {
+        initComponents();
+        // ne pas afficher les infos de mise en poste si l'adulte ne fait pas
+        // partie de l'équipe enseignante
+        
+    }
     public CreationClasse(String _idFenetrePrec) {
         initComponents();
         // créer une classe temporaire dans la base
