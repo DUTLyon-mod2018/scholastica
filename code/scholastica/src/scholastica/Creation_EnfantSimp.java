@@ -5,6 +5,7 @@
  */
 package scholastica;
 
+import java.sql.*;
 import java.util.*;
 import javax.swing.*;
 
@@ -14,12 +15,16 @@ import javax.swing.*;
  * @author x7000328
  */
 public class Creation_EnfantSimp extends javax.swing.JFrame {
+   int idEnfant, idNvEnfant;
+   String idFenetre = "creationEleve";
 
+    
     /**
      * Creates new form CrEnfantSimp
      */
-    public Creation_EnfantSimp() {
+    public Creation_EnfantSimp(int _idEnfant) {
         initComponents();
+        idEnfant = _idEnfant;
     }
 
     /**
@@ -128,19 +133,60 @@ public class Creation_EnfantSimp extends javax.swing.JFrame {
         // puis enregistrement dans la base
         String nom = tfNom.getText();
         String prenom = tfPrenom.getText();
-        Date dtNaissance = (Date)ftfDtNaissance.getValue();
+        java.util.Date dtNaissance = (java.util.Date)ftfDtNaissance.getValue();
+        java.sql.Date sqlDtNaissance = null;
+        if (null != dtNaissance) { sqlDtNaissance = new java.sql.Date(dtNaissance.getTime()); }
+
         if (nom.equals("") || prenom.equals("") || dtNaissance.equals("")) {
-            JOptionPane jop = new JOptionPane();
             JOptionPane.showMessageDialog(null, "Il faut remplir tous les champs.", "Erreur !", JOptionPane.ERROR_MESSAGE);
         } else {
-            Enfant e = new Enfant(nom, prenom, dtNaissance);
+            Base b = new Base();
+            Connection conn = null;
+            PreparedStatement ps;
+            ResultSet res;
+            b.connexionBD();
+            conn = b.getConnect();
+            String sql1 = "insert into p1514568.Enfant (nom_enfant, prenom_enfant, date_naissance) values (?, ?, ?)";
+            String sql2 = "select max(id_enfant) as maxid from p1514568.Enfant where nom_enfant = ? and prenom_enfant = ? and date_naissance = ?";
+            String sql3 = "insert into p1514568.Fratrie (id_enfant1, id_enfant2) values (?, ?)";
+            
+            try {
+                ps = conn.prepareStatement(sql1);
+                ps.setString(1, nom);
+                ps.setString(2, prenom);
+                ps.setDate(3, sqlDtNaissance);
+                ps.executeUpdate();
+                
+                ps = conn.prepareStatement(sql2);
+                ps.setString(1, nom);
+                ps.setString(2, prenom);
+                ps.setDate(3, sqlDtNaissance);
+                res = ps.executeQuery();
+                while (res.next()) {
+                    idNvEnfant = res.getInt("maxid");
+                }
+                
+                ps = conn.prepareStatement(sql3);
+                ps.setInt(1, idEnfant);
+                ps.setInt(2, idNvEnfant);
+                ps.executeUpdate();                
+
+                res.close();
+                ps.close();
+                
+                Creation_eleve w = new Creation_eleve(idEnfant);
+                w.setVisible(true); 
+                dispose();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }  
         }
-        
     }//GEN-LAST:event_butValiderActionPerformed
 
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
-        // TODO add your handling code here:
-        // retour à la page précédente
+        Creation_eleve w = new Creation_eleve(idEnfant);
+        w.setVisible(true); 
+        dispose();
     }//GEN-LAST:event_butAnnulerActionPerformed
 
     /**
