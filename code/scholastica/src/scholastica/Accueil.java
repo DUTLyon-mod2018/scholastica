@@ -29,18 +29,23 @@ public class Accueil extends javax.swing.JFrame {
 
         this.setLocationRelativeTo(null);
         jPanel1 = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
+        But_rech_eleve = new javax.swing.JButton();
         crea_eleve = new javax.swing.JButton();
         crea_adulte = new javax.swing.JButton();
         butRechercheAdulte = new javax.swing.JButton();
-        jButton9 = new javax.swing.JButton();
-        jButton10 = new javax.swing.JButton();
+        but_Classes = new javax.swing.JButton();
+        but_admin = new javax.swing.JButton();
         quit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jButton5.setText("Recherche élève");
+        But_rech_eleve.setText("Recherche élève");
+        But_rech_eleve.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                But_rech_eleveActionPerformed(evt);
+            }
+        });
 
         crea_eleve.setText("Création élève");
         crea_eleve.addActionListener(new java.awt.event.ActionListener() {
@@ -50,6 +55,11 @@ public class Accueil extends javax.swing.JFrame {
         });
 
         crea_adulte.setText("Création adulte");
+        crea_adulte.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                crea_adulteActionPerformed(evt);
+            }
+        });
 
         butRechercheAdulte.setText("Recherche adulte");
         butRechercheAdulte.addActionListener(new java.awt.event.ActionListener() {
@@ -58,9 +68,19 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
-        jButton9.setText("Classes");
+        but_Classes.setText("Classes");
+        but_Classes.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_ClassesActionPerformed(evt);
+            }
+        });
 
-        jButton10.setText("Admin");
+        but_admin.setText("Admin");
+        but_admin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                but_adminActionPerformed(evt);
+            }
+        });
 
         quit.setText("Quitter");
         quit.addActionListener(new java.awt.event.ActionListener() {
@@ -69,51 +89,53 @@ public class Accueil extends javax.swing.JFrame {
             }
         });
 
-        jLabel1.setText("Bienvenue");
+        jLabel1.setText("Bienvenue sur Scholastica");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(61, 61, 61)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton5)
-                    .addComponent(butRechercheAdulte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(48, 48, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(crea_adulte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(crea_eleve, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addContainerGap(57, Short.MAX_VALUE))
+                .addGap(49, 49, 49)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(but_Classes, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(butRechercheAdulte, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
+                        .addComponent(But_rech_eleve, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(crea_adulte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(crea_eleve, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(but_admin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(91, 91, 91))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(quit)
-                .addContainerGap())
+                .addGap(34, 34, 34))
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(38, 38, 38)
+                .addGap(172, 172, 172)
                 .addComponent(jLabel1)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addComponent(jLabel1)
-                .addGap(14, 14, 14)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton5, javax.swing.GroupLayout.DEFAULT_SIZE, 55, Short.MAX_VALUE)
-                    .addComponent(crea_eleve, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(butRechercheAdulte, javax.swing.GroupLayout.DEFAULT_SIZE, 58, Short.MAX_VALUE)
-                    .addComponent(crea_adulte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(18, 18, 18)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jButton9, javax.swing.GroupLayout.DEFAULT_SIZE, 59, Short.MAX_VALUE)
-                    .addComponent(jButton10, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
-                .addComponent(quit))
+                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(22, 22, 22)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(But_rech_eleve, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(crea_eleve, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(52, 52, 52)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(butRechercheAdulte, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(crea_adulte, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 40, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(but_Classes, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(but_admin, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(63, 63, 63)
+                .addComponent(quit)
+                .addGap(24, 24, 24))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -138,6 +160,7 @@ public class Accueil extends javax.swing.JFrame {
         // TODO add your handling code here:
         Authentification auth=new Authentification();
         auth.setVisible(true); 
+        auth.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_quitActionPerformed
 
@@ -145,14 +168,48 @@ public class Accueil extends javax.swing.JFrame {
         // TODO add your handling code here:
         Creation_eleve crea_ele=new Creation_eleve();
         crea_ele.setVisible(true); 
+        crea_ele.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_crea_eleveActionPerformed
 
     private void butRechercheAdulteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRechercheAdulteActionPerformed
         Recherche_Adulte rechAd=new Recherche_Adulte();
         rechAd.setVisible(true); 
+        rechAd.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butRechercheAdulteActionPerformed
+
+    private void But_rech_eleveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_But_rech_eleveActionPerformed
+        // TODO add your handling code here:
+        RechercheEleve rechEl=new RechercheEleve();
+        rechEl.setVisible(true); 
+        rechEl.setLocationRelativeTo(null);
+        dispose();
+    }//GEN-LAST:event_But_rech_eleveActionPerformed
+
+    private void crea_adulteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crea_adulteActionPerformed
+        // TODO add your handling code here:
+        Creation_Adulte rechAd=new Creation_Adulte();
+        rechAd.setVisible(true);
+        rechAd.setLocationRelativeTo(null);
+        dispose();
+    }//GEN-LAST:event_crea_adulteActionPerformed
+
+    private void but_ClassesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ClassesActionPerformed
+        // TODO add your handling code here:
+        CreationClasse creaCl = new CreationClasse();
+        creaCl.setVisible(true); 
+        creaCl.setLocationRelativeTo(null);
+        dispose();
+    }//GEN-LAST:event_but_ClassesActionPerformed
+
+    private void but_adminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_adminActionPerformed
+        // TODO add your handling code here:
+        Admin admin = new Admin();
+        admin.setVisible(true); 
+        admin.setLocationRelativeTo(null);
+        dispose();
+    }//GEN-LAST:event_but_adminActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,12 +247,12 @@ public class Accueil extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton But_rech_eleve;
     private javax.swing.JButton butRechercheAdulte;
+    private javax.swing.JButton but_Classes;
+    private javax.swing.JButton but_admin;
     private javax.swing.JButton crea_adulte;
     private javax.swing.JButton crea_eleve;
-    private javax.swing.JButton jButton10;
-    private javax.swing.JButton jButton5;
-    private javax.swing.JButton jButton9;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton quit;

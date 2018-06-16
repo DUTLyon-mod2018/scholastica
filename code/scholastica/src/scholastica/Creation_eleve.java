@@ -12,6 +12,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -27,6 +28,8 @@ public class Creation_eleve extends javax.swing.JFrame {
      */
     public Creation_eleve() {
         initComponents();
+        idEnfant = -1;
+       
     }
 
     public Creation_eleve(int _idEnfant) {
@@ -50,9 +53,8 @@ public class Creation_eleve extends javax.swing.JFrame {
 
             while (res.next()) {
 
-                String date_inscri_eleve = ch_date_inscri_eleve.getText();
-                String date_radiation_eleve = ch_date_radiation_eleve.getText();
-
+                //String date_inscri_eleve = ch_date_inscri_eleve.getText();
+                //String date_radiation_eleve = ch_date_radiation_eleve.getText();
                 String nom_eleve = res.getString("nom_enfant");
                 String prenom_enfant = res.getString("prenom_enfant");
                 String date_naissance_eleve = res.getString("date_naissance");
@@ -104,7 +106,6 @@ public class Creation_eleve extends javax.swing.JFrame {
                 ch_adr_medecin.setText(adr_medecin);
                 ch_info_medical.setText(info_medical);
                 ch_date_rapel_antitenaq.setText(date_rapel_antitenaq);
-                
                 ch_lunette_eleve.setSelected(lunette_eleve);
                 ch_pai_eleve.setSelected(pai_eleve);
                 ch_date_inscri_eleve.setText(sDateDebut);
@@ -160,6 +161,7 @@ public class Creation_eleve extends javax.swing.JFrame {
         rech_crea_ele = new javax.swing.JButton();
         jButton4 = new javax.swing.JButton();
         jButton5 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
@@ -319,6 +321,8 @@ public class Creation_eleve extends javax.swing.JFrame {
 
         jButton5.setText("Rechercher");
 
+        jButton2.setText("Annuler");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -388,9 +392,10 @@ public class Creation_eleve extends javax.swing.JFrame {
                                 .addComponent(jButton5)))
                         .addContainerGap())
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(44, 44, 44)
                         .addComponent(valider)
-                        .addGap(26, 26, 26)
+                        .addGap(18, 18, 18)
+                        .addComponent(jButton2)
+                        .addGap(18, 18, 18)
                         .addComponent(ret_acc_crea_ele)
                         .addGap(0, 0, Short.MAX_VALUE))))
         );
@@ -455,11 +460,12 @@ public class Creation_eleve extends javax.swing.JFrame {
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jButton4)
                             .addComponent(jButton5))))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 15, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(valider)
+                    .addComponent(jButton2)
                     .addComponent(ret_acc_crea_ele))
-                .addContainerGap())
+                .addContainerGap(15, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Fiche élève", jPanel1);
@@ -766,14 +772,17 @@ public class Creation_eleve extends javax.swing.JFrame {
 
     private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
         // TODO add your handling code here:
-
         String nom_enfant = ch_nom_eleve.getText();
         String prenom_enfant = ch_prenom_enfant.getText();
-        String date_naiss = ch_naissance_eleve.getText();
+        
         String lieu_naiss_eleve = ch_lieu_naiss_eleve.getText();
         String nation_eleve = ch_nationalite_eleve.getText();
-        String date_inscri_eleve = ch_date_inscri_eleve.getText();
-        String date_radiation_eleve = ch_date_radiation_eleve.getText();
+        java.util.Date DateNaissance = (Date) ch_naissance_eleve.getValue();                 
+        java.sql.Date sqlDateNaissance = null;
+        if (null != DateNaissance) 
+		{
+            sqlDateNaissance = new java.sql.Date(DateNaissance.getTime());
+        }
         String adresse_eleve = ch_adresse_eleve.getText();
         String tel_eleve = ch_tel_eleve.getText();
         String sit_famille_eleve = ch_situ_famil_eleve.getText();
@@ -785,32 +794,107 @@ public class Creation_eleve extends javax.swing.JFrame {
         String tel_medecin = ch_tel_medecin.getText();
         String adr_medecin = ch_adr_medecin.getText();
         String info_medical = ch_info_medical.getText();
-        String date_rapel_antitenaq = ch_date_rapel_antitenaq.getText();
+        java.util.Date DateVaccin = (Date) ch_date_rapel_antitenaq.getValue();                 
+        java.sql.Date sqlDateVaccin = null;
+        if (null != DateVaccin) 
+		{
+            sqlDateVaccin = new java.sql.Date(DateVaccin.getTime());
+        }
+        java.util.Date DateDebut = (Date) ch_date_inscri_eleve.getValue();                 
+        java.sql.Date sqlDateDebut = null;
+        if (null != DateDebut) 
+		{
+            sqlDateDebut = new java.sql.Date(DateDebut.getTime());
+        }
+        java.util.Date DateFin = (Date) ch_date_radiation_eleve.getValue();
+        java.sql.Date sqlDateFin = null;
+        if (null != DateFin) 
+		{
+            sqlDateFin = new java.sql.Date(DateFin.getTime());
+        }
 
-        Base b = new Base();
-        Connection conn = null;
-        b.connexionBD();
-        conn = b.getConnect();
+        if (nom_enfant.equals("") || prenom_enfant.equals("")) 
+			{
+				JOptionPane.showMessageDialog(null, "Il faut remplir au moins les champs Nom et Prénom.", "Erreur !", JOptionPane.ERROR_MESSAGE);
+			} 
+		else
+			{
+				Base b = new Base();
+				Connection conn = null;
+				PreparedStatement statement;
+				b.connexionBD();
+				conn = b.getConnect();
+				String sql = "";
 
-        try {
-            PreparedStatement statement = conn.prepareStatement("INSERT into p1514568.Enfant (nom_enfant,prenom_enfant,date_naissance,id_ville_naissance,id_nationalite,date_inscription,date_radiation,adresse_enfant,tel_enfant,situation_familiale)"
-                    + "                                          values (?,?,?,?,?,?,?,?,?,?)");
+            if (idEnfant < 0) 
+				{
+					sql = "insert into p1514568.Enfant "
+                        + "(nom_enfant, prenom_enfant, date_naissance, ville_naissance, nationalite, adresse_enfant, tel_enfant, situation_familiale, tel_secu_social, adr_secu_social, tel_assurance, adr_assurance, nom_medecin, tel_medecin, adr_medecin, infos_medicales, date_vaccin, port_lunettes, pai,  date_inscription, date_radiation ) values "
+                        + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?)";
+				} 
+			else 
+				{
+					sql = "update p1514568.Enfant "
+                        + "set nom_enfant = ?"
+                        + ", prenom_enfant = ?"
+                        + ", date_naissance = ?"
+                        + ", ville_naissance = ?"
+                        + ", nationalite = ?"
+                        + ", adresse_enfant = ?"
+                        + ", tel_enfant = ?"
+                        + ", situation_familiale = ?"
+                        + ", tel_secu_social = ?"
+                        + ", adr_secu_social = ?"
+                        + ", tel_assurance = ?"
+                        + ", adr_assurance = ?"
+                        + ", nom_medecin = ?"
+                        + ", tel_medecin = ?"
+                        + ", adr_medecin = ?"
+                        + ", infos_medicales = ?"
+                        + ", date_vaccin = ?"
+                        + ", port_lunettes = ?"
+                        + ", pai = ?"
+                        + ", date_inscription = ?"
+                        + ", date_radiation = ?"
+                        + " where id_enfant = " + idEnfant;
+				}
+            System.out.println(sql);
+            try 
+			{
+                statement = conn.prepareStatement(sql);
+                statement.setString(1, nom_enfant);
+                statement.setString(2, prenom_enfant);
+                statement.setDate(3, sqlDateNaissance);
+                statement.setString(4, lieu_naiss_eleve);
+                statement.setString(5, nation_eleve);
+                statement.setString(6, adresse_eleve);
+                statement.setString(7, tel_eleve);
+                statement.setString(8, sit_famille_eleve);
+                statement.setString(9, tel_secu);
+                statement.setString(10, adr_secu);
+                statement.setString(11, tel_assu);
+                statement.setString(12, adr_assu);
+                statement.setString(13, nom_medecin);
+                statement.setString(14, tel_medecin);
+                statement.setString(15, adr_medecin);
+                statement.setString(16, info_medical);
+                statement.setDate(17, sqlDateVaccin);
+                statement.setBoolean(18, ch_lunette_eleve.isSelected());
+                statement.setBoolean(19, ch_pai_eleve.isSelected());
+                statement.setDate(20, sqlDateDebut);
+                statement.setDate(21, sqlDateFin);
 
-            statement.setString(1, nom_enfant);
-            statement.setString(2, prenom_enfant);
-            statement.setString(3, date_naiss);
-            statement.setString(4, lieu_naiss_eleve);
-            statement.setString(5, nation_eleve);
-            statement.setString(6, date_inscri_eleve);
-            statement.setString(7, date_radiation_eleve);
-            statement.setString(8, adresse_eleve);
-            statement.setString(9, tel_eleve);
-            statement.setString(10, sit_famille_eleve);
+                statement.executeUpdate();
+                statement.close();
 
-            statement.executeUpdate();
+                /*Recherche_Adulte w = new Recherche_Adulte();
+                w.setVisible(true);
+                dispose();*/
 
-        } catch (SQLException e) {
-            e.printStackTrace();
+			} catch (SQLException e) 
+				{
+					System.out.println(e.getMessage());
+				}
         }
     }//GEN-LAST:event_validerActionPerformed
 
@@ -818,6 +902,7 @@ public class Creation_eleve extends javax.swing.JFrame {
         // TODO add your handling code here:
         Accueil acc = new Accueil();
         acc.setVisible(true);
+        acc.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_ret_acc_crea_eleActionPerformed
 
@@ -852,16 +937,52 @@ public class Creation_eleve extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
-                }
+                
+
+
+
+
+
+}
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Creation_eleve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Creation_eleve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Creation_eleve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Creation_eleve.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Creation_eleve.class
+
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        
+
+
+
+
+
+} catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Creation_eleve.class
+
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        
+
+
+
+
+
+} catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Creation_eleve.class
+
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        
+
+
+
+
+
+} catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Creation_eleve.class
+
+
+.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -904,6 +1025,7 @@ public class Creation_eleve extends javax.swing.JFrame {
     private javax.swing.JTextField ch_tel_medecin;
     private javax.swing.JTextField ch_tel_secu;
     private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
     private javax.swing.JLabel jLabel1;

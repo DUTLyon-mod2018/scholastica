@@ -16,9 +16,11 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-//        Authentification auth = new Authentification();
-        Creation_eleve auth = new Creation_eleve(6);
+        //Authentification auth = new Authentification();
+        //Creation_eleve auth = new Creation_eleve();
+        //RechercheEleve auth = new RechercheEleve() ;
+        Accueil auth = new Accueil();
         auth.setVisible(true);
     }
-    
+
 }

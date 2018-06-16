@@ -388,8 +388,8 @@ public class Creation_Adulte extends javax.swing.JFrame {
             
             if (idAdulte < 0) {
                 sql = "insert into p1514568.Adulte "
-                        + "(nom_adulte, prenom_adulte, profession, email, adresse_adulte, telephone, adresse_travail, telephone_travail, horaires, decede, enseignant, date_debut, date_fin)"
-                        + ") values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?);";
+                        + "(nom_adulte, prenom_adulte, profession, email, adresse_adulte, telephone, adresse_travail, telephone_travail, horaires, decede, enseignant, date_debut, date_fin) values "
+                        + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
             } else {
                 sql = "update p1514568.Adulte "
                         + "set nom_adulte = ?"
@@ -406,6 +406,7 @@ public class Creation_Adulte extends javax.swing.JFrame {
                         + ", date_debut = ?"
                         + ", date_fin = ?"
                         + " where id_adulte = "+idAdulte;
+                
             }
             System.out.println(sql);
             try {

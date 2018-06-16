@@ -267,9 +267,9 @@ public class RechercheEleve extends javax.swing.JFrame {
         } else {
             int row = tabResultat.getSelectedRow();
             int id_enfant = (int) tabResultat.getValueAt(row, 0);
-/*            Creation_Enfant f = new Creation_Enfant(id_enfant);
-            f.setVisible(true);
-            dispose();*/
+            Creation_eleve f = new Creation_eleve(id_enfant);f.setVisible(true);
+            f.setLocationRelativeTo(null);
+            dispose();
         }
     }//GEN-LAST:event_butOuvrirActionPerformed
 
@@ -283,6 +283,7 @@ public class RechercheEleve extends javax.swing.JFrame {
     private void butAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAccueilActionPerformed
         Accueil f = new Accueil();
         f.setVisible(true);
+        f.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butAccueilActionPerformed
 
