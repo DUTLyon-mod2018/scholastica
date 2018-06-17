@@ -268,6 +268,7 @@ public class RechercheEleve extends javax.swing.JFrame {
             if (idFenetrePrec == "CreationClasse") {
                 CreationEnfantClasse f = new CreationEnfantClasse(idFenetre, idPrec, idEnfant);
                 f.setVisible(true); 
+                f.setLocationRelativeTo(null);
                 dispose();  
             } else if (idFenetrePrec == "CreationEleve") {
                     Base b = new Base();
@@ -287,6 +288,7 @@ public class RechercheEleve extends javax.swing.JFrame {
                 }
                 CreationEleve f = new CreationEleve(idPrec);
                 f.setVisible(true); 
+                f.setLocationRelativeTo(null);
                 dispose();  
             } else {
                 CreationEleve f = new CreationEleve(idEnfant);

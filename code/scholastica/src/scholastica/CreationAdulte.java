@@ -175,12 +175,6 @@ public class CreationAdulte extends javax.swing.JFrame {
 
         labTelephoneTr.setText("Téléphone travail");
 
-        tfNom.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tfNomActionPerformed(evt);
-            }
-        });
-
         labHoraires.setText("Horaires");
 
         labDecede.setText("Décédé(e)");
@@ -259,10 +253,6 @@ public class CreationAdulte extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(butValider)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(butAnnuler))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(labNom)
                             .addComponent(labPrenom)
@@ -277,21 +267,24 @@ public class CreationAdulte extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(cbDecede)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                    .addComponent(tfTelephone, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfHoraires, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
-                                    .addComponent(tfTelephoneTr, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfPrenom, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfProfession, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(tfNom)
-                                    .addComponent(tfEmail)
-                                    .addComponent(tfLieuTr, javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jScrollPane1))
-                                .addGap(35, 35, 35)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(cbEqEns)
-                                    .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                            .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(butAnnuler)
+                                .addGroup(jPanel1Layout.createSequentialGroup()
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                        .addComponent(tfTelephone, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfHoraires, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 178, Short.MAX_VALUE)
+                                        .addComponent(tfTelephoneTr, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfPrenom, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfProfession, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(tfNom)
+                                        .addComponent(tfEmail)
+                                        .addComponent(tfLieuTr, javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(jScrollPane1))
+                                    .addGap(35, 35, 35)
+                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(cbEqEns)
+                                        .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                    .addComponent(butValider))
                 .addContainerGap(28, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -329,7 +322,7 @@ public class CreationAdulte extends javax.swing.JFrame {
                                     .addComponent(tfEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(labEmail)))
                             .addComponent(labAdresse))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 36, Short.MAX_VALUE)
+                        .addGap(18, 18, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(tfLieuTr, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(labLieuTr))
@@ -345,7 +338,7 @@ public class CreationAdulte extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(labDecede)
                     .addComponent(cbDecede))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 129, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butValider)
                     .addComponent(butAnnuler))
@@ -365,10 +358,6 @@ public class CreationAdulte extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void tfNomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tfNomActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_tfNomActionPerformed
 
     private void cbEqEnsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbEqEnsActionPerformed
         // TODO add your handling code here:
@@ -457,10 +446,12 @@ public class CreationAdulte extends javax.swing.JFrame {
                 if (idFenPrec == "CreationEleve") {
                     CreationResponsabilite f = new CreationResponsabilite(idEnfant, idAdulte);
                     f.setVisible(true); 
+                    f.setLocationRelativeTo(null);
                     dispose();  
                 } else {
                     Accueil w = new Accueil();
                     w.setVisible(true); 
+                    w.setLocationRelativeTo(null);
                     dispose();
                 }
             } catch (SQLException e) {
@@ -472,6 +463,7 @@ public class CreationAdulte extends javax.swing.JFrame {
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
         Accueil w = new Accueil();
         w.setVisible(true); 
+        w.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butAnnulerActionPerformed
 

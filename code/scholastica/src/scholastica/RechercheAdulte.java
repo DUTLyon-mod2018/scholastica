@@ -248,16 +248,19 @@ public class RechercheAdulte extends javax.swing.JFrame {
             int id_adulte = (int)tabResultat.getValueAt(row,0);
             CreationAffectation f = new CreationAffectation(idFenetre, idPrec, id_adulte);
             f.setVisible(true); 
+            f.setLocationRelativeTo(null);
             dispose();        
         } else if (idFenetrePrec.equals("CreationEleve")) {
             int id_adulte = (int)tabResultat.getValueAt(row,0);
             CreationResponsabilite f = new CreationResponsabilite(idPrec, id_adulte);
             f.setVisible(true); 
+            f.setLocationRelativeTo(null);
             dispose();        
         } else {
             int id_adulte = (int)tabResultat.getValueAt(row,0);
             CreationAdulte f = new CreationAdulte(id_adulte);
             f.setVisible(true); 
+            f.setLocationRelativeTo(null);
             dispose();
         }
     }//GEN-LAST:event_butOuvrirActionPerformed
@@ -265,6 +268,7 @@ public class RechercheAdulte extends javax.swing.JFrame {
     private void butAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAccueilActionPerformed
         Accueil f = new Accueil();
         f.setVisible(true);
+        f.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butAccueilActionPerformed
 

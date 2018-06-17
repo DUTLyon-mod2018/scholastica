@@ -27,10 +27,8 @@ public class CreationClasse extends javax.swing.JFrame {
      */
     public CreationClasse() {
         initComponents();
-        // ne pas afficher les infos de mise en poste si l'adulte ne fait pas
-        // partie de l'équipe enseignante
-        
     }
+
     public CreationClasse(String _idFenetrePrec) {
         initComponents();
         // créer une classe temporaire dans la base
@@ -181,7 +179,7 @@ public class CreationClasse extends javax.swing.JFrame {
 
     public void enregistrerClasse() {
         String nomClasse = tfNomClasse.getText();
-        if (nomClasse.equals("")) {
+        if (nomClasse.equals("") || nomClasse.equals("Temp")) {
             JOptionPane.showMessageDialog(null, "Il faut donner un nom à la classe.", "Erreur !", JOptionPane.ERROR_MESSAGE);
         } else {
             Base b = new Base();
@@ -501,6 +499,7 @@ public class CreationClasse extends javax.swing.JFrame {
         enregistrerClasse();
         RechercheAdulte f = new RechercheAdulte(idFenetre, idClasse);
         f.setVisible(true);
+        f.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butAjoutEnseignantActionPerformed
 
@@ -508,8 +507,8 @@ public class CreationClasse extends javax.swing.JFrame {
         enregistrerClasse();
         RechercheEleve f = new RechercheEleve(idFenetre, idClasse);
         f.setVisible(true);
+        f.setLocationRelativeTo(null);
         dispose();
-
     }//GEN-LAST:event_butAjoutEleveActionPerformed
 
     private void butExportListeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butExportListeActionPerformed
@@ -599,11 +598,11 @@ public class CreationClasse extends javax.swing.JFrame {
         enregistrerClasse();
         RechercheClasse f = new RechercheClasse();
         f.setVisible(true); 
+        f.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butValiderActionPerformed
 
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
-        enregistrerClasse();
         try {
             if (enCours == true) {
                 Base b = new Base();
@@ -618,6 +617,7 @@ public class CreationClasse extends javax.swing.JFrame {
             }
             RechercheClasse f = new RechercheClasse();
             f.setVisible(true); 
+            f.setLocationRelativeTo(null);
             dispose();
         } catch (SQLException e) {
             System.out.println(e.getMessage());

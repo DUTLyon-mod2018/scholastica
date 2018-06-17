@@ -33,9 +33,10 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Group type="102" alignment="1" attributes="0">
+          <Group type="102" alignment="0" attributes="0">
               <EmptySpace max="-2" attributes="0"/>
-              <Component id="jTabbedPane1" max="32767" attributes="0"/>
+              <Component id="jTabbedPane1" min="-2" pref="670" max="-2" attributes="0"/>
+              <EmptySpace max="32767" attributes="0"/>
           </Group>
       </Group>
     </DimensionLayout>
@@ -58,30 +59,21 @@
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" attributes="0">
-                      <Group type="103" groupAlignment="0" attributes="0">
+                      <EmptySpace max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="1" attributes="0">
                           <Group type="102" attributes="0">
-                              <EmptySpace min="-2" max="-2" attributes="0"/>
+                              <Component id="butValider" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
+                              <Component id="butAnnuler" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace max="32767" attributes="0"/>
+                              <Component id="butAccueil" min="-2" max="-2" attributes="0"/>
+                          </Group>
+                          <Group type="102" attributes="0">
                               <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                                  <Group type="102" attributes="0">
-                                      <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Component id="ch_tel_eleve" min="-2" pref="194" max="-2" attributes="0"/>
-                                  </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel7" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
-                                      <Component id="ch_date_inscri_eleve" min="-2" pref="194" max="-2" attributes="0"/>
-                                  </Group>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
-                                      </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="ch_date_radiation_eleve" alignment="1" min="-2" pref="194" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane1" alignment="1" min="-2" pref="194" max="-2" attributes="0"/>
-                                      </Group>
+                                      <Component id="ch_date_inscri_eleve" max="32767" attributes="0"/>
                                   </Group>
                                   <Group type="102" alignment="0" attributes="0">
                                       <Group type="103" groupAlignment="0" attributes="0">
@@ -92,14 +84,12 @@
                                           <Component id="jLabel2" min="-2" max="-2" attributes="0"/>
                                       </Group>
                                       <EmptySpace min="-2" pref="22" max="-2" attributes="0"/>
-                                      <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="ch_nom_eleve" min="-2" pref="194" max="-2" attributes="0"/>
-                                          <Component id="ch_prenom_enfant" min="-2" pref="194" max="-2" attributes="0"/>
-                                          <Group type="103" groupAlignment="0" max="-2" attributes="0">
-                                              <Component id="ch_naissance_eleve" pref="194" max="32767" attributes="0"/>
-                                              <Component id="ch_lieu_naiss_eleve" max="32767" attributes="0"/>
-                                              <Component id="ch_nationalite_eleve" max="32767" attributes="0"/>
-                                          </Group>
+                                      <Group type="103" groupAlignment="0" max="-2" attributes="0">
+                                          <Component id="ch_nom_eleve" max="32767" attributes="0"/>
+                                          <Component id="ch_prenom_enfant" max="32767" attributes="0"/>
+                                          <Component id="ch_naissance_eleve" max="32767" attributes="0"/>
+                                          <Component id="ch_lieu_naiss_eleve" max="32767" attributes="0"/>
+                                          <Component id="ch_nationalite_eleve" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                                   <Group type="102" alignment="1" attributes="0">
@@ -107,26 +97,34 @@
                                           <Component id="jLabel12" alignment="0" min="-2" max="-2" attributes="0"/>
                                           <Component id="jLabel11" alignment="0" min="-2" max="-2" attributes="0"/>
                                       </Group>
-                                      <EmptySpace max="32767" attributes="0"/>
+                                      <EmptySpace min="-2" pref="24" max="-2" attributes="0"/>
                                       <Group type="103" groupAlignment="0" attributes="0">
-                                          <Component id="ch_lunette_eleve" min="-2" max="-2" attributes="0"/>
-                                          <Component id="jScrollPane9" min="-2" pref="194" max="-2" attributes="0"/>
+                                          <Group type="102" attributes="0">
+                                              <Component id="ch_lunette_eleve" min="-2" max="-2" attributes="0"/>
+                                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                                          </Group>
+                                          <Component id="jScrollPane9" max="32767" attributes="0"/>
+                                      </Group>
+                                  </Group>
+                                  <Group type="102" alignment="0" attributes="0">
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                                          <Component id="jLabel10" alignment="0" min="-2" max="-2" attributes="0"/>
+                                      </Group>
+                                      <EmptySpace min="-2" pref="28" max="-2" attributes="0"/>
+                                      <Group type="103" groupAlignment="0" attributes="0">
+                                          <Component id="ch_tel_eleve" max="32767" attributes="0"/>
+                                          <Component id="ch_date_radiation_eleve" max="32767" attributes="0"/>
+                                          <Component id="jScrollPane1" alignment="0" max="32767" attributes="0"/>
                                       </Group>
                                   </Group>
                               </Group>
-                              <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                              <EmptySpace min="0" pref="28" max="32767" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jPanel4" min="-2" max="-2" attributes="0"/>
                                   <Component id="jPanel5" alignment="1" min="-2" max="-2" attributes="0"/>
                               </Group>
-                          </Group>
-                          <Group type="102" alignment="1" attributes="0">
-                              <EmptySpace min="-2" pref="15" max="-2" attributes="0"/>
-                              <Component id="valider" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="jButton2" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="-2" pref="669" max="-2" attributes="0"/>
-                              <Component id="ret_acc_crea_ele" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace min="0" pref="20" max="32767" attributes="0"/>
@@ -164,8 +162,8 @@
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="ch_nationalite_eleve" alignment="3" min="-2" max="-2" attributes="0"/>
                                   <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                                  <Component id="ch_nationalite_eleve" alignment="3" min="-2" max="-2" attributes="0"/>
                               </Group>
                               <EmptySpace max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="3" attributes="0">
@@ -202,12 +200,6 @@
                                   <Component id="jLabel12" min="-2" max="-2" attributes="0"/>
                                   <Component id="jScrollPane9" min="-2" max="-2" attributes="0"/>
                               </Group>
-                              <EmptySpace min="-2" pref="29" max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="3" attributes="0">
-                                  <Component id="valider" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="jButton2" alignment="3" min="-2" max="-2" attributes="0"/>
-                                  <Component id="ret_acc_crea_ele" alignment="3" min="-2" max="-2" attributes="0"/>
-                              </Group>
                           </Group>
                           <Component id="jPanel4" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
@@ -215,7 +207,13 @@
                               <Component id="jPanel5" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace max="32767" attributes="0"/>
+                      <EmptySpace pref="113" max="32767" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="butValider" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="butAnnuler" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="butAccueil" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
+                      <EmptySpace max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -251,8 +249,6 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nationalit&#xe9;"/>
               </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="ch_nationalite_eleve">
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel7">
               <Properties>
@@ -321,20 +317,20 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="valider">
+            <Component class="javax.swing.JButton" name="butValider">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Cr&#xe9;er &#xe9;l&#xe8;ve"/>
+                <Property name="text" type="java.lang.String" value="Valider"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="validerActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butValiderActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JButton" name="ret_acc_crea_ele">
+            <Component class="javax.swing.JButton" name="butAccueil">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Accueil"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ret_acc_crea_eleActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butAccueilActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="ch_naissance_eleve">
@@ -343,10 +339,13 @@
             </Component>
             <Component class="javax.swing.JFormattedTextField" name="ch_date_radiation_eleve">
             </Component>
-            <Component class="javax.swing.JButton" name="jButton2">
+            <Component class="javax.swing.JButton" name="butAnnuler">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Annuler"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="butAnnulerActionPerformed"/>
+              </Events>
             </Component>
             <Container class="javax.swing.JPanel" name="jPanel4">
               <Properties>
@@ -563,6 +562,212 @@
                 </Component>
               </SubComponents>
             </Container>
+            <Component class="javax.swing.JComboBox" name="ch_nationalite_eleve">
+              <Properties>
+                <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                  <StringArray count="195">
+                    <StringItem index="0" value="Fran&#xe7;aise"/>
+                    <StringItem index="1" value="--"/>
+                    <StringItem index="2" value="Afghane"/>
+                    <StringItem index="3" value="Albanaise"/>
+                    <StringItem index="4" value="Algerienne"/>
+                    <StringItem index="5" value="Allemande"/>
+                    <StringItem index="6" value="Americaine"/>
+                    <StringItem index="7" value="Andorrane"/>
+                    <StringItem index="8" value="Angolaise"/>
+                    <StringItem index="9" value="Antiguaise et barbudienne"/>
+                    <StringItem index="10" value="Argentine"/>
+                    <StringItem index="11" value="Armenienne"/>
+                    <StringItem index="12" value="Australienne"/>
+                    <StringItem index="13" value="Autrichienne"/>
+                    <StringItem index="14" value="Azerba&#xef;djanaise"/>
+                    <StringItem index="15" value="Bahamienne"/>
+                    <StringItem index="16" value="Bahreinienne"/>
+                    <StringItem index="17" value="Bangladaise"/>
+                    <StringItem index="18" value="Barbadienne"/>
+                    <StringItem index="19" value="Belge"/>
+                    <StringItem index="20" value="Belizienne"/>
+                    <StringItem index="21" value="Beninoise"/>
+                    <StringItem index="22" value="Bhoutanaise"/>
+                    <StringItem index="23" value="Bielorusse"/>
+                    <StringItem index="24" value="Birmane"/>
+                    <StringItem index="25" value="Bissau-Guin&#xe9;enne"/>
+                    <StringItem index="26" value="Bolivienne"/>
+                    <StringItem index="27" value="Bosnienne"/>
+                    <StringItem index="28" value="Botswanaise"/>
+                    <StringItem index="29" value="Bresilienne"/>
+                    <StringItem index="30" value="Britannique"/>
+                    <StringItem index="31" value="Bruneienne"/>
+                    <StringItem index="32" value="Bulgare"/>
+                    <StringItem index="33" value="Burkinabe"/>
+                    <StringItem index="34" value="Burundaise"/>
+                    <StringItem index="35" value="Cambodgienne"/>
+                    <StringItem index="36" value="Camerounaise"/>
+                    <StringItem index="37" value="Canadienne"/>
+                    <StringItem index="38" value="Cap-verdienne"/>
+                    <StringItem index="39" value="Centrafricaine"/>
+                    <StringItem index="40" value="Chilienne"/>
+                    <StringItem index="41" value="Chinoise"/>
+                    <StringItem index="42" value="Chypriote"/>
+                    <StringItem index="43" value="Colombienne"/>
+                    <StringItem index="44" value="Comorienne"/>
+                    <StringItem index="45" value="Congolaise"/>
+                    <StringItem index="46" value="Costaricaine"/>
+                    <StringItem index="47" value="Croate"/>
+                    <StringItem index="48" value="Cubaine"/>
+                    <StringItem index="49" value="Danoise"/>
+                    <StringItem index="50" value="Djiboutienne"/>
+                    <StringItem index="51" value="Dominicaine"/>
+                    <StringItem index="52" value="Dominiquaise"/>
+                    <StringItem index="53" value="Egyptienne"/>
+                    <StringItem index="54" value="Emirienne"/>
+                    <StringItem index="55" value="Equato-guineenne"/>
+                    <StringItem index="56" value="Equatorienne"/>
+                    <StringItem index="57" value="Erythreenne"/>
+                    <StringItem index="58" value="Espagnole"/>
+                    <StringItem index="59" value="Est-timoraise"/>
+                    <StringItem index="60" value="Estonienne"/>
+                    <StringItem index="61" value="Ethiopienne"/>
+                    <StringItem index="62" value="Fidjienne"/>
+                    <StringItem index="63" value="Finlandaise"/>
+                    <StringItem index="64" value="Gabonaise"/>
+                    <StringItem index="65" value="Gambienne"/>
+                    <StringItem index="66" value="Georgienne"/>
+                    <StringItem index="67" value="Ghaneenne"/>
+                    <StringItem index="68" value="Grenadienne"/>
+                    <StringItem index="69" value="Guatemalteque"/>
+                    <StringItem index="70" value="Guineenne"/>
+                    <StringItem index="71" value="Guyanienne"/>
+                    <StringItem index="72" value="Ha&#xef;tienne"/>
+                    <StringItem index="73" value="Hellenique"/>
+                    <StringItem index="74" value="Hondurienne"/>
+                    <StringItem index="75" value="Hongroise"/>
+                    <StringItem index="76" value="Indienne"/>
+                    <StringItem index="77" value="Indonesienne"/>
+                    <StringItem index="78" value="Irakienne"/>
+                    <StringItem index="79" value="Irlandaise"/>
+                    <StringItem index="80" value="Islandaise"/>
+                    <StringItem index="81" value="Isra&#xe9;lienne"/>
+                    <StringItem index="82" value="Italienne"/>
+                    <StringItem index="83" value="Ivoirienne"/>
+                    <StringItem index="84" value="Jama&#xef;caine"/>
+                    <StringItem index="85" value="Japonaise"/>
+                    <StringItem index="86" value="Jordanienne"/>
+                    <StringItem index="87" value="Kazakhstanaise"/>
+                    <StringItem index="88" value="Kenyane"/>
+                    <StringItem index="89" value="Kirghize"/>
+                    <StringItem index="90" value="Kiribatienne"/>
+                    <StringItem index="91" value="Kittitienne-et-nevicienne"/>
+                    <StringItem index="92" value="&#x200b;Kossovienne"/>
+                    <StringItem index="93" value="Koweitienne"/>
+                    <StringItem index="94" value="Laotienne"/>
+                    <StringItem index="95" value="Lesothane"/>
+                    <StringItem index="96" value="Lettone"/>
+                    <StringItem index="97" value="Libanaise"/>
+                    <StringItem index="98" value="Liberienne"/>
+                    <StringItem index="99" value="Libyenne"/>
+                    <StringItem index="100" value="Liechtensteinoise"/>
+                    <StringItem index="101" value="Lituanienne"/>
+                    <StringItem index="102" value="Luxembourgeoise"/>
+                    <StringItem index="103" value="Macedonienne"/>
+                    <StringItem index="104" value="Malaisienne"/>
+                    <StringItem index="105" value="Malawienne"/>
+                    <StringItem index="106" value="Maldivienne"/>
+                    <StringItem index="107" value="Malgache"/>
+                    <StringItem index="108" value="Malienne"/>
+                    <StringItem index="109" value="Maltaise"/>
+                    <StringItem index="110" value="Marocaine"/>
+                    <StringItem index="111" value="Marshallaise"/>
+                    <StringItem index="112" value="Mauricienne"/>
+                    <StringItem index="113" value="Mauritanienne"/>
+                    <StringItem index="114" value="Mexicaine"/>
+                    <StringItem index="115" value="Micronesienne"/>
+                    <StringItem index="116" value="Moldave"/>
+                    <StringItem index="117" value="Monegasque"/>
+                    <StringItem index="118" value="Mongole"/>
+                    <StringItem index="119" value="Montenegrine"/>
+                    <StringItem index="120" value="Mozambicaine"/>
+                    <StringItem index="121" value="Namibienne"/>
+                    <StringItem index="122" value="Nauruane"/>
+                    <StringItem index="123" value="Neerlandaise"/>
+                    <StringItem index="124" value="Neo-zelandaise"/>
+                    <StringItem index="125" value="Nepalaise"/>
+                    <StringItem index="126" value="Nicaraguayenne"/>
+                    <StringItem index="127" value="Nigeriane"/>
+                    <StringItem index="128" value="Nigerienne"/>
+                    <StringItem index="129" value="Nord-cor&#xe9;enne"/>
+                    <StringItem index="130" value="Norvegienne"/>
+                    <StringItem index="131" value="Omanaise"/>
+                    <StringItem index="132" value="Ougandaise"/>
+                    <StringItem index="133" value="Ouzbeke"/>
+                    <StringItem index="134" value="Pakistanaise"/>
+                    <StringItem index="135" value="Palau"/>
+                    <StringItem index="136" value="Palestinienne"/>
+                    <StringItem index="137" value="Panameenne"/>
+                    <StringItem index="138" value="Papouane-neoguineenne"/>
+                    <StringItem index="139" value="Paraguayenne"/>
+                    <StringItem index="140" value="Peruvienne"/>
+                    <StringItem index="141" value="Philippine"/>
+                    <StringItem index="142" value="Polonaise"/>
+                    <StringItem index="143" value="Portoricaine"/>
+                    <StringItem index="144" value="Portugaise"/>
+                    <StringItem index="145" value="Qatarienne"/>
+                    <StringItem index="146" value="Roumaine"/>
+                    <StringItem index="147" value="Russe"/>
+                    <StringItem index="148" value="Rwandaise"/>
+                    <StringItem index="149" value="Saint-Lucienne"/>
+                    <StringItem index="150" value="Saint-Marinaise"/>
+                    <StringItem index="151" value="Saint-Vincentaise-et-Grenadine"/>
+                    <StringItem index="152" value="Salomonaise"/>
+                    <StringItem index="153" value="Salvadorienne"/>
+                    <StringItem index="154" value="Samoane"/>
+                    <StringItem index="155" value="Santomeenne"/>
+                    <StringItem index="156" value="Saoudienne"/>
+                    <StringItem index="157" value="S&#xe9;n&#xe9;galaise"/>
+                    <StringItem index="158" value="Serbe"/>
+                    <StringItem index="159" value="Seychelloise"/>
+                    <StringItem index="160" value="Sierra-leonaise"/>
+                    <StringItem index="161" value="Singapourienne"/>
+                    <StringItem index="162" value="Slovaque"/>
+                    <StringItem index="163" value="Slovene"/>
+                    <StringItem index="164" value="Somalienne"/>
+                    <StringItem index="165" value="Soudanaise"/>
+                    <StringItem index="166" value="Sri-lankaise"/>
+                    <StringItem index="167" value="Sud-africaine"/>
+                    <StringItem index="168" value="Sud-cor&#xe9;enne"/>
+                    <StringItem index="169" value="Su&#xe9;doise"/>
+                    <StringItem index="170" value="Suisse"/>
+                    <StringItem index="171" value="Surinamaise"/>
+                    <StringItem index="172" value="Swazie"/>
+                    <StringItem index="173" value="Syrienne"/>
+                    <StringItem index="174" value="Tadjike"/>
+                    <StringItem index="175" value="Taiwanaise"/>
+                    <StringItem index="176" value="Tanzanienne"/>
+                    <StringItem index="177" value="Tchadienne"/>
+                    <StringItem index="178" value="Tcheque"/>
+                    <StringItem index="179" value="Tha&#xef;landaise"/>
+                    <StringItem index="180" value="Togolaise"/>
+                    <StringItem index="181" value="Tonguienne"/>
+                    <StringItem index="182" value="Trinidadienne"/>
+                    <StringItem index="183" value="Tunisienne"/>
+                    <StringItem index="184" value="Turkmene"/>
+                    <StringItem index="185" value="Turque"/>
+                    <StringItem index="186" value="Tuvaluane"/>
+                    <StringItem index="187" value="Ukrainienne"/>
+                    <StringItem index="188" value="Uruguayenne"/>
+                    <StringItem index="189" value="Vanuatuane"/>
+                    <StringItem index="190" value="Venezuelienne"/>
+                    <StringItem index="191" value="Vietnamienne"/>
+                    <StringItem index="192" value="Yemenite"/>
+                    <StringItem index="193" value="Zambienne"/>
+                    <StringItem index="194" value="Zimbabweenne"/>
+                  </StringArray>
+                </Property>
+              </Properties>
+              <AuxValues>
+                <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
+              </AuxValues>
+            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel2">
@@ -596,7 +801,7 @@
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
-                      <EmptySpace max="-2" attributes="0"/>
+                      <EmptySpace min="-2" pref="19" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jPanel9" min="-2" max="-2" attributes="0"/>
@@ -611,7 +816,7 @@
                               <Component id="jPanel8" min="-2" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="59" max="32767" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -901,7 +1106,7 @@
                                   <Group type="102" alignment="0" attributes="0">
                                       <Component id="jLabel22" min="-2" max="-2" attributes="0"/>
                                       <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="ch_date_rapel_antitenaq" max="32767" attributes="0"/>
+                                      <Component id="ch_date_vaccin" max="32767" attributes="0"/>
                                   </Group>
                               </Group>
                               <Component id="ch_pai_eleve" alignment="0" min="-2" pref="99" max="-2" attributes="0"/>
@@ -918,7 +1123,7 @@
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel22" alignment="3" min="-2" max="-2" attributes="0"/>
-                              <Component id="ch_date_rapel_antitenaq" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="ch_date_vaccin" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="ch_pai_eleve" min="-2" max="-2" attributes="0"/>
@@ -948,7 +1153,7 @@
                     <Property name="text" type="java.lang.String" value="Dernier rappel antit&#xe9;nanique"/>
                   </Properties>
                 </Component>
-                <Component class="javax.swing.JFormattedTextField" name="ch_date_rapel_antitenaq">
+                <Component class="javax.swing.JFormattedTextField" name="ch_date_vaccin">
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ch_pai_eleve">
                   <Properties>
@@ -990,9 +1195,14 @@
                                       <Component id="ch_notif_evs" pref="101" max="32767" attributes="0"/>
                                       <Component id="ch_notif_avs" max="32767" attributes="0"/>
                                   </Group>
+                                  <EmptySpace max="-2" attributes="0"/>
+                                  <Group type="103" groupAlignment="0" attributes="0">
+                                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
+                                      <Component id="jLabel15" min="-2" max="-2" attributes="0"/>
+                                  </Group>
                               </Group>
                           </Group>
-                          <EmptySpace max="32767" attributes="0"/>
+                          <EmptySpace pref="62" max="32767" attributes="0"/>
                       </Group>
                   </Group>
                 </DimensionLayout>
@@ -1003,11 +1213,13 @@
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel25" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ch_notif_evs" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace max="-2" attributes="0"/>
                           <Group type="103" groupAlignment="3" attributes="0">
                               <Component id="jLabel26" alignment="3" min="-2" max="-2" attributes="0"/>
                               <Component id="ch_notif_avs" alignment="3" min="-2" max="-2" attributes="0"/>
+                              <Component id="jLabel15" alignment="3" min="-2" max="-2" attributes="0"/>
                           </Group>
                           <EmptySpace type="unrelated" max="-2" attributes="0"/>
                           <Component id="jLabel27" min="-2" max="-2" attributes="0"/>
@@ -1034,14 +1246,18 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="ch_notif_evs">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;3h&quot;, &quot;6h&quot;, &quot;9h&quot;, &quot;12h&quot; })" type="code"/>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="7">
+                        <StringItem index="0" value="0"/>
+                        <StringItem index="1" value="3"/>
+                        <StringItem index="2" value="6"/>
+                        <StringItem index="3" value="9"/>
+                        <StringItem index="4" value="12"/>
+                        <StringItem index="5" value="18"/>
+                        <StringItem index="6" value="24"/>
+                      </StringArray>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="itemStateChanged" listener="java.awt.event.ItemListener" parameters="java.awt.event.ItemEvent" handler="ch_notif_evsItemStateChanged"/>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ch_notif_evsActionPerformed"/>
-                  </Events>
                   <AuxValues>
                     <AuxValue name="JavaCodeGenerator_TypeParameters" type="java.lang.String" value="&lt;String&gt;"/>
                   </AuxValues>
@@ -1053,8 +1269,16 @@
                 </Component>
                 <Component class="javax.swing.JComboBox" name="ch_notif_avs">
                   <Properties>
-                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-                      <Connection code="new javax.swing.DefaultComboBoxModel&lt;&gt;(new String[] { &quot;3h&quot;, &quot;6h&quot;, &quot;9h&quot;, &quot;12h&quot; })" type="code"/>
+                    <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
+                      <StringArray count="7">
+                        <StringItem index="0" value="0"/>
+                        <StringItem index="1" value="3"/>
+                        <StringItem index="2" value="6"/>
+                        <StringItem index="3" value="9"/>
+                        <StringItem index="4" value="12"/>
+                        <StringItem index="5" value="18"/>
+                        <StringItem index="6" value="24"/>
+                      </StringArray>
                     </Property>
                   </Properties>
                   <AuxValues>
@@ -1085,13 +1309,20 @@
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Suivi MDPH"/>
                   </Properties>
-                  <Events>
-                    <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="ch_rased_mdphActionPerformed"/>
-                  </Events>
                 </Component>
                 <Component class="javax.swing.JCheckBox" name="ch_rased_assi_social">
                   <Properties>
                     <Property name="text" type="java.lang.String" value="Assistante sociale"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel1">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="heures"/>
+                  </Properties>
+                </Component>
+                <Component class="javax.swing.JLabel" name="jLabel15">
+                  <Properties>
+                    <Property name="text" type="java.lang.String" value="heures"/>
                   </Properties>
                 </Component>
               </SubComponents>
@@ -1120,7 +1351,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="0" attributes="0">
                       <Component id="jScrollPane8" min="-2" pref="487" max="-2" attributes="0"/>
-                      <EmptySpace min="0" pref="193" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="153" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>

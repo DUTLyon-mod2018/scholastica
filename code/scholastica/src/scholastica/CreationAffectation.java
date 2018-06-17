@@ -183,12 +183,14 @@ public class CreationAffectation extends javax.swing.JFrame {
     
         CreationClasse f = new CreationClasse(idFenetre, idClasse);
         f.setVisible(true); 
+        f.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butValiderActionPerformed
 
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
         RechercheAdulte f = new RechercheAdulte("CreationClasse", idClasse);
         f.setVisible(true);
+        f.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butAnnulerActionPerformed
 

@@ -104,8 +104,9 @@ public class ModificationMdp extends JFrame implements ActionListener {
 //conn.close();
         } else {
             if (e.getSource() == retour) {
-                Authentification auth = new Authentification();
-                auth.setVisible(true);
+                Authentification f = new Authentification();
+                f.setVisible(true);
+                f.setLocationRelativeTo(null);
                 dispose();
             }
 

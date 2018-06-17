@@ -180,12 +180,14 @@ public class CreationResponsabilite extends javax.swing.JFrame {
     
         CreationEleve f = new CreationEleve(idEnfant);
         f.setVisible(true); 
+        f.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butValiderActionPerformed
 
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
         RechercheAdulte f = new RechercheAdulte("CreationEleve", idEnfant);
         f.setVisible(true);
+        f.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butAnnulerActionPerformed
 

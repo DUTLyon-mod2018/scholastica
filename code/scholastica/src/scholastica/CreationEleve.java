@@ -22,20 +22,165 @@ public class CreationEleve extends javax.swing.JFrame {
 
     int idEnfant;
     String idFenetre = "CreationEleve";
+    Boolean enCours = false;
 
     /**
      * Creates new form Crea_eleve
      */
     public CreationEleve() {
         initComponents();
-        idEnfant = -1;
-       
+        // créer un enfant temporaire dans la base
+        Base b = new Base();
+        Connection conn = null;
+        ResultSet res;
+        PreparedStatement stmt1;
+        PreparedStatement stmt2;
+        b.connexionBD();
+        conn = b.getConnect();
+
+        try {
+            stmt1 = conn.prepareStatement("insert into p1514568.Enfant (nom_enfant, prenom_enfant, date_naissance) values ('Temp', 'Temp', ?)");
+            stmt1.setDate(1, new java.sql.Date(0L));
+            stmt1.executeUpdate();
+            stmt1.close();
+            stmt2 = conn.prepareStatement("select max(id_enfant) as idenfant from p1514568.Enfant where nom_enfant = 'Temp'");
+            res = stmt2.executeQuery();
+            
+            while (res.next()){     
+                idEnfant = res.getInt("idenfant");
+                enCours = true;
+            }
+            res.close();
+            stmt2.close();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }       
     }
 
     public CreationEleve(int _idEnfant) {
         initComponents();
         idEnfant = _idEnfant;
         this.populate(idEnfant);
+    }
+    
+    public void enregistrerEnfant() {
+        String nomEnfant = ch_nom_eleve.getText();
+        String prenomEnfant = ch_prenom_enfant.getText();
+        java.util.Date dateNaissance = (java.util.Date) ch_naissance_eleve.getValue();
+        java.sql.Date sqlDateNaissance = new java.sql.Date(0L);
+        if (null != dateNaissance) {
+            sqlDateNaissance = new java.sql.Date(dateNaissance.getTime());
+        }        
+        java.util.Date dateInscription = (java.util.Date) ch_date_inscri_eleve.getValue();
+        java.sql.Date sqlDateInscription = null;
+        if (null != dateInscription) {
+            sqlDateInscription = new java.sql.Date(dateInscription.getTime());
+        }        
+        java.util.Date dateRadiation = (java.util.Date) ch_date_radiation_eleve.getValue();
+        java.sql.Date sqlDateRadiation = null;
+        if (null != dateRadiation) {
+            sqlDateRadiation = new java.sql.Date(dateRadiation.getTime());
+        }        
+        java.util.Date dateVaccin = (java.util.Date) ch_date_vaccin.getValue();
+        java.sql.Date sqlDateVaccin = null;
+        if (null != dateVaccin) {
+            sqlDateVaccin = new java.sql.Date(dateVaccin.getTime());
+        }        
+        
+        if (nomEnfant.equals("Temp") || nomEnfant.equals("") || prenomEnfant.equals("") || null == dateNaissance) {
+            JOptionPane.showMessageDialog(null, "Il faut renseigner le nom, le prénom et la date de naissance.", "Erreur !", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Base b = new Base();
+            Connection conn = null;
+            PreparedStatement statement;
+            b.connexionBD();
+            conn = b.getConnect();
+            String sql = "update p1514568.Enfant set "
+                +" nom_enfant = ?," 
+                +" prenom_enfant = ?," 
+                +" adresse_enfant = ?," 
+                +" tel_enfant = ?," 
+                +" nationalite = ?," //5
+                +" date_naissance = ?," 
+                +" ville_naissance = ?," 
+                +" date_inscription = ?," 
+                +" date_radiation = ?," 
+                +" port_lunettes = ?," //10
+                +" situation_familiale = ?," 
+                +" infos_medicales = ?," 
+                +" date_vaccin = ?," 
+                +" pai = ?," 
+                +" avs = ?," //15
+                +" evs = ?," 
+                +" tel_assurance = ?,"
+                +" adr_assurance = ?," 
+                +" tel_secu_social = ?," 
+                +" adr_secu_social = ?," //20
+                +" nom_medecin = ?," 
+                +" tel_medecin = ?,"
+                +" adr_medecin = ?"
+                +" where id_enfant = "+idEnfant;
+            try {
+                statement = conn.prepareStatement(sql);
+                statement.setString(1, nomEnfant);
+                statement.setString(2, prenomEnfant);
+                statement.setString(3, ch_adresse_eleve.getText());
+                statement.setString(4, ch_tel_eleve.getText());
+                statement.setString(5, ch_nationalite_eleve.getSelectedItem().toString());
+                statement.setDate(6, sqlDateNaissance);
+                statement.setString(7, ch_lieu_naiss_eleve.getText());
+                statement.setDate(8, sqlDateInscription);
+                statement.setDate(9, sqlDateRadiation);
+                statement.setBoolean(10, ch_lunette_eleve.isSelected());
+                statement.setString(11, ch_situ_famil_eleve.getText());
+                statement.setString(12, ch_info_medical.getText());
+                statement.setDate(13, sqlDateVaccin);
+                statement.setBoolean(14, ch_pai_eleve.isSelected());
+                statement.setInt(15, new Integer(ch_notif_evs.getSelectedItem().toString()));
+                statement.setInt(16, new Integer(ch_notif_avs.getSelectedItem().toString()));
+                statement.setString(17, ch_tel_assu.getText());
+                statement.setString(18, ch_adr_assu.getText());
+                statement.setString(19, ch_tel_secu.getText());
+                statement.setString(20, ch_adr_secu.getText());
+                statement.setString(21, ch_nom_medecin.getText());
+                statement.setString(22, ch_tel_medecin.getText());
+                statement.setString(23, ch_adr_medecin.getText());
+                System.out.println(statement);
+                statement.executeUpdate();
+                
+                sql = "delete from p1514568.Enfant_rased where id_enfant = "+idEnfant;
+                statement = conn.prepareStatement(sql);
+                System.out.println(statement);
+                statement.executeUpdate();
+                
+                int maitreE = 0, maitreG = 0, mdph = 0, psy = 0, assiSoc = 0, rased = 0;
+                if (ch_rased_maitree.isSelected()) { maitreE = 1; }
+                if (ch_rased_maitreg.isSelected()) { maitreG = 1; }
+                if (ch_rased_mdph.isSelected()) { mdph = 1; }
+                if (ch_rased_psy.isSelected()) { psy = 1; }
+                if (ch_rased_assi_social.isSelected()) { assiSoc = 1; }
+                rased = maitreE + maitreG + mdph + psy + assiSoc;
+                
+                if (rased > 0) {
+                    sql = "insert into p1514568.Enfant_rased select "+idEnfant+", id_rased from p1514568.Rased where id_rased in (";
+                    if (maitreE == 1) { sql += "1, "; }
+                    if (maitreG == 1) { sql += "2, "; }
+                    if (mdph == 1) { sql += "4, "; }
+                    if (psy == 1) { sql += "3, "; }
+                    if (assiSoc == 1) { sql += "5, "; }
+                    sql = sql.substring(0, (sql.length() - 2));
+                    sql += ")";
+                    
+                    statement = conn.prepareStatement(sql);
+                    System.out.println(statement);
+                    statement.executeUpdate();
+                }
+                statement.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+        
     }
 
     public void populate(int idEnfant) {
@@ -52,58 +197,70 @@ public class CreationEleve extends javax.swing.JFrame {
             res = statement.executeQuery();
 
             while (res.next()) {
-                String nom_eleve = res.getString("nom_enfant");
-                String prenom_enfant = res.getString("prenom_enfant");
-                String date_naissance_eleve = res.getString("date_naissance");
-                String lieu_naissance_eleve = res.getString("ville_naissance");
-                String nationalite_eleve = res.getString("nationalite");
-                String adresse_eleve = res.getString("adresse_enfant");
-                String telephone_eleve = res.getString("tel_enfant");
-                String situ_famille_eleve = res.getString("situation_familiale");
-                String tel_secu = res.getString("tel_secu_social");
-                String adr_secu = res.getString("adr_secu_social");
-                String tel_assu = res.getString("tel_assurance");
-                String adr_assu = res.getString("adr_assurance");
-                String nom_medecin = res.getString("nom_medecin");
-                String tel_medecin = res.getString("tel_medecin");
-                String adr_medecin = res.getString("adr_medecin");
-                String info_medical = res.getString("infos_medicales");
-                String date_rapel_antitenaq = res.getString("date_vaccin");
-                Boolean lunette_eleve = res.getBoolean("port_lunettes");
-                Boolean pai_eleve = res.getBoolean("pai");
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                String sDateNaissance = null;
+                Date dateNaissance = res.getDate("date_naissance");
+                if (null != dateNaissance) {
+                    sDateNaissance = formatter.format(dateNaissance);
+                }
+                String sDateVaccin = null;
+                Date dateVaccin = res.getDate("date_vaccin");
+                if (null != dateVaccin) {
+                    sDateVaccin = formatter.format(dateVaccin);
+                }
                 String sDateDebut = null;
-                String sDateFin = null;
                 Date dateDebut = res.getDate("date_inscription");
                 if (null != dateDebut) {
                     sDateDebut = formatter.format(dateDebut);
                 }
+                String sDateFin = null;
                 Date dateFin = res.getDate("date_radiation");
                 if (null != dateFin) {
                     sDateFin = formatter.format(dateFin);
                 }
 
-                ch_nom_eleve.setText(nom_eleve);
-                ch_prenom_enfant.setText(prenom_enfant);
-                ch_naissance_eleve.setText(date_naissance_eleve);
-                ch_lieu_naiss_eleve.setText(lieu_naissance_eleve);
-                ch_nationalite_eleve.setText(nationalite_eleve);
-                ch_adresse_eleve.setText(adresse_eleve);
-                ch_tel_eleve.setText(telephone_eleve);
-                ch_situ_famil_eleve.setText(situ_famille_eleve);
-                ch_tel_secu.setText(tel_secu);
-                ch_adr_secu.setText(adr_secu);
-                ch_tel_assu.setText(tel_assu);
-                ch_adr_assu.setText(adr_assu);
-                ch_nom_medecin.setText(nom_medecin);
-                ch_tel_medecin.setText(tel_medecin);
-                ch_adr_medecin.setText(adr_medecin);
-                ch_info_medical.setText(info_medical);
-                ch_date_rapel_antitenaq.setText(date_rapel_antitenaq);
-                ch_lunette_eleve.setSelected(lunette_eleve);
-                ch_pai_eleve.setSelected(pai_eleve);
+                ch_nom_eleve.setText(res.getString("nom_enfant"));
+                ch_prenom_enfant.setText(res.getString("prenom_enfant"));
+                ch_naissance_eleve.setText(sDateNaissance);
+                ch_lieu_naiss_eleve.setText(res.getString("ville_naissance"));
+                ch_nationalite_eleve.setSelectedItem(res.getString("nationalite"));
                 ch_date_inscri_eleve.setText(sDateDebut);
                 ch_date_radiation_eleve.setText(sDateFin);
+                ch_adresse_eleve.setText(res.getString("adresse_enfant"));
+                ch_tel_eleve.setText(res.getString("tel_enfant"));
+                ch_lunette_eleve.setSelected(res.getBoolean("port_lunettes"));
+                ch_situ_famil_eleve.setText(res.getString("situation_familiale"));
+                ch_tel_secu.setText(res.getString("tel_secu_social"));
+                ch_adr_secu.setText(res.getString("adr_secu_social"));
+                ch_tel_assu.setText(res.getString("tel_assurance"));
+                ch_adr_assu.setText(res.getString("adr_assurance"));
+                ch_nom_medecin.setText(res.getString("nom_medecin"));
+                ch_tel_medecin.setText(res.getString("tel_medecin"));
+                ch_adr_medecin.setText(res.getString("adr_medecin"));
+                ch_info_medical.setText(res.getString("infos_medicales"));
+                ch_date_vaccin.setText(sDateVaccin);
+                ch_pai_eleve.setSelected(res.getBoolean("pai"));
+                ch_notif_evs.setSelectedItem(String.valueOf(res.getInt("evs")));
+                ch_notif_avs.setSelectedItem(String.valueOf(res.getInt("avs")));
+            }
+            
+            statement = conn.prepareStatement("select * from p1514568.Enfant_rased where id_enfant = ?");
+            statement.setInt(1, idEnfant);
+            res = statement.executeQuery();
+            
+            while (res.next()) {
+                switch (res.getInt("id_rased")) {
+                    case 1: ch_rased_maitree.setSelected(true);
+                    break;
+                    case 2: ch_rased_maitreg.setSelected(true);
+                    break;
+                    case 3: ch_rased_psy.setSelected(true);
+                    break;
+                    case 4: ch_rased_mdph.setSelected(true);
+                    break;
+                    case 5: ch_rased_assi_social.setSelected(true);
+                    break;
+                }
             }
             
             //remplissage de la table Adulte
@@ -244,7 +401,6 @@ public class CreationEleve extends javax.swing.JFrame {
         ch_lieu_naiss_eleve = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        ch_nationalite_eleve = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
@@ -257,12 +413,12 @@ public class CreationEleve extends javax.swing.JFrame {
         jLabel12 = new javax.swing.JLabel();
         jScrollPane9 = new javax.swing.JScrollPane();
         ch_situ_famil_eleve = new javax.swing.JTextArea();
-        valider = new javax.swing.JButton();
-        ret_acc_crea_ele = new javax.swing.JButton();
+        butValider = new javax.swing.JButton();
+        butAccueil = new javax.swing.JButton();
         ch_naissance_eleve = new javax.swing.JFormattedTextField();
         ch_date_inscri_eleve = new javax.swing.JFormattedTextField();
         ch_date_radiation_eleve = new javax.swing.JFormattedTextField();
-        jButton2 = new javax.swing.JButton();
+        butAnnuler = new javax.swing.JButton();
         jPanel4 = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         tabAdulte = new javax.swing.JTable();
@@ -273,6 +429,7 @@ public class CreationEleve extends javax.swing.JFrame {
         tabFratrie = new javax.swing.JTable();
         butCreerFratrie = new javax.swing.JButton();
         butRechFratrie = new javax.swing.JButton();
+        ch_nationalite_eleve = new javax.swing.JComboBox<>();
         jPanel2 = new javax.swing.JPanel();
         jPanel6 = new javax.swing.JPanel();
         jLabel13 = new javax.swing.JLabel();
@@ -298,7 +455,7 @@ public class CreationEleve extends javax.swing.JFrame {
         jScrollPane7 = new javax.swing.JScrollPane();
         ch_info_medical = new javax.swing.JTextArea();
         jLabel22 = new javax.swing.JLabel();
-        ch_date_rapel_antitenaq = new javax.swing.JFormattedTextField();
+        ch_date_vaccin = new javax.swing.JFormattedTextField();
         ch_pai_eleve = new javax.swing.JCheckBox();
         jPanel10 = new javax.swing.JPanel();
         jLabel25 = new javax.swing.JLabel();
@@ -311,6 +468,8 @@ public class CreationEleve extends javax.swing.JFrame {
         ch_rased_psy = new javax.swing.JCheckBox();
         ch_rased_mdph = new javax.swing.JCheckBox();
         ch_rased_assi_social = new javax.swing.JCheckBox();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jScrollPane8 = new javax.swing.JScrollPane();
         tabHist = new javax.swing.JTable();
@@ -350,21 +509,26 @@ public class CreationEleve extends javax.swing.JFrame {
         ch_situ_famil_eleve.setRows(5);
         jScrollPane9.setViewportView(ch_situ_famil_eleve);
 
-        valider.setText("Créer élève");
-        valider.addActionListener(new java.awt.event.ActionListener() {
+        butValider.setText("Valider");
+        butValider.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                validerActionPerformed(evt);
+                butValiderActionPerformed(evt);
             }
         });
 
-        ret_acc_crea_ele.setText("Accueil");
-        ret_acc_crea_ele.addActionListener(new java.awt.event.ActionListener() {
+        butAccueil.setText("Accueil");
+        butAccueil.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ret_acc_crea_eleActionPerformed(evt);
+                butAccueilActionPerformed(evt);
             }
         });
 
-        jButton2.setText("Annuler");
+        butAnnuler.setText("Annuler");
+        butAnnuler.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butAnnulerActionPerformed(evt);
+            }
+        });
 
         jPanel4.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Famille et autres adultes", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Tahoma", 1, 14))); // NOI18N
 
@@ -471,31 +635,27 @@ public class CreationEleve extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        ch_nationalite_eleve.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Française", "--", "Afghane", "Albanaise", "Algerienne", "Allemande", "Americaine", "Andorrane", "Angolaise", "Antiguaise et barbudienne", "Argentine", "Armenienne", "Australienne", "Autrichienne", "Azerbaïdjanaise", "Bahamienne", "Bahreinienne", "Bangladaise", "Barbadienne", "Belge", "Belizienne", "Beninoise", "Bhoutanaise", "Bielorusse", "Birmane", "Bissau-Guinéenne", "Bolivienne", "Bosnienne", "Botswanaise", "Bresilienne", "Britannique", "Bruneienne", "Bulgare", "Burkinabe", "Burundaise", "Cambodgienne", "Camerounaise", "Canadienne", "Cap-verdienne", "Centrafricaine", "Chilienne", "Chinoise", "Chypriote", "Colombienne", "Comorienne", "Congolaise", "Costaricaine", "Croate", "Cubaine", "Danoise", "Djiboutienne", "Dominicaine", "Dominiquaise", "Egyptienne", "Emirienne", "Equato-guineenne", "Equatorienne", "Erythreenne", "Espagnole", "Est-timoraise", "Estonienne", "Ethiopienne", "Fidjienne", "Finlandaise", "Gabonaise", "Gambienne", "Georgienne", "Ghaneenne", "Grenadienne", "Guatemalteque", "Guineenne", "Guyanienne", "Haïtienne", "Hellenique", "Hondurienne", "Hongroise", "Indienne", "Indonesienne", "Irakienne", "Irlandaise", "Islandaise", "Israélienne", "Italienne", "Ivoirienne", "Jamaïcaine", "Japonaise", "Jordanienne", "Kazakhstanaise", "Kenyane", "Kirghize", "Kiribatienne", "Kittitienne-et-nevicienne", "​Kossovienne", "Koweitienne", "Laotienne", "Lesothane", "Lettone", "Libanaise", "Liberienne", "Libyenne", "Liechtensteinoise", "Lituanienne", "Luxembourgeoise", "Macedonienne", "Malaisienne", "Malawienne", "Maldivienne", "Malgache", "Malienne", "Maltaise", "Marocaine", "Marshallaise", "Mauricienne", "Mauritanienne", "Mexicaine", "Micronesienne", "Moldave", "Monegasque", "Mongole", "Montenegrine", "Mozambicaine", "Namibienne", "Nauruane", "Neerlandaise", "Neo-zelandaise", "Nepalaise", "Nicaraguayenne", "Nigeriane", "Nigerienne", "Nord-coréenne", "Norvegienne", "Omanaise", "Ougandaise", "Ouzbeke", "Pakistanaise", "Palau", "Palestinienne", "Panameenne", "Papouane-neoguineenne", "Paraguayenne", "Peruvienne", "Philippine", "Polonaise", "Portoricaine", "Portugaise", "Qatarienne", "Roumaine", "Russe", "Rwandaise", "Saint-Lucienne", "Saint-Marinaise", "Saint-Vincentaise-et-Grenadine", "Salomonaise", "Salvadorienne", "Samoane", "Santomeenne", "Saoudienne", "Sénégalaise", "Serbe", "Seychelloise", "Sierra-leonaise", "Singapourienne", "Slovaque", "Slovene", "Somalienne", "Soudanaise", "Sri-lankaise", "Sud-africaine", "Sud-coréenne", "Suédoise", "Suisse", "Surinamaise", "Swazie", "Syrienne", "Tadjike", "Taiwanaise", "Tanzanienne", "Tchadienne", "Tcheque", "Thaïlandaise", "Togolaise", "Tonguienne", "Trinidadienne", "Tunisienne", "Turkmene", "Turque", "Tuvaluane", "Ukrainienne", "Uruguayenne", "Vanuatuane", "Venezuelienne", "Vietnamienne", "Yemenite", "Zambienne", "Zimbabweenne" }));
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(butValider)
+                        .addGap(18, 18, 18)
+                        .addComponent(butAnnuler)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(butAccueil))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel10)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(ch_tel_eleve, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addComponent(jLabel7)
                                 .addGap(28, 28, 28)
-                                .addComponent(ch_date_inscri_eleve, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jLabel8)
-                                    .addComponent(jLabel9))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ch_date_radiation_eleve, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(ch_date_inscri_eleve))
                             .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel4)
@@ -504,32 +664,36 @@ public class CreationEleve extends javax.swing.JFrame {
                                     .addComponent(jLabel3)
                                     .addComponent(jLabel2))
                                 .addGap(22, 22, 22)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ch_nom_eleve, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(ch_prenom_enfant, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(ch_naissance_eleve, javax.swing.GroupLayout.DEFAULT_SIZE, 194, Short.MAX_VALUE)
-                                        .addComponent(ch_lieu_naiss_eleve)
-                                        .addComponent(ch_nationalite_eleve))))
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                    .addComponent(ch_nom_eleve)
+                                    .addComponent(ch_prenom_enfant)
+                                    .addComponent(ch_naissance_eleve)
+                                    .addComponent(ch_lieu_naiss_eleve)
+                                    .addComponent(ch_nationalite_eleve, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
                             .addGroup(jPanel1Layout.createSequentialGroup()
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                     .addComponent(jLabel12)
                                     .addComponent(jLabel11))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addGap(24, 24, 24)
                                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(ch_lunette_eleve)
-                                    .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                        .addGap(0, 0, Short.MAX_VALUE)
+                                    .addGroup(jPanel1Layout.createSequentialGroup()
+                                        .addComponent(ch_lunette_eleve)
+                                        .addGap(0, 0, Short.MAX_VALUE))
+                                    .addComponent(jScrollPane9)))
+                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel8)
+                                    .addComponent(jLabel9)
+                                    .addComponent(jLabel10))
+                                .addGap(28, 28, 28)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(ch_tel_eleve)
+                                    .addComponent(ch_date_radiation_eleve)
+                                    .addComponent(jScrollPane1))))
+                        .addGap(0, 28, Short.MAX_VALUE)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addGap(15, 15, 15)
-                        .addComponent(valider)
-                        .addGap(18, 18, 18)
-                        .addComponent(jButton2)
-                        .addGap(669, 669, 669)
-                        .addComponent(ret_acc_crea_ele)))
+                            .addComponent(jPanel5, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addGap(0, 20, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -557,8 +721,8 @@ public class CreationEleve extends javax.swing.JFrame {
                             .addComponent(jLabel5))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(ch_nationalite_eleve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel6))
+                            .addComponent(jLabel6)
+                            .addComponent(ch_nationalite_eleve, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jLabel7)
@@ -585,17 +749,17 @@ public class CreationEleve extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel12)
-                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(29, 29, 29)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(valider)
-                            .addComponent(jButton2)
-                            .addComponent(ret_acc_crea_ele)))
+                            .addComponent(jScrollPane9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(211, 211, 211)
                         .addComponent(jPanel5, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 113, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(butValider)
+                    .addComponent(butAnnuler)
+                    .addComponent(butAccueil))
+                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Fiche élève", jPanel1);
@@ -758,7 +922,7 @@ public class CreationEleve extends javax.swing.JFrame {
                         .addGroup(jPanel9Layout.createSequentialGroup()
                             .addComponent(jLabel22)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(ch_date_rapel_antitenaq)))
+                            .addComponent(ch_date_vaccin)))
                     .addComponent(ch_pai_eleve, javax.swing.GroupLayout.PREFERRED_SIZE, 99, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(20, Short.MAX_VALUE))
         );
@@ -770,7 +934,7 @@ public class CreationEleve extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel22)
-                    .addComponent(ch_date_rapel_antitenaq, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ch_date_vaccin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(ch_pai_eleve)
                 .addContainerGap(10, Short.MAX_VALUE))
@@ -780,21 +944,11 @@ public class CreationEleve extends javax.swing.JFrame {
 
         jLabel25.setText("Notification EVS");
 
-        ch_notif_evs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3h", "6h", "9h", "12h" }));
-        ch_notif_evs.addItemListener(new java.awt.event.ItemListener() {
-            public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                ch_notif_evsItemStateChanged(evt);
-            }
-        });
-        ch_notif_evs.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ch_notif_evsActionPerformed(evt);
-            }
-        });
+        ch_notif_evs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "3", "6", "9", "12", "18", "24" }));
 
         jLabel26.setText("Notification AVS");
 
-        ch_notif_avs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "3h", "6h", "9h", "12h" }));
+        ch_notif_avs.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "0", "3", "6", "9", "12", "18", "24" }));
 
         jLabel27.setText("RASED");
 
@@ -805,13 +959,12 @@ public class CreationEleve extends javax.swing.JFrame {
         ch_rased_psy.setText("Psychologue");
 
         ch_rased_mdph.setText("Suivi MDPH");
-        ch_rased_mdph.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ch_rased_mdphActionPerformed(evt);
-            }
-        });
 
         ch_rased_assi_social.setText("Assistante sociale");
+
+        jLabel1.setText("heures");
+
+        jLabel15.setText("heures");
 
         javax.swing.GroupLayout jPanel10Layout = new javax.swing.GroupLayout(jPanel10);
         jPanel10.setLayout(jPanel10Layout);
@@ -833,8 +986,12 @@ public class CreationEleve extends javax.swing.JFrame {
                         .addGap(26, 26, 26)
                         .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(ch_notif_evs, 0, 101, Short.MAX_VALUE)
-                            .addComponent(ch_notif_avs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addComponent(ch_notif_avs, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel15))))
+                .addContainerGap(62, Short.MAX_VALUE))
         );
         jPanel10Layout.setVerticalGroup(
             jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -842,11 +999,13 @@ public class CreationEleve extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25)
-                    .addComponent(ch_notif_evs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ch_notif_evs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel10Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel26)
-                    .addComponent(ch_notif_avs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(ch_notif_avs, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel15))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jLabel27)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -881,7 +1040,7 @@ public class CreationEleve extends javax.swing.JFrame {
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(19, 19, 19)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jPanel2Layout.createSequentialGroup()
                         .addComponent(jPanel9, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -893,7 +1052,7 @@ public class CreationEleve extends javax.swing.JFrame {
                         .addComponent(jPanel7, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel8, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(59, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Informations médicales et pédagogiques", jPanel2);
@@ -920,7 +1079,7 @@ public class CreationEleve extends javax.swing.JFrame {
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
                 .addComponent(jScrollPane8, javax.swing.GroupLayout.PREFERRED_SIZE, 487, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 193, Short.MAX_VALUE))
+                .addGap(0, 153, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Historique", jPanel3);
@@ -936,186 +1095,83 @@ public class CreationEleve extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+            .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jTabbedPane1))
+                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 670, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void ch_rased_mdphActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ch_rased_mdphActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_ch_rased_mdphActionPerformed
-
-    private void ch_notif_evsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ch_notif_evsActionPerformed
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_ch_notif_evsActionPerformed
-
-    private void ch_notif_evsItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_ch_notif_evsItemStateChanged
-        // TODO add your handling code here:
-
-    }//GEN-LAST:event_ch_notif_evsItemStateChanged
-
-    private void ret_acc_crea_eleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ret_acc_crea_eleActionPerformed
-        // TODO add your handling code here:
+    private void butAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAccueilActionPerformed
         Accueil acc = new Accueil();
         acc.setVisible(true);
         acc.setLocationRelativeTo(null);
         dispose();
-    }//GEN-LAST:event_ret_acc_crea_eleActionPerformed
+    }//GEN-LAST:event_butAccueilActionPerformed
 
-    private void validerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validerActionPerformed
-        // TODO add your handling code here:
-        String nom_enfant = ch_nom_eleve.getText();
-        String prenom_enfant = ch_prenom_enfant.getText();
-
-        String lieu_naiss_eleve = ch_lieu_naiss_eleve.getText();
-        String nation_eleve = ch_nationalite_eleve.getText();
-        java.util.Date DateNaissance = (Date) ch_naissance_eleve.getValue();
-        java.sql.Date sqlDateNaissance = null;
-        if (null != DateNaissance)
-        {
-            sqlDateNaissance = new java.sql.Date(DateNaissance.getTime());
-        }
-        String adresse_eleve = ch_adresse_eleve.getText();
-        String tel_eleve = ch_tel_eleve.getText();
-        String sit_famille_eleve = ch_situ_famil_eleve.getText();
-        String tel_secu = ch_tel_secu.getText();
-        String adr_secu = ch_adr_secu.getText();
-        String tel_assu = ch_tel_assu.getText();
-        String adr_assu = ch_adr_assu.getText();
-        String nom_medecin = ch_nom_medecin.getText();
-        String tel_medecin = ch_tel_medecin.getText();
-        String adr_medecin = ch_adr_medecin.getText();
-        String info_medical = ch_info_medical.getText();
-        java.util.Date DateVaccin = (Date) ch_date_rapel_antitenaq.getValue();
-        java.sql.Date sqlDateVaccin = null;
-        if (null != DateVaccin)
-        {
-            sqlDateVaccin = new java.sql.Date(DateVaccin.getTime());
-        }
-        java.util.Date DateDebut = (Date) ch_date_inscri_eleve.getValue();
-        java.sql.Date sqlDateDebut = null;
-        if (null != DateDebut)
-        {
-            sqlDateDebut = new java.sql.Date(DateDebut.getTime());
-        }
-        java.util.Date DateFin = (Date) ch_date_radiation_eleve.getValue();
-        java.sql.Date sqlDateFin = null;
-        if (null != DateFin)
-        {
-            sqlDateFin = new java.sql.Date(DateFin.getTime());
-        }
-
-        if (nom_enfant.equals("") || prenom_enfant.equals(""))
-        {
-            JOptionPane.showMessageDialog(null, "Il faut remplir au moins les champs Nom et Prénom.", "Erreur !", JOptionPane.ERROR_MESSAGE);
-        }
-        else
-        {
-            Base b = new Base();
-            Connection conn = null;
-            PreparedStatement statement;
-            b.connexionBD();
-            conn = b.getConnect();
-            String sql = "";
-
-            if (idEnfant < 0)
-            {
-                sql = "insert into p1514568.Enfant "
-                + "(nom_enfant, prenom_enfant, date_naissance, ville_naissance, nationalite, adresse_enfant, tel_enfant, situation_familiale, tel_secu_social, adr_secu_social, tel_assurance, adr_assurance, nom_medecin, tel_medecin, adr_medecin, infos_medicales, date_vaccin, port_lunettes, pai,  date_inscription, date_radiation ) values "
-                + "(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? , ?, ?, ?, ?, ?, ?, ?)";
-            }
-            else
-            {
-                sql = "update p1514568.Enfant "
-                + "set nom_enfant = ?"
-                + ", prenom_enfant = ?"
-                + ", date_naissance = ?"
-                + ", ville_naissance = ?"
-                + ", nationalite = ?"
-                + ", adresse_enfant = ?"
-                + ", tel_enfant = ?"
-                + ", situation_familiale = ?"
-                + ", tel_secu_social = ?"
-                + ", adr_secu_social = ?"
-                + ", tel_assurance = ?"
-                + ", adr_assurance = ?"
-                + ", nom_medecin = ?"
-                + ", tel_medecin = ?"
-                + ", adr_medecin = ?"
-                + ", infos_medicales = ?"
-                + ", date_vaccin = ?"
-                + ", port_lunettes = ?"
-                + ", pai = ?"
-                + ", date_inscription = ?"
-                + ", date_radiation = ?"
-                + " where id_enfant = " + idEnfant;
-            }
-            System.out.println(sql);
-            try
-            {
-                statement = conn.prepareStatement(sql);
-                statement.setString(1, nom_enfant);
-                statement.setString(2, prenom_enfant);
-                statement.setDate(3, sqlDateNaissance);
-                statement.setString(4, lieu_naiss_eleve);
-                statement.setString(5, nation_eleve);
-                statement.setString(6, adresse_eleve);
-                statement.setString(7, tel_eleve);
-                statement.setString(8, sit_famille_eleve);
-                statement.setString(9, tel_secu);
-                statement.setString(10, adr_secu);
-                statement.setString(11, tel_assu);
-                statement.setString(12, adr_assu);
-                statement.setString(13, nom_medecin);
-                statement.setString(14, tel_medecin);
-                statement.setString(15, adr_medecin);
-                statement.setString(16, info_medical);
-                statement.setDate(17, sqlDateVaccin);
-                statement.setBoolean(18, ch_lunette_eleve.isSelected());
-                statement.setBoolean(19, ch_pai_eleve.isSelected());
-                statement.setDate(20, sqlDateDebut);
-                statement.setDate(21, sqlDateFin);
-
-                statement.executeUpdate();
-                statement.close();
-
-                /*RechercheAdulte w = new RechercheAdulte();
-                w.setVisible(true);
-                dispose();*/
-
-            } catch (SQLException e)
-            {
-                System.out.println(e.getMessage());
-            }
-        }
-    }//GEN-LAST:event_validerActionPerformed
+    private void butValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butValiderActionPerformed
+        this.enregistrerEnfant();
+        Accueil acc = new Accueil();
+        acc.setVisible(true);
+        acc.setLocationRelativeTo(null);
+        dispose();
+    }//GEN-LAST:event_butValiderActionPerformed
 
     private void butCreerFratrieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCreerFratrieActionPerformed
+        this.enregistrerEnfant();
         CreationEnfantSimp w = new CreationEnfantSimp(idEnfant);
-        w.setVisible(true); 
+        w.setVisible(true);
+        w.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butCreerFratrieActionPerformed
 
     private void butRechFratrieActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRechFratrieActionPerformed
+        this.enregistrerEnfant();
         RechercheEleve w = new RechercheEleve(idFenetre, idEnfant);
         w.setVisible(true); 
+        w.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butRechFratrieActionPerformed
 
     private void butRechFamilleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRechFamilleActionPerformed
+        this.enregistrerEnfant();
         RechercheAdulte w = new RechercheAdulte(idFenetre, idEnfant);
         w.setVisible(true); 
+        w.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butRechFamilleActionPerformed
 
     private void butCreerFamilleActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCreerFamilleActionPerformed
+        this.enregistrerEnfant();
         CreationAdulte w = new CreationAdulte(idFenetre, idEnfant);
         w.setVisible(true); 
+        w.setLocationRelativeTo(null);
         dispose();    }//GEN-LAST:event_butCreerFamilleActionPerformed
+
+    private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
+        try {
+            if (enCours == true) {
+                Base b = new Base();
+                Connection conn = null;
+                PreparedStatement statement;
+                b.connexionBD();
+                conn = b.getConnect();
+                String sql = "delete from p1514568.Enfant where id_enfant = "+idEnfant;
+                statement = conn.prepareStatement(sql);
+                statement.executeUpdate();
+                statement.close();                
+            }
+            Accueil f = new Accueil();
+            f.setVisible(true); 
+            f.setLocationRelativeTo(null);
+            dispose();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }//GEN-LAST:event_butAnnulerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -1192,22 +1248,25 @@ public class CreationEleve extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton butAccueil;
+    private javax.swing.JButton butAnnuler;
     private javax.swing.JButton butCreerFamille;
     private javax.swing.JButton butCreerFratrie;
     private javax.swing.JButton butRechFamille;
     private javax.swing.JButton butRechFratrie;
+    private javax.swing.JButton butValider;
     private javax.swing.JTextArea ch_adr_assu;
     private javax.swing.JTextArea ch_adr_medecin;
     private javax.swing.JTextArea ch_adr_secu;
     private javax.swing.JTextArea ch_adresse_eleve;
     private javax.swing.JFormattedTextField ch_date_inscri_eleve;
     private javax.swing.JFormattedTextField ch_date_radiation_eleve;
-    private javax.swing.JFormattedTextField ch_date_rapel_antitenaq;
+    private javax.swing.JFormattedTextField ch_date_vaccin;
     private javax.swing.JTextArea ch_info_medical;
     private javax.swing.JTextField ch_lieu_naiss_eleve;
     private javax.swing.JCheckBox ch_lunette_eleve;
     private javax.swing.JFormattedTextField ch_naissance_eleve;
-    private javax.swing.JTextField ch_nationalite_eleve;
+    private javax.swing.JComboBox<String> ch_nationalite_eleve;
     private javax.swing.JTextField ch_nom_eleve;
     private javax.swing.JTextField ch_nom_medecin;
     private javax.swing.JComboBox<String> ch_notif_avs;
@@ -1224,12 +1283,13 @@ public class CreationEleve extends javax.swing.JFrame {
     private javax.swing.JTextField ch_tel_eleve;
     private javax.swing.JTextField ch_tel_medecin;
     private javax.swing.JTextField ch_tel_secu;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
@@ -1267,10 +1327,8 @@ public class CreationEleve extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane8;
     private javax.swing.JScrollPane jScrollPane9;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JButton ret_acc_crea_ele;
     private javax.swing.JTable tabAdulte;
     private javax.swing.JTable tabFratrie;
     private javax.swing.JTable tabHist;
-    private javax.swing.JButton valider;
     // End of variables declaration//GEN-END:variables
 }

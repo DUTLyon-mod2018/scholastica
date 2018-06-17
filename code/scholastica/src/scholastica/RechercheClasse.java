@@ -280,6 +280,7 @@ public class RechercheClasse extends javax.swing.JFrame {
     private void butCreerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCreerActionPerformed
             CreationClasse w = new CreationClasse(idFenetre);
             w.setVisible(true); 
+            w.setLocationRelativeTo(null);
             dispose();
     }//GEN-LAST:event_butCreerActionPerformed
 
@@ -364,6 +365,7 @@ public class RechercheClasse extends javax.swing.JFrame {
             int id_classe = (int)tabResultat.getValueAt(row,0);
             CreationClasse w = new CreationClasse(idFenetre, id_classe);
             w.setVisible(true); 
+            w.setLocationRelativeTo(null);
             dispose();
         }
     }//GEN-LAST:event_butModifierActionPerformed
@@ -371,6 +373,7 @@ public class RechercheClasse extends javax.swing.JFrame {
     private void butAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAccueilActionPerformed
         Accueil f = new Accueil();
         f.setVisible(true);
+        f.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_butAccueilActionPerformed
 
