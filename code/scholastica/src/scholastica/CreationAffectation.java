@@ -77,19 +77,17 @@ public class CreationAffectation extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jScrollPane1 = new javax.swing.JScrollPane();
-        taCommentaire = new javax.swing.JTextArea();
         butValider = new javax.swing.JButton();
         butAnnuler = new javax.swing.JButton();
-        labCommentaire = new javax.swing.JLabel();
+        labNiveau = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         panResult = new javax.swing.JTextPane();
+        cbTitulaire = new javax.swing.JCheckBox();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        taCommentaire = new javax.swing.JTextArea();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-
-        taCommentaire.setColumns(20);
-        taCommentaire.setRows(5);
-        jScrollPane1.setViewportView(taCommentaire);
+        setTitle("Affectation d'un enseignant à une classe");
 
         butValider.setText("Valider");
         butValider.addActionListener(new java.awt.event.ActionListener() {
@@ -105,13 +103,19 @@ public class CreationAffectation extends javax.swing.JFrame {
             }
         });
 
-        labCommentaire.setText("Commentaire");
+        labNiveau.setText("Commentaire");
 
         jScrollPane2.setBorder(null);
 
         panResult.setBackground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
         panResult.setBorder(null);
         jScrollPane2.setViewportView(panResult);
+
+        cbTitulaire.setText("Titulaire");
+
+        taCommentaire.setColumns(20);
+        taCommentaire.setRows(5);
+        jScrollPane1.setViewportView(taCommentaire);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -121,27 +125,33 @@ public class CreationAffectation extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(labCommentaire)
-                        .addGap(0, 0, Short.MAX_VALUE))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane2)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(butValider)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(butAnnuler))
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE)
-                            .addComponent(jScrollPane2))
-                        .addGap(21, 21, 21))))
+                                .addComponent(labNiveau)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 367, Short.MAX_VALUE))
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(butValider)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(butAnnuler)
+                        .addContainerGap())
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbTitulaire)
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(labCommentaire)
+                .addGap(21, 21, 21)
+                .addComponent(labNiveau)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(cbTitulaire)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butValider)
@@ -160,10 +170,11 @@ public class CreationAffectation extends javax.swing.JFrame {
         conn = b.getConnect();        
 
         try {
-            stmt = conn.prepareStatement("insert into p1514568.Affectation (id_adulte, id_classe, commentaire) values (?, ?, ?)");
+            stmt = conn.prepareStatement("insert into p1514568.Affectation (id_adulte, id_classe, commentaire, titulaire) values (?, ?, ?, ?)");
             stmt.setInt(1, idAdulte);
             stmt.setInt(2, idClasse);
             stmt.setString(3, taCommentaire.getText());
+            stmt.setBoolean(4, cbTitulaire.isSelected());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
@@ -176,7 +187,7 @@ public class CreationAffectation extends javax.swing.JFrame {
     }//GEN-LAST:event_butValiderActionPerformed
 
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
-        Recherche_Adulte f = new Recherche_Adulte("CreationClasse", idClasse);
+        RechercheAdulte f = new RechercheAdulte("CreationClasse", idClasse);
         f.setVisible(true);
         dispose();
     }//GEN-LAST:event_butAnnulerActionPerformed
@@ -207,6 +218,9 @@ public class CreationAffectation extends javax.swing.JFrame {
             java.util.logging.Logger.getLogger(CreationAffectation.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -219,9 +233,10 @@ public class CreationAffectation extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butAnnuler;
     private javax.swing.JButton butValider;
+    private javax.swing.JCheckBox cbTitulaire;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel labCommentaire;
+    private javax.swing.JLabel labNiveau;
     private javax.swing.JTextPane panResult;
     private javax.swing.JTextArea taCommentaire;
     // End of variables declaration//GEN-END:variables

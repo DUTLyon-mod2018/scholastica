@@ -11,23 +11,21 @@ import java.sql.*;
  *
  * @author Emanuelle
  */
-public class CreationEnfantClasse extends javax.swing.JFrame {
+public class CreationResponsabilite extends javax.swing.JFrame {
 
-    String idFenetre = "CreationEnfantClasse";
-    String idFenetrePrec;
-    int idClasse, idEnfant;
+    String idFenetre = "CreationResponsabilite";
+    int idEnfant, idAdulte;
     
     /**
      * Creates new form CreationAffectation
      */
-    public CreationEnfantClasse() {
+    public CreationResponsabilite() {
         initComponents();
     }
     
-    public CreationEnfantClasse(String _idFenetrePrec, int _idClasse, int _idEnfant) {
-        idFenetrePrec = _idFenetrePrec;
-        idClasse = _idClasse;
+    public CreationResponsabilite(int _idEnfant, int _idAdulte) {
         idEnfant = _idEnfant;
+        idAdulte = _idAdulte;
         String label = "Confirmez-vous que ";
         initComponents();
         
@@ -39,6 +37,16 @@ public class CreationEnfantClasse extends javax.swing.JFrame {
         conn = b.getConnect();
         
         try {
+            stmt = conn.prepareStatement("select nom_adulte, prenom_adulte from p1514568.Adulte where id_adulte = ?");
+            stmt.setInt(1, idAdulte);
+            res = stmt.executeQuery();
+            
+            while (res.next()){     
+                label += res.getString("prenom_adulte") + " " + res.getString("nom_adulte");
+            }
+            
+            label += " est responsable de l'enfant ";
+
             stmt = conn.prepareStatement("select nom_enfant, prenom_enfant from p1514568.Enfant where id_enfant = ?");
             stmt.setInt(1, idEnfant);
             res = stmt.executeQuery();
@@ -46,18 +54,8 @@ public class CreationEnfantClasse extends javax.swing.JFrame {
             while (res.next()){     
                 label += res.getString("prenom_enfant") + " " + res.getString("nom_enfant");
             }
-            
-            label += " est affecté·e à la classe « ";
 
-            stmt = conn.prepareStatement("select nom_classe from p1514568.Classe where id_classe = ?");
-            stmt.setInt(1, idClasse);
-            res = stmt.executeQuery();
-            
-            while (res.next()){     
-                label += res.getString("nom_classe");
-            }
-
-            label += " » ?";
+            label += " ?";
             
             panResult.setText(label);
             
@@ -79,14 +77,14 @@ public class CreationEnfantClasse extends javax.swing.JFrame {
 
         butValider = new javax.swing.JButton();
         butAnnuler = new javax.swing.JButton();
-        labNiveau = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         panResult = new javax.swing.JTextPane();
-        cbRedoublant = new javax.swing.JCheckBox();
-        tfNiveau = new javax.swing.JTextField();
+        cbAutorisation = new javax.swing.JCheckBox();
+        cbLien = new javax.swing.JComboBox<>();
+        labLien = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Affectation d'un enfant à une classe");
+        setTitle("Création d'un lien familial");
 
         butValider.setText("Valider");
         butValider.addActionListener(new java.awt.event.ActionListener() {
@@ -102,15 +100,18 @@ public class CreationEnfantClasse extends javax.swing.JFrame {
             }
         });
 
-        labNiveau.setText("Niveau");
-
         jScrollPane2.setBorder(null);
 
         panResult.setBackground(javax.swing.UIManager.getDefaults().getColor("Panel.background"));
         panResult.setBorder(null);
         jScrollPane2.setViewportView(panResult);
 
-        cbRedoublant.setText("Redoublant");
+        cbAutorisation.setSelected(true);
+        cbAutorisation.setText("Autorisation de retirer l'enfant");
+
+        cbLien.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Parent", "Autre famille", "Autre" }));
+
+        labLien.setText("Lien ");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -119,34 +120,34 @@ public class CreationEnfantClasse extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(cbRedoublant)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(labNiveau)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(tfNiveau, javax.swing.GroupLayout.PREFERRED_SIZE, 141, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(0, 197, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(butValider)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 217, Short.MAX_VALUE)
                                 .addComponent(butAnnuler))
                             .addComponent(jScrollPane2))
-                        .addGap(21, 21, 21))))
+                        .addGap(21, 21, 21))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cbAutorisation)
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(labLien)
+                        .addGap(18, 18, 18)
+                        .addComponent(cbLien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(labNiveau)
-                    .addComponent(tfNiveau, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(cbRedoublant)
+                    .addComponent(labLien)
+                    .addComponent(cbLien, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
+                .addComponent(cbAutorisation)
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butValider)
@@ -165,24 +166,25 @@ public class CreationEnfantClasse extends javax.swing.JFrame {
         conn = b.getConnect();        
 
         try {
-            stmt = conn.prepareStatement("insert into p1514568.Enfant_classe (id_enfant, id_classe, niveau_eleve, redoublant) values (?, ?, ?, ?)");
+            stmt = conn.prepareStatement("insert into p1514568.Responsabilite (id_enfant, id_adulte, lien, autoriser) values (?, ?, ?, ?)");
             stmt.setInt(1, idEnfant);
-            stmt.setInt(2, idClasse);
-            stmt.setString(3, tfNiveau.getText());
-            stmt.setBoolean(4, cbRedoublant.isSelected());
+            stmt.setInt(2, idAdulte);
+            stmt.setString(3, cbLien.getSelectedItem().toString());
+            stmt.setBoolean(4, cbAutorisation.isSelected());
+            System.out.println(stmt);
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
     
-        CreationClasse f = new CreationClasse(idFenetre, idClasse);
+        CreationEleve f = new CreationEleve(idEnfant);
         f.setVisible(true); 
         dispose();
     }//GEN-LAST:event_butValiderActionPerformed
 
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
-        RechercheEleve f = new RechercheEleve("CreationClasse", idClasse);
+        RechercheAdulte f = new RechercheAdulte("CreationEleve", idEnfant);
         f.setVisible(true);
         dispose();
     }//GEN-LAST:event_butAnnulerActionPerformed
@@ -204,13 +206,13 @@ public class CreationEnfantClasse extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(CreationEnfantClasse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreationResponsabilite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(CreationEnfantClasse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreationResponsabilite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(CreationEnfantClasse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreationResponsabilite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(CreationEnfantClasse.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(CreationResponsabilite.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -218,7 +220,7 @@ public class CreationEnfantClasse extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CreationEnfantClasse().setVisible(true);
+                new CreationResponsabilite().setVisible(true);
             }
         });
     }
@@ -226,10 +228,10 @@ public class CreationEnfantClasse extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton butAnnuler;
     private javax.swing.JButton butValider;
-    private javax.swing.JCheckBox cbRedoublant;
+    private javax.swing.JCheckBox cbAutorisation;
+    private javax.swing.JComboBox<String> cbLien;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JLabel labNiveau;
+    private javax.swing.JLabel labLien;
     private javax.swing.JTextPane panResult;
-    private javax.swing.JTextField tfNiveau;
     // End of variables declaration//GEN-END:variables
 }

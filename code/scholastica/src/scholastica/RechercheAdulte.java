@@ -13,20 +13,25 @@ import javax.swing.*;
  *
  * @author x7000328
  */
-public class Recherche_Adulte extends javax.swing.JFrame {
+public class RechercheAdulte extends javax.swing.JFrame {
 
     String idFenetre = "RechercheAdulte";
     String idFenetrePrec;
     int idPrec;
     
     /**
-     * Creates new form Recherche_Adulte
+     * Creates new form RechercheAdulte
      */
-    public Recherche_Adulte() {
+    public RechercheAdulte() {
+        initComponents();
+    }
+    
+    public RechercheAdulte(String _idFenetrePrec) {
+        idFenetrePrec = _idFenetrePrec;
         initComponents();
     }
 
-    public Recherche_Adulte(String _idFenetrePrec, int _idPrec) {
+    public RechercheAdulte(String _idFenetrePrec, int _idPrec) {
         idFenetrePrec = _idFenetrePrec;
         idPrec = _idPrec;
         initComponents();
@@ -54,6 +59,7 @@ public class Recherche_Adulte extends javax.swing.JFrame {
         labMesResultat = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Recherche adulte");
 
         labNom.setText("Nom");
 
@@ -243,9 +249,14 @@ public class Recherche_Adulte extends javax.swing.JFrame {
             CreationAffectation f = new CreationAffectation(idFenetre, idPrec, id_adulte);
             f.setVisible(true); 
             dispose();        
+        } else if (idFenetrePrec.equals("CreationEleve")) {
+            int id_adulte = (int)tabResultat.getValueAt(row,0);
+            CreationResponsabilite f = new CreationResponsabilite(idPrec, id_adulte);
+            f.setVisible(true); 
+            dispose();        
         } else {
             int id_adulte = (int)tabResultat.getValueAt(row,0);
-            Creation_Adulte f = new Creation_Adulte(id_adulte);
+            CreationAdulte f = new CreationAdulte(id_adulte);
             f.setVisible(true); 
             dispose();
         }
@@ -274,20 +285,20 @@ public class Recherche_Adulte extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Recherche_Adulte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RechercheAdulte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Recherche_Adulte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RechercheAdulte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Recherche_Adulte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RechercheAdulte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Recherche_Adulte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(RechercheAdulte.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Recherche_Adulte().setVisible(true);
+                new RechercheAdulte().setVisible(true);
             }
         });
     }

@@ -153,7 +153,7 @@ public class Authentification extends JFrame implements ActionListener {
                         String motDePasse = resultat.getString(1);
                         if (motDePasse.equals(mdp2)) {
 
-                            Modification_mdp modif_mdp = new Modification_mdp();
+                            ModificationMdp modif_mdp = new ModificationMdp();
                             modif_mdp.setVisible(true);
                             dispose();
 

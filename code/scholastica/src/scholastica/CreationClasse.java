@@ -98,21 +98,22 @@ public class CreationClasse extends javax.swing.JFrame {
                 tfAnnee.setText(annee);
             }
 
-            stmt2 = conn2.prepareStatement("select e.id_adulte, nom_adulte, prenom_adulte, commentaire from p1514568.Adulte e join p1514568.Affectation a on e.id_adulte = a.id_adulte where id_classe = ?");
+            stmt2 = conn2.prepareStatement("select e.id_adulte, nom_adulte, prenom_adulte, commentaire, titulaire from p1514568.Adulte e join p1514568.Affectation a on e.id_adulte = a.id_adulte where id_classe = ?");
             stmt2.setInt(1, idClasse);
             res2 = stmt2.executeQuery();
             
             // on crée les en-têtes du tableau
-            Object[] colonneEns = new Object[4];
+            Object[] colonneEns = new Object[5];
             colonneEns[0] = "ID";
             colonneEns[1] = "Nom";
             colonneEns[2] = "Prénom";
             colonneEns[3] = "Commentaire";
+            colonneEns[4] = "Titulaire";
             
             // on récupère le nombre de résultats pour créer l'objet + l'afficher
             res2.last();
             int rowCount2 = res2.getRow();
-            Object[][] dataEns = new Object[rowCount2][4];
+            Object[][] dataEns = new Object[rowCount2][5];
             
             // on revient au départ
             res2.beforeFirst();
@@ -120,7 +121,7 @@ public class CreationClasse extends javax.swing.JFrame {
 
             // on remplit le tableau d'Object[][]
             while(res2.next()){
-                for(int c = 1 ; c <= 4; c++) {
+                for(int c = 1 ; c <= 5; c++) {
                     dataEns[r2][c-1] = res2.getObject(c);
                 }
                 r2++;
@@ -129,7 +130,7 @@ public class CreationClasse extends javax.swing.JFrame {
             if (rowCount2 > 0) {
                 tabEnseignant.setModel(new javax.swing.table.DefaultTableModel(dataEns, colonneEns));
             } else if (rowCount2 == 0) {
-                tabEnseignant.setModel(new javax.swing.table.DefaultTableModel(new Object[][] { {null, null, null, null} }, colonneEns));
+                tabEnseignant.setModel(new javax.swing.table.DefaultTableModel(new Object[][] { {null, null, null, null, null} }, colonneEns));
             }
 
             stmt3 = conn3.prepareStatement("select e.id_enfant, nom_enfant, prenom_enfant, date_naissance, niveau_eleve from p1514568.Enfant e join p1514568.Enfant_classe a on e.id_enfant = a.id_enfant where id_classe = ?");
@@ -178,6 +179,38 @@ public class CreationClasse extends javax.swing.JFrame {
         }
     }
 
+    public void enregistrerClasse() {
+        String nomClasse = tfNomClasse.getText();
+        if (nomClasse.equals("")) {
+            JOptionPane.showMessageDialog(null, "Il faut donner un nom à la classe.", "Erreur !", JOptionPane.ERROR_MESSAGE);
+        } else {
+            Base b = new Base();
+            Connection conn = null;
+            PreparedStatement statement;
+            b.connexionBD();
+            conn = b.getConnect();
+            String sql = "update p1514568.Classe "
+                        + "set nom_classe = ?"
+                        + ", salle = ?"
+                        + ", niveau = ?"
+                        + ", annee = ?"
+                        + " where id_classe = "+idClasse;
+            System.out.println(sql);
+            try {
+                statement = conn.prepareStatement(sql);
+                statement.setString(1, nomClasse);
+                statement.setString(2, tfSalle.getText());
+                statement.setString(3, tfNiveau.getText());
+                statement.setString(4, tfAnnee.getText());
+                
+                statement.executeUpdate();
+                statement.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+    
     public static void writeToCSV(List<Map> objectList) {
         String CSV_SEPARATOR = ",";
         try {
@@ -257,6 +290,7 @@ public class CreationClasse extends javax.swing.JFrame {
         butAnnuler = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Création/modification de classe");
 
         labNomClasse.setText("* Nom");
 
@@ -273,7 +307,7 @@ public class CreationClasse extends javax.swing.JFrame {
 
             },
             new String [] {
-                "ID", "Nom", "Prénom", "Commentaire"
+                "ID", "Nom", "Prénom", "Commentaire", "Titulaire"
             }
         ));
         jScrollPane2.setViewportView(tabEnseignant);
@@ -464,12 +498,14 @@ public class CreationClasse extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void butAjoutEnseignantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAjoutEnseignantActionPerformed
-        Recherche_Adulte f = new Recherche_Adulte(idFenetre, idClasse);
+        enregistrerClasse();
+        RechercheAdulte f = new RechercheAdulte(idFenetre, idClasse);
         f.setVisible(true);
         dispose();
     }//GEN-LAST:event_butAjoutEnseignantActionPerformed
 
     private void butAjoutEleveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAjoutEleveActionPerformed
+        enregistrerClasse();
         RechercheEleve f = new RechercheEleve(idFenetre, idClasse);
         f.setVisible(true);
         dispose();
@@ -477,6 +513,7 @@ public class CreationClasse extends javax.swing.JFrame {
     }//GEN-LAST:event_butAjoutEleveActionPerformed
 
     private void butExportListeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butExportListeActionPerformed
+        enregistrerClasse();
         Base b = new Base();
         Connection conn = null;
         ResultSet res;
@@ -506,6 +543,7 @@ public class CreationClasse extends javax.swing.JFrame {
     }//GEN-LAST:event_butExportListeActionPerformed
 
     private void butSuppEnseignantActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSuppEnseignantActionPerformed
+        enregistrerClasse();
         int row = tabEnseignant.getSelectedRow();
         
         if (row == -1) {
@@ -532,6 +570,7 @@ public class CreationClasse extends javax.swing.JFrame {
     }//GEN-LAST:event_butSuppEnseignantActionPerformed
 
     private void butSuppEleveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butSuppEleveActionPerformed
+        enregistrerClasse();
         int row = tabEleve.getSelectedRow();
         
         if (row == -1) {
@@ -557,42 +596,14 @@ public class CreationClasse extends javax.swing.JFrame {
     }//GEN-LAST:event_butSuppEleveActionPerformed
 
     private void butValiderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butValiderActionPerformed
-        String nomClasse = tfNomClasse.getText();
-        if (nomClasse.equals("")) {
-            JOptionPane.showMessageDialog(null, "Il faut donner un nom à la classe.", "Erreur !", JOptionPane.ERROR_MESSAGE);
-        } else {
-            Base b = new Base();
-            Connection conn = null;
-            PreparedStatement statement;
-            b.connexionBD();
-            conn = b.getConnect();
-            String sql = "update p1514568.Classe "
-                        + "set nom_classe = ?"
-                        + ", salle = ?"
-                        + ", niveau = ?"
-                        + ", annee = ?"
-                        + " where id_classe = "+idClasse;
-            System.out.println(sql);
-            try {
-                statement = conn.prepareStatement(sql);
-                statement.setString(1, nomClasse);
-                statement.setString(2, tfSalle.getText());
-                statement.setString(3, tfNiveau.getText());
-                statement.setString(4, tfAnnee.getText());
-                
-                statement.executeUpdate();
-                statement.close();
-
-                RechercheClasse f = new RechercheClasse();
-                f.setVisible(true); 
-                dispose();
-            } catch (SQLException e) {
-                System.out.println(e.getMessage());
-            }
-        }
+        enregistrerClasse();
+        RechercheClasse f = new RechercheClasse();
+        f.setVisible(true); 
+        dispose();
     }//GEN-LAST:event_butValiderActionPerformed
 
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
+        enregistrerClasse();
         try {
             if (enCours == true) {
                 Base b = new Base();

@@ -14,15 +14,14 @@ import javax.swing.*;
  *
  * @author x7000328
  */
-public class Creation_EnfantSimp extends javax.swing.JFrame {
+public class CreationEnfantSimp extends javax.swing.JFrame {
    int idEnfant, idNvEnfant;
-   String idFenetre = "creationEleve";
-
+   String idFenetre = "CreationEnfantSimp";
     
     /**
      * Creates new form CrEnfantSimp
      */
-    public Creation_EnfantSimp(int _idEnfant) {
+    public CreationEnfantSimp(int _idEnfant) {
         initComponents();
         idEnfant = _idEnfant;
     }
@@ -46,6 +45,7 @@ public class Creation_EnfantSimp extends javax.swing.JFrame {
         ftfDtNaissance = new javax.swing.JFormattedTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Création d'enfant simplifiée");
 
         labNom.setText("* Nom");
 
@@ -174,7 +174,7 @@ public class Creation_EnfantSimp extends javax.swing.JFrame {
                 res.close();
                 ps.close();
                 
-                Creation_eleve w = new Creation_eleve(idEnfant);
+                CreationEleve w = new CreationEleve(idEnfant);
                 w.setVisible(true); 
                 dispose();
             } catch (SQLException e) {
@@ -184,7 +184,7 @@ public class Creation_EnfantSimp extends javax.swing.JFrame {
     }//GEN-LAST:event_butValiderActionPerformed
 
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
-        Creation_eleve w = new Creation_eleve(idEnfant);
+        CreationEleve w = new CreationEleve(idEnfant);
         w.setVisible(true); 
         dispose();
     }//GEN-LAST:event_butAnnulerActionPerformed

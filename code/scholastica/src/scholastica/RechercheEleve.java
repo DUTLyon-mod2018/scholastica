@@ -16,7 +16,7 @@ import javax.swing.*;
 public class RechercheEleve extends javax.swing.JFrame {
 
     String idFenetre = "RechercheEleve";
-    String idFenetrePrec;
+    String idFenetrePrec = null;
     int idPrec;
     
     /**
@@ -58,17 +58,18 @@ public class RechercheEleve extends javax.swing.JFrame {
         butAccueil = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Recherche élève");
 
         labNom.setText("Nom");
 
         labPrenom.setText("Prénom");
 
-        labNeEntre.setText("Né avant ");
+        labNeEntre.setText("Né entre ");
 
         ftfDateDebut.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
         ftfDateDebut.setToolTipText("");
 
-        jLabel1.setText("et après");
+        jLabel1.setText("et");
 
         ftfDateFin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
         ftfDateFin.setToolTipText("");
@@ -97,7 +98,7 @@ public class RechercheEleve extends javax.swing.JFrame {
             }
         });
 
-        butOuvrir.setText("Ouvrir");
+        butOuvrir.setText("Sélectionner");
         butOuvrir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butOuvrirActionPerformed(evt);
@@ -124,29 +125,27 @@ public class RechercheEleve extends javax.swing.JFrame {
                             .addComponent(labNom)
                             .addComponent(labPrenom)
                             .addComponent(labNeEntre))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addGroup(layout.createSequentialGroup()
-                                .addComponent(ftfDateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(11, 11, 11)
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(ftfDateFin, javax.swing.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE))
-                            .addComponent(tfPrenom, javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(ftfDateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, 189, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(jLabel1)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(ftfDateFin))
+                            .addComponent(tfPrenom, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 426, Short.MAX_VALUE)
                             .addComponent(tfNom, javax.swing.GroupLayout.Alignment.TRAILING)))
                     .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 484, Short.MAX_VALUE)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(labMesResultat, javax.swing.GroupLayout.PREFERRED_SIZE, 69, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(butRechercher)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(butReinit)))
+                        .addComponent(butRechercher)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(butReinit)
                         .addGap(0, 0, Short.MAX_VALUE))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(butOuvrir)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(butAccueil)))
+                        .addComponent(butAccueil))
+                    .addComponent(labMesResultat, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -161,12 +160,11 @@ public class RechercheEleve extends javax.swing.JFrame {
                     .addComponent(tfPrenom, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(labPrenom))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(ftfDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                        .addComponent(ftfDateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel1)
-                        .addComponent(labNeEntre)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(ftfDateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1)
+                    .addComponent(labNeEntre)
+                    .addComponent(ftfDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(butRechercher)
@@ -266,10 +264,36 @@ public class RechercheEleve extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(null, "Il faut choisir un résultat de recherche.", "Erreur !", JOptionPane.ERROR_MESSAGE);
         } else {
             int row = tabResultat.getSelectedRow();
-            int id_enfant = (int) tabResultat.getValueAt(row, 0);
-            Creation_eleve f = new Creation_eleve(id_enfant);f.setVisible(true);
-            f.setLocationRelativeTo(null);
-            dispose();
+            int idEnfant = (int) tabResultat.getValueAt(row, 0);
+            if (idFenetrePrec == "CreationClasse") {
+                CreationEnfantClasse f = new CreationEnfantClasse(idFenetre, idPrec, idEnfant);
+                f.setVisible(true); 
+                dispose();  
+            } else if (idFenetrePrec == "CreationEleve") {
+                    Base b = new Base();
+                    Connection conn = null;
+                    PreparedStatement ps;
+                    b.connexionBD();
+                    conn = b.getConnect();
+                    String sql = "insert into p1514568.Fratrie (id_enfant1, id_enfant2) values (?, ?)";
+                try {
+                    ps = conn.prepareStatement(sql);
+                    ps.setInt(1, idPrec);
+                    ps.setInt(2, idEnfant);
+                    ps.executeUpdate();
+                    ps.close();
+                } catch (SQLException e) {
+                    System.out.println(e.getMessage());
+                }
+                CreationEleve f = new CreationEleve(idPrec);
+                f.setVisible(true); 
+                dispose();  
+            } else {
+                CreationEleve f = new CreationEleve(idEnfant);
+                f.setVisible(true);
+                f.setLocationRelativeTo(null);
+                dispose();
+            }
         }
     }//GEN-LAST:event_butOuvrirActionPerformed
 

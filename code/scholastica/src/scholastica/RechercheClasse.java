@@ -145,8 +145,10 @@ public class RechercheClasse extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         butEleveClasse = new javax.swing.JButton();
         butAineFamille = new javax.swing.JButton();
+        butAccueil = new javax.swing.JToggleButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Recherche classe");
 
         jLabel1.setText("Classes de l'année en cours");
 
@@ -214,10 +216,17 @@ public class RechercheClasse extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(butEleveClasse)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 16, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(butAineFamille)
                 .addContainerGap())
         );
+
+        butAccueil.setText("Accueil");
+        butAccueil.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                butAccueilActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -238,7 +247,10 @@ public class RechercheClasse extends javax.swing.JFrame {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel1)
                             .addComponent(labMesResultat))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(butAccueil)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -256,8 +268,10 @@ public class RechercheClasse extends javax.swing.JFrame {
                     .addComponent(butModifier)
                     .addComponent(butClore))
                 .addGap(18, 18, 18)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(butAccueil)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -354,6 +368,12 @@ public class RechercheClasse extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_butModifierActionPerformed
 
+    private void butAccueilActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAccueilActionPerformed
+        Accueil f = new Accueil();
+        f.setVisible(true);
+        dispose();
+    }//GEN-LAST:event_butAccueilActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -390,6 +410,7 @@ public class RechercheClasse extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JToggleButton butAccueil;
     private javax.swing.JButton butAineFamille;
     private javax.swing.JButton butClore;
     private javax.swing.JButton butCreer;

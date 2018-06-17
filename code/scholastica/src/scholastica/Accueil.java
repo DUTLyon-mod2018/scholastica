@@ -10,6 +10,7 @@ package scholastica;
  * @author Bilou
  */
 public class Accueil extends javax.swing.JFrame {
+    String idFenetre = "Accueil";
 
     /**
      * Creates new form Accueil
@@ -39,8 +40,12 @@ public class Accueil extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Accueil");
 
         But_rech_eleve.setText("Recherche élève");
+        But_rech_eleve.setMaximumSize(new java.awt.Dimension(130, 25));
+        But_rech_eleve.setMinimumSize(new java.awt.Dimension(130, 25));
+        But_rech_eleve.setPreferredSize(new java.awt.Dimension(130, 25));
         But_rech_eleve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 But_rech_eleveActionPerformed(evt);
@@ -48,6 +53,7 @@ public class Accueil extends javax.swing.JFrame {
         });
 
         crea_eleve.setText("Création élève");
+        crea_eleve.setPreferredSize(new java.awt.Dimension(130, 25));
         crea_eleve.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 crea_eleveActionPerformed(evt);
@@ -62,6 +68,9 @@ public class Accueil extends javax.swing.JFrame {
         });
 
         butRechercheAdulte.setText("Recherche adulte");
+        butRechercheAdulte.setMaximumSize(new java.awt.Dimension(130, 25));
+        butRechercheAdulte.setMinimumSize(new java.awt.Dimension(130, 25));
+        butRechercheAdulte.setPreferredSize(new java.awt.Dimension(130, 25));
         butRechercheAdulte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 butRechercheAdulteActionPerformed(evt);
@@ -69,6 +78,7 @@ public class Accueil extends javax.swing.JFrame {
         });
 
         but_Classes.setText("Classes");
+        but_Classes.setPreferredSize(new java.awt.Dimension(130, 25));
         but_Classes.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 but_ClassesActionPerformed(evt);
@@ -97,17 +107,16 @@ public class Accueil extends javax.swing.JFrame {
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(49, 49, 49)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(but_Classes, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(butRechercheAdulte, javax.swing.GroupLayout.DEFAULT_SIZE, 129, Short.MAX_VALUE)
-                        .addComponent(But_rech_eleve, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 122, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(crea_adulte, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(crea_eleve, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(but_admin, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(91, 91, 91))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                    .addComponent(butRechercheAdulte, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                    .addComponent(but_Classes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(But_rech_eleve, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 84, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(crea_adulte, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(crea_eleve, javax.swing.GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+                    .addComponent(but_admin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(61, 61, 61))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(quit)
@@ -166,14 +175,14 @@ public class Accueil extends javax.swing.JFrame {
 
     private void crea_eleveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crea_eleveActionPerformed
         // TODO add your handling code here:
-        Creation_eleve crea_ele=new Creation_eleve();
+        CreationEleve crea_ele=new CreationEleve();
         crea_ele.setVisible(true); 
         crea_ele.setLocationRelativeTo(null);
         dispose();
     }//GEN-LAST:event_crea_eleveActionPerformed
 
     private void butRechercheAdulteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butRechercheAdulteActionPerformed
-        Recherche_Adulte rechAd=new Recherche_Adulte();
+        RechercheAdulte rechAd=new RechercheAdulte(idFenetre);
         rechAd.setVisible(true); 
         rechAd.setLocationRelativeTo(null);
         dispose();
@@ -189,7 +198,7 @@ public class Accueil extends javax.swing.JFrame {
 
     private void crea_adulteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crea_adulteActionPerformed
         // TODO add your handling code here:
-        Creation_Adulte rechAd=new Creation_Adulte();
+        CreationAdulte rechAd=new CreationAdulte();
         rechAd.setVisible(true);
         rechAd.setLocationRelativeTo(null);
         dispose();
@@ -197,7 +206,7 @@ public class Accueil extends javax.swing.JFrame {
 
     private void but_ClassesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_but_ClassesActionPerformed
         // TODO add your handling code here:
-        CreationClasse creaCl = new CreationClasse();
+        RechercheClasse creaCl = new RechercheClasse();
         creaCl.setVisible(true); 
         creaCl.setLocationRelativeTo(null);
         dispose();

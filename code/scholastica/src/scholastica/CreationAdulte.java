@@ -15,15 +15,16 @@ import javax.swing.JOptionPane;
  *
  * @author x7000328
  */
-public class Creation_Adulte extends javax.swing.JFrame {
+public class CreationAdulte extends javax.swing.JFrame {
     
-    int idAdulte;
+    int idAdulte, idEnfant;
     String idFenetre = "creationAdulte";
+    String idFenPrec = null;
 
     /**
      * Creates new form CrAdulte
      */
-    public Creation_Adulte() {
+    public CreationAdulte() {
         initComponents();
         // ne pas afficher les infos de mise en poste si l'adulte ne fait pas
         // partie de l'équipe enseignante
@@ -36,11 +37,25 @@ public class Creation_Adulte extends javax.swing.JFrame {
         }
     }
     
-    public Creation_Adulte(int _idAdulte) {
+    public CreationAdulte(int _idAdulte) {
         initComponents();
         idAdulte = _idAdulte;
         this.populate(idAdulte);
     }
+    
+    public CreationAdulte(String _idFenPrec, int _idEnfant) {
+        initComponents();
+        idAdulte = -1;
+        idEnfant = _idEnfant;
+        idFenPrec = _idFenPrec;
+        Boolean eqEns = cbEqEns.isSelected();
+        if (eqEns) {
+            jPanel2.setVisible(true);
+        } else {
+            jPanel2.setVisible(false);
+        }
+    }
+
     
     public void populate(int idAdulte) {
         Base b = new Base();
@@ -142,6 +157,7 @@ public class Creation_Adulte extends javax.swing.JFrame {
         tfTelephone = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Création/modification adulte");
 
         labNom.setText("* Nom");
 
@@ -382,6 +398,7 @@ public class Creation_Adulte extends javax.swing.JFrame {
             Base b = new Base();
             Connection conn = null;
             PreparedStatement statement;
+            ResultSet res;
             b.connexionBD();
             conn = b.getConnect();
             String sql = "";
@@ -424,14 +441,28 @@ public class Creation_Adulte extends javax.swing.JFrame {
                 statement.setBoolean(11, cbEqEns.isSelected());
                 statement.setDate(12, sqlDateDebut);
                 statement.setDate(13, sqlDateFin);
-                
                 statement.executeUpdate();
+                
+                if (idAdulte < 0) {
+                    sql = "select max(id_adulte) as maxid from p1514568.Adulte";
+                    statement = conn.prepareStatement(sql);
+                    res = statement.executeQuery();
+                    while (res.next()) {
+                        idAdulte = res.getInt("maxid");
+                    }
+                    res.close();
+                }
                 statement.close();
                 
-                Recherche_Adulte w = new Recherche_Adulte();
-                w.setVisible(true); 
-                dispose();
-
+                if (idFenPrec == "CreationEleve") {
+                    CreationResponsabilite f = new CreationResponsabilite(idEnfant, idAdulte);
+                    f.setVisible(true); 
+                    dispose();  
+                } else {
+                    Accueil w = new Accueil();
+                    w.setVisible(true); 
+                    dispose();
+                }
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
@@ -439,7 +470,7 @@ public class Creation_Adulte extends javax.swing.JFrame {
     }//GEN-LAST:event_butValiderActionPerformed
 
     private void butAnnulerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butAnnulerActionPerformed
-        Recherche_Adulte w = new Recherche_Adulte();
+        Accueil w = new Accueil();
         w.setVisible(true); 
         dispose();
     }//GEN-LAST:event_butAnnulerActionPerformed
