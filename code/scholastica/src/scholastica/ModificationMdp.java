@@ -31,15 +31,15 @@ public class ModificationMdp extends JFrame implements ActionListener {
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         mdp_old = new JLabel("Ancien mot de passe");
-        mdp_o = new JTextField();
+        mdp_o = new JPasswordField();
 
         mdp_new1 = new JLabel("Nouveau mot de Passe");
-        mdp_n1 = new JTextField();
+        mdp_n1 = new JPasswordField();
 
         mdp_new2 = new JLabel("Confirmer nouveau mot de Passe");
-        mdp_n2 = new JTextField();
+        mdp_n2 = new JPasswordField();
 
-        valider = new JButton("Valider ");
+        valider = new JButton("Valider");
         retour = new JButton("Quitter");
 
         Container contenu = this.getContentPane();
@@ -92,7 +92,7 @@ public class ModificationMdp extends JFrame implements ActionListener {
                 conn = b.getConnect();
                 try {
                     statement = conn.createStatement();
-                    String sql = "UPDATE p1514568.Compte set password = '" + mdp_new2 + "' where id_utilisateur=root";
+                    String sql = "UPDATE p1514568.Compte set password = '" + mdp_n3 + "' where id_utilisateur='root'";
                     resultat = statement.executeQuery(sql);
                     JOptionPane.showMessageDialog(this, "Mot de passe modifié avec succès! ", "", 1);
                 } catch (SQLException e4) {

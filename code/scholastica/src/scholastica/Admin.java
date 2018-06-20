@@ -23,6 +23,28 @@ public class Admin extends javax.swing.JFrame {
      */
     public Admin() {
         initComponents();
+        Base b = new Base();
+        Connection conn = null;
+        ResultSet res;
+        PreparedStatement statement;
+        b.connexionBD();
+        conn = b.getConnect();
+
+        try {
+            statement = conn.prepareStatement("select * from p1514568.Ecole");
+            res = statement.executeQuery();
+
+            while (res.next()) {
+                nom.setText(res.getString("nom"));
+                add.setText(res.getString("adresse"));
+                tel.setText(res.getString("tel"));
+                mail.setText(res.getString("mail"));
+            res.close();
+            statement.close();
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
     
 

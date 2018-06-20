@@ -79,9 +79,9 @@ public class CreationEleve extends javax.swing.JFrame {
         java.sql.Date sqlDateVaccin = null;
         if (null != dateVaccin) { sqlDateVaccin = new java.sql.Date(dateVaccin.getTime()); }        
         
-        if (nomEnfant.equals("Temp") || nomEnfant.equals("") || prenomEnfant.equals("") || dateNaissance.equals("")) {
-            JOptionPane.showMessageDialog(null, "Il faut renseigner le nom, le prénom et la date de naissance.", "Erreur !", JOptionPane.ERROR_MESSAGE);
-        } else {
+//        if (nomEnfant.equals("Temp") || nomEnfant.equals("") || prenomEnfant.equals("") || dateNaissance.equals("")) {
+//            JOptionPane.showMessageDialog(null, "Il faut renseigner le nom, le prénom et la date de naissance.", "Erreur !", JOptionPane.ERROR_MESSAGE);
+//        } else {
             Base b = new Base();
             Connection conn = null;
             PreparedStatement statement;
@@ -171,7 +171,7 @@ public class CreationEleve extends javax.swing.JFrame {
             } catch (SQLException e) {
                 System.out.println(e.getMessage());
             }
-        }
+//        }
         
     }
 

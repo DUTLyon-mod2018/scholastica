@@ -16,11 +16,13 @@ public class Main {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        //Authentification auth = new Authentification();
-        //Creation_eleve auth = new Creation_eleve();
+        Authentification auth = new Authentification();
+        //CreationEleve auth = new CreationEleve();
+        //CreationEnfantSimp auth = new CreationEnfantSimp(4);
         //RechercheEleve auth = new RechercheEleve() ;
-        Accueil auth = new Accueil();
+        //Accueil auth = new Accueil();
         auth.setVisible(true);
+        auth.setLocationRelativeTo(null);
     }
 
 }

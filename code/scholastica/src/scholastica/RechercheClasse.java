@@ -340,21 +340,23 @@ public class RechercheClasse extends javax.swing.JFrame {
     }//GEN-LAST:event_butAineFamilleActionPerformed
 
     private void butCloreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butCloreActionPerformed
-        Base b = new Base();
-        Connection conn = null;
-        PreparedStatement ps;
-        b.connexionBD();
-        conn = b.getConnect();
-        String sql = "update p1514568.Classe set cloture = 1 where ifnull(cloture,0) = 0;";
-        
-        try {
-            ps = conn.prepareStatement(sql);
-            ps.executeUpdate();
-            ps.close();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }  
-        this.populate();
+        if (JOptionPane.showConfirmDialog(null, "Confirmez-vous la clôture des classes de l'année en cours ?", "Confirmation", JOptionPane.YES_NO_OPTION) == JOptionPane.YES_OPTION) {
+            Base b = new Base();
+            Connection conn = null;
+            PreparedStatement ps;
+            b.connexionBD();
+            conn = b.getConnect();
+            String sql = "update p1514568.Classe set cloture = 1 where ifnull(cloture,0) = 0;";
+
+            try {
+                ps = conn.prepareStatement(sql);
+                ps.executeUpdate();
+                ps.close();
+            } catch (SQLException e) {
+                System.out.println(e.getMessage());
+            }  
+            this.populate();
+        }
     }//GEN-LAST:event_butCloreActionPerformed
 
     private void butModifierActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_butModifierActionPerformed

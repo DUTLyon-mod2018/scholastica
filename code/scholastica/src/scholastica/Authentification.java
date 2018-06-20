@@ -115,6 +115,7 @@ public class Authentification extends JFrame implements ActionListener {
 
                         Accueil acc = new Accueil();
                         acc.setVisible(true);
+                        acc.setLocationRelativeTo(null);
                         get_login();
                         dispose();
 
@@ -155,6 +156,7 @@ public class Authentification extends JFrame implements ActionListener {
 
                             ModificationMdp modif_mdp = new ModificationMdp();
                             modif_mdp.setVisible(true);
+                            modif_mdp.setLocationRelativeTo(null);
                             dispose();
 
                         } else {
