@@ -66,28 +66,20 @@ public class CreationEleve extends javax.swing.JFrame {
     public void enregistrerEnfant() {
         String nomEnfant = ch_nom_eleve.getText();
         String prenomEnfant = ch_prenom_enfant.getText();
-        java.util.Date dateNaissance = (java.util.Date) ch_naissance_eleve.getValue();
-        java.sql.Date sqlDateNaissance = new java.sql.Date(0L);
-        if (null != dateNaissance) {
-            sqlDateNaissance = new java.sql.Date(dateNaissance.getTime());
-        }        
-        java.util.Date dateInscription = (java.util.Date) ch_date_inscri_eleve.getValue();
+        java.util.Date dateNaissance = (java.util.Date)ch_naissance_eleve.getValue();
+        java.sql.Date sqlDateNaissance = null;
+        if (null != dateNaissance) { sqlDateNaissance = new java.sql.Date(dateNaissance.getTime()); }        
+        java.util.Date dateInscription = (java.util.Date)ch_date_inscri_eleve.getValue();
         java.sql.Date sqlDateInscription = null;
-        if (null != dateInscription) {
-            sqlDateInscription = new java.sql.Date(dateInscription.getTime());
-        }        
-        java.util.Date dateRadiation = (java.util.Date) ch_date_radiation_eleve.getValue();
+        if (null != dateInscription) { sqlDateInscription = new java.sql.Date(dateInscription.getTime()); }        
+        java.util.Date dateRadiation = (java.util.Date)ch_date_radiation_eleve.getValue();
         java.sql.Date sqlDateRadiation = null;
-        if (null != dateRadiation) {
-            sqlDateRadiation = new java.sql.Date(dateRadiation.getTime());
-        }        
-        java.util.Date dateVaccin = (java.util.Date) ch_date_vaccin.getValue();
+        if (null != dateRadiation) { sqlDateRadiation = new java.sql.Date(dateRadiation.getTime()); }        
+        java.util.Date dateVaccin = (java.util.Date)ch_date_vaccin.getValue();
         java.sql.Date sqlDateVaccin = null;
-        if (null != dateVaccin) {
-            sqlDateVaccin = new java.sql.Date(dateVaccin.getTime());
-        }        
+        if (null != dateVaccin) { sqlDateVaccin = new java.sql.Date(dateVaccin.getTime()); }        
         
-        if (nomEnfant.equals("Temp") || nomEnfant.equals("") || prenomEnfant.equals("") || null == dateNaissance) {
+        if (nomEnfant.equals("Temp") || nomEnfant.equals("") || prenomEnfant.equals("") || dateNaissance.equals("")) {
             JOptionPane.showMessageDialog(null, "Il faut renseigner le nom, le prénom et la date de naissance.", "Erreur !", JOptionPane.ERROR_MESSAGE);
         } else {
             Base b = new Base();
@@ -523,6 +515,12 @@ public class CreationEleve extends javax.swing.JFrame {
             }
         });
 
+        ch_naissance_eleve.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+
+        ch_date_inscri_eleve.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+
+        ch_date_radiation_eleve.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
+
         butAnnuler.setText("Annuler");
         butAnnuler.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -907,6 +905,8 @@ public class CreationEleve extends javax.swing.JFrame {
         jScrollPane7.setViewportView(ch_info_medical);
 
         jLabel22.setText("Dernier rappel antiténanique");
+
+        ch_date_vaccin.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(new java.text.SimpleDateFormat("dd/MM/yyyy"))));
 
         ch_pai_eleve.setText("PAI");
 
