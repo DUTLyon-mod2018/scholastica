@@ -20,10 +20,12 @@ public class ModificationMdp extends JFrame implements ActionListener {
     JTextField mdp_n1;
     JTextField mdp_n2;
     JButton valider, retour;
+    String login;
 
-    public ModificationMdp() {
-
+    public ModificationMdp(String _login) {
+        
         super();
+        login = _login;
         this.setTitle("Modification mot de passe de");
         this.setSize(new Dimension(430, 200));
         this.setLocationRelativeTo(null);
@@ -81,19 +83,18 @@ public class ModificationMdp extends JFrame implements ActionListener {
 
         Base b = new Base();
         Connection conn = null;
-        ResultSet resultat;
         Statement statement;
 
         if (e.getSource() == valider) {
             String mdp_n3 = mdp_n1.getText();
             String mdp_n4 = mdp_n2.getText();
-            if (mdp_n3 == mdp_n4) {
+            if (mdp_n3.equals(mdp_n4)) {
                 b.connexionBD();
                 conn = b.getConnect();
                 try {
                     statement = conn.createStatement();
-                    String sql = "UPDATE p1514568.Compte set password = '" + mdp_n3 + "' where id_utilisateur='root'";
-                    resultat = statement.executeQuery(sql);
+                    String sql = "UPDATE p1514568.Compte set mdp = '" + mdp_n3 + "' where id_utilisateur='"+ login +"'";
+                    statement.executeUpdate(sql);
                     JOptionPane.showMessageDialog(this, "Mot de passe modifié avec succès! ", "", 1);
                 } catch (SQLException e4) {
                     System.out.println(e4.getMessage());
